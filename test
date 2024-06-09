@@ -91,9 +91,14 @@ local Button = AuraTab:CreateButton({
            task.wait()
            local c = closest()
            if c then
-               -- Dịch chuyển người chơi đến phía trên mục tiêu
-               local targetPosition = c.Collider.Position + Vector3.new(0, 20, 0)
-               tweenToPosition(targetPosition)
+               local targetPosition = c.Collider.Position + Vector3.new(0, 5, 0)
+               local currentPosition = plr.Character.HumanoidRootPart.Position
+               local distanceToTarget = (currentPosition - c.Collider.Position).magnitude
+        
+               -- Chỉ dịch chuyển nếu mục tiêu ngoài phạm vi tấn công
+               if distanceToTarget > _G.range then
+                   tweenToPosition(targetPosition)
+               end
         
                ind = ind + 1
                game:GetService("ReplicatedStorage").Shared.Combat.Attack:FireServer(cl[ind], c.Collider.Position, c.Collider.Position - plr.Character.HumanoidRootPart.Position)
