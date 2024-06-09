@@ -33,7 +33,7 @@ local Button = AuraTab:CreateButton({
         ------------------------
 
 _G.range = 100 -- killaura range xd (archer's max range is 80, melee classes's max range is 10 or 20 idfk
-_G.cooldown = 0.75 -- in seconds lmao (archer works with 0.5, for everything else I recommend 0.75)
+_G.cooldown = 0 -- in seconds lmao (archer works with 0.5, for everything else I recommend 0.75)
 
 ------------------------
 local plr = game.Players.LocalPlayer
