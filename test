@@ -31,7 +31,7 @@ local Section = AuraTab:CreateSection("Speed")
 local Button = AuraTab:CreateButton({
     Name = "Button Example",
     Callback = function()
-        _G.range = 100
+        _G.range = 50
         _G.cooldown = 0
 
         local plr = game.Players.LocalPlayer
