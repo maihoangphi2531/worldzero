@@ -31,7 +31,7 @@ local Section = AuraTab:CreateSection("Speed")
 local Button = AuraTab:CreateButton({
     Name = "Button Example",
     Callback = function()
-        _G.range = 40
+        _G.range = 100
         _G.cooldown = 0
 
         local plr = game.Players.LocalPlayer
@@ -99,6 +99,10 @@ local Button = AuraTab:CreateButton({
                 while c.HealthProperties.Health.Value > 0 and waitTime < 30 do
                     task.wait(1)
                     waitTime = waitTime + 1
+                end
+                if c.HealthProperties.Health.Value <= 0 then
+                    -- Mục tiêu đã bị tiêu diệt
+                    print("Target has been defeated.")
                 end
                 if ind >= #cl then
                     ind = 0
