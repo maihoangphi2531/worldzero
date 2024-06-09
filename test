@@ -78,6 +78,8 @@ local ind = 0
 repeat task.wait()
    c = closest()
    if c then
+       -- Dịch chuyển người chơi đến mục tiêu
+       plr.Character:SetPrimaryPartCFrame(CFrame.new(c.Collider.Position))
        ind = ind + 1
        game:GetService("ReplicatedStorage").Shared.Combat.Attack:FireServer(cl[ind],c.Collider.Position, c.Collider.Position - plr.Character.HumanoidRootPart.Position)
        print((plr.Character.HumanoidRootPart.Position - c.Collider.Position).magnitude)
