@@ -32,7 +32,7 @@ local Button = AuraTab:CreateButton({
     Callback = function()
         ------------------------
 
-        _G.range = 40 -- phạm vi tấn công
+        _G.range = 100 -- phạm vi tấn công
         _G.cooldown = 0 -- thời gian chờ giữa các đợt tấn công
         
         local plr = game.Players.LocalPlayer
@@ -74,9 +74,19 @@ local Button = AuraTab:CreateButton({
            return Target
         end
         
+        function hideDamageParts()
+            local camera = workspace.CurrentCamera
+            for _, part in pairs(camera:GetChildren()) do
+                if part.Name == "DamagePartVisual" then
+                    part:Destroy()
+                end
+            end
+        end
+        
         local ind = 0
         repeat
            task.wait()
+           hideDamageParts()
            local c = closest()
            if c then
                local targetPosition = c.Collider.Position + Vector3.new(0, 5, 0)
