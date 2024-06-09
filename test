@@ -32,7 +32,7 @@ local Button = AuraTab:CreateButton({
     Callback = function()
         ------------------------
 
-        _G.range = 80 -- phạm vi tấn công
+        _G.range = 50 -- phạm vi tấn công
         _G.cooldown = 0 -- thời gian chờ giữa các đợt tấn công
         
         local TweenService = game:GetService("TweenService")
