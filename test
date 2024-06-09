@@ -1,13 +1,13 @@
 getgenv().SecureMode = true
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Window = Rayfield:CreateWindow({
-   Name = "Rayfield Example Window",
-   LoadingTitle = "Rayfield Interface Suite",
-   LoadingSubtitle = "by Sirius",
+   Name = "Maxi_🍊🍊🍊",
+   LoadingTitle = "HoangPhi",
+   LoadingSubtitle = "By Maxiii",
    ConfigurationSaving = {
       Enabled = true,
-      FolderName = nil, -- Create a custom folder for your hub/game
-      FileName = "Big Hub"
+      FolderName = true, -- Create a custom folder for your hub/game
+      FileName = "ACC1"
    },
    Discord = {
       Enabled = false,
@@ -25,3 +25,11 @@ local Window = Rayfield:CreateWindow({
       Key = {"Hello"} -- Lst of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
    }
 })
+local AuraTab = Window:CreateTab("KillAura", 4483362458) -- Title, Image
+local Section = AuraTab:CreateSection("Speed")
+local Button = AuraTab:CreateButton({
+    Name = "Button Example",
+    Callback = function()
+        
+    end,
+ })
