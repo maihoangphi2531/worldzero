@@ -32,7 +32,7 @@ local Button = AuraTab:CreateButton({
     Callback = function()
         ------------------------
 
-        _G.range = 100 -- phạm vi tấn công
+        _G.range = 40 -- phạm vi tấn công
         _G.cooldown = 0 -- thời gian chờ giữa các đợt tấn công
         
         local plr = game.Players.LocalPlayer
