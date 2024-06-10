@@ -25,7 +25,6 @@ local Window = Rayfield:CreateWindow({
         Key = {"Hello"}
     }
 })
-_G.isButtonPressed = false
 local AuraTab = Window:CreateTab("KillAura", 4483362458)
 local Section = AuraTab:CreateSection("Speed")
 local Toggle = AuraTab:CreateToggle({
