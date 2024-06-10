@@ -1,14 +1,8 @@
 getgenv().SecureMode = true
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-local HttpService = game:GetService("HttpService")
 
 local function sendWebhook(content)
-    local url = "https://discord.com/api/webhooks/1249664506448187443/2me_mJp4i155tl1fayEFVaYIS-yzp9FNqQAGRyI1v4xe56MYdc8KDYBaA9Yw4Vevl3jw"
-    local data = {
-        ["content"] = content
-    }
-    local jsonData = HttpService:JSONEncode(data)
-    HttpService:PostAsync(url, jsonData, Enum.HttpContentType.ApplicationJson)
+    game.ReplicatedStorage.WebhookEvent:FireServer(content)
 end
 
 local Window = Rayfield:CreateWindow({
