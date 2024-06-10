@@ -33,7 +33,6 @@ local Button = AuraTab:CreateButton({
         ------------------------
 
         _G.range = 100 -- phạm vi tấn công
-        _G.range = 50 -- phạm vi tấn công
         _G.cooldown = 0 -- thời gian chờ giữa các đợt tấn công
 
         local plr = game.Players.LocalPlayer
@@ -70,14 +69,18 @@ local Button = AuraTab:CreateButton({
             ["Dragoon"] = {"Dragoon1", "Dragoon2", "Dragoon3", "Dragoon4", "Dragoon5", "Dragoon6"},
             ["Archer"] = {"Archer"}
         };
+
         local cl = Classes[class]
+
         function closest()
             local Character = plr.Character
             local HumanoidRootPart = Character and Character:FindFirstChild("HumanoidRootPart")
             if not (Character or HumanoidRootPart) then
                 return
             end
+
             local TargetDistance, Target = math.huge
+
             for i, v in next, workspace.Mobs:GetChildren() do
                 if v:FindFirstChild("Collider") then
                     local mag = (HumanoidRootPart.Position - v.Collider.Position).magnitude
@@ -87,8 +90,10 @@ local Button = AuraTab:CreateButton({
                     end
                 end
             end
+
             return Target
         end
+
         function hideDamageParts()
             local camera = workspace.CurrentCamera
             for _, part in pairs(camera:GetChildren()) do
@@ -97,21 +102,24 @@ local Button = AuraTab:CreateButton({
                 end
             end
         end
+
         local ind = 0
         repeat
             task.wait()
             hideDamageParts()
             local c = closest()
             if c then
-                local targetPosition = c.Collider.Position + Vector3.new(0, 5, 0)
+                local targetPosition = c.Collider.Position + Vector3.new(0, 20, 0)
+
                 -- Dịch chuyển tức thì đến mục tiêu
                 plr.Character:SetPrimaryPartCFrame(CFrame.new(targetPosition))
+
                 ind = ind + 1
                 game:GetService("ReplicatedStorage").Shared.Combat.Attack:FireServer(cl[ind], c.Collider.Position,
                     c.Collider.Position - plr.Character.HumanoidRootPart.Position)
                 print((plr.Character.HumanoidRootPart.Position - c.Collider.Position).magnitude)
                 task.wait(_G.cooldown)
-                if ind >= #cl then
+                if ind >= #cl then  
                     ind = 0
                 end
             end
