@@ -144,8 +144,8 @@ local Toggle = AuraTab:CreateToggle({
                     if v:FindFirstChild("Collider") then
                         local mag = (HumanoidRootPart.Position - v.Collider.Position).magnitude
                         if mag < TargetDistance and v.HealthProperties.Health.Value > 0 then
-                            TargetDistance = mag
-                            Target = v
+                            TargetDistance = nil
+                            Target = nil
                         end
                     end
                 end
