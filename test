@@ -75,7 +75,15 @@ local Button = AuraTab:CreateButton({
             local camera = workspace.CurrentCamera
             for _, part in pairs(camera:GetChildren()) do
                 if part.Name == "DamagePartVisual" then
-                    part.Visible = false
+                    for _, gui in pairs(part:GetChildren()) do
+                        if gui.Name == "BillboardGui" then
+                            for _, label in pairs(gui:GetChildren()) do
+                                if label.Name == "ImageLabel" then
+                                    label.Visible = false
+                                end
+                            end
+                        end
+                    end
                 end
             end
         end
