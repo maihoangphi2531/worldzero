@@ -6,34 +6,33 @@ local Window = Rayfield:CreateWindow({
     LoadingSubtitle = "By Maxiii",
     ConfigurationSaving = {
         Enabled = true,
-        FolderName = true, -- Create a custom folder for your hub/game
+        FolderName = true,
         FileName = "ACC1"
     },
     Discord = {
         Enabled = false,
-        Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
-        RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+        Invite = "noinvitelink",
+        RememberJoins = true
     },
-    KeySystem = false, -- Set this to true to use our key system
+    KeySystem = false,
     KeySettings = {
         Title = "Untitled",
         Subtitle = "Key System",
         Note = "No method of obtaining the key is provided",
-        FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-        SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
-        GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-        Key = {"Hello"} -- Lst of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+        FileName = "Key",
+        SaveKey = true,
+        GrabKeyFromSite = false,
+        Key = {"Hello"}
     }
 })
-local AuraTab = Window:CreateTab("KillAura", 4483362458) -- Title, Image
+
+local AuraTab = Window:CreateTab("KillAura", 4483362458)
 local Section = AuraTab:CreateSection("Speed")
 local Button = AuraTab:CreateButton({
     Name = "Button Example",
     Callback = function()
-        ------------------------
-
-        _G.range = 100 -- phạm vi tấn công
-        _G.cooldown = 0 -- thời gian chờ giữa các đợt tấn công
+        _G.range = 50
+        _G.cooldown = 0.1
 
         local plr = game.Players.LocalPlayer
         local class = game.Players.LocalPlayer.Character.Properties.Class.Value
@@ -68,9 +67,10 @@ local Button = AuraTab:CreateButton({
                          "DemonLifeStealDPS", "DemonSoulDPS1", "DemonSoulDPS2", "DemonSoulDPS3"},
             ["Dragoon"] = {"Dragoon1", "Dragoon2", "Dragoon3", "Dragoon4", "Dragoon5", "Dragoon6"},
             ["Archer"] = {"Archer"}
-        };
+        }
 
         local cl = Classes[class]
+        local currentTarget = nil
 
         function closest()
             local Character = plr.Character
@@ -107,17 +107,19 @@ local Button = AuraTab:CreateButton({
         repeat
             task.wait()
             hideDamageParts()
-            local c = closest()
-            if c then
-                local targetPosition = c.Collider.Position + Vector3.new(0, 20, 0)
 
-                -- Dịch chuyển tức thì đến mục tiêu
+            if currentTarget == nil or currentTarget.HealthProperties.Health.Value <= 0 then
+                currentTarget = closest()
+            end
+
+            if currentTarget then
+                local targetPosition = currentTarget.Collider.Position + Vector3.new(0, 5, 0)
                 plr.Character:SetPrimaryPartCFrame(CFrame.new(targetPosition))
 
                 ind = ind + 1
-                game:GetService("ReplicatedStorage").Shared.Combat.Attack:FireServer(cl[ind], c.Collider.Position,
-                    c.Collider.Position - plr.Character.HumanoidRootPart.Position)
-                print((plr.Character.HumanoidRootPart.Position - c.Collider.Position).magnitude)
+                game:GetService("ReplicatedStorage").Shared.Combat.Attack:FireServer(cl[ind], currentTarget.Collider.Position,
+                    currentTarget.Collider.Position - plr.Character.HumanoidRootPart.Position)
+                print((plr.Character.HumanoidRootPart.Position - currentTarget.Collider.Position).magnitude)
                 task.wait(_G.cooldown)
                 if ind >= #cl then  
                     ind = 0
