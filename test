@@ -1,48 +1,26 @@
-getgenv().SecureMode = true
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-local Window = Rayfield:CreateWindow({
-    Name = "Maxi_🍊🍊🍊",
-    LoadingTitle = "HoangPhi",
-    LoadingSubtitle = "By Maxiii",
-    ConfigurationSaving = {
-        Enabled = true,
-        FolderName = true,
-        FileName = "ACC1"
-    },
-    Discord = {
-        Enabled = false,
-        Invite = "noinvitelink",
-        RememberJoins = true
-    },
-    KeySystem = false,
-    KeySettings = {
-        Title = "Untitled",
-        Subtitle = "Key System",
-        Note = "No method of obtaining the key is provided",
-        FileName = "Key",
-        SaveKey = true,
-        GrabKeyFromSite = false,
-        Key = {"Hello"}
-    }
-})
-
+_G.isButtonPressed = false
 local AuraTab = Window:CreateTab("KillAura", 4483362458)
 local Section = AuraTab:CreateSection("Speed")
 local Button = AuraTab:CreateButton({
     Name = "Button Example",
     Callback = function()
+        _G.isButtonPressed = not _G.isButtonPressed
+
+        if _G.isButtonPressed then
+            Button:SetName("Button Example [ON]")
+        else
+            Button:SetName("Button Example [OFF]")
+        end
         _G.range = 50
         _G.cooldown = 0.1
 
         local plr = game.Players.LocalPlayer
         local class = game.Players.LocalPlayer.Character.Properties.Class.Value
         local Classes = {
-
             ["DualWielder"] = {"DualWield1", "DualWield2", "DualWield3", "DualWield4", "DualWield5", "DualWield6",
                                "DualWield7", "DualWield8", "DualWield9", "DualWield10", "DashStrike", "CrossSlash1",
                                "CrossSlash2", "CrossSlash3", "CrossSlash4"},
             ["MageOfLight"] = {"MageOfLight", "MageOfLightBlast"},
-
         }
 
         local cl = Classes[class]
@@ -69,7 +47,6 @@ local Button = AuraTab:CreateButton({
 
             return Target
         end
-        
 
         function hideDamageParts()
             local camera = workspace.CurrentCamera
@@ -110,6 +87,6 @@ local Button = AuraTab:CreateButton({
                     ind = 0
                 end
             end
-        until plr.Character.Humanoid.Health <= 0
+        until plr.Character.Humanoid.Health <= 0 or _G.isButtonPressed == true
     end
 })
