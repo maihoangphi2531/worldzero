@@ -33,7 +33,7 @@ local Button = AuraTab:CreateButton({
         ------------------------
 
         _G.range = 50 -- phạm vi tấn công
-        _G.cooldown = 0 -- thời gian chờ giữa các đợt tấn công
+        _G.cooldown = 0.1 -- thời gian chờ giữa các đợt tấn công
 
         local plr = game.Players.LocalPlayer
         local class = game.Players.LocalPlayer.Character.Properties.Class.Value
@@ -102,7 +102,7 @@ local Button = AuraTab:CreateButton({
             hideDamageParts()
             local c = closest()
             if c then
-                local targetPosition = c.Collider.Position + Vector3.new(0, 5, 0)
+                local targetPosition = c.Collider.Position + Vector3.new(0, 30, 0)
                 -- Dịch chuyển tức thì đến mục tiêu
                 plr.Character:SetPrimaryPartCFrame(CFrame.new(targetPosition))
                 ind = ind + 1
