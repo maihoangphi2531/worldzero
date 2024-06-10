@@ -28,15 +28,11 @@ local Window = Rayfield:CreateWindow({
 _G.isButtonPressed = false
 local AuraTab = Window:CreateTab("KillAura", 4483362458)
 local Section = AuraTab:CreateSection("Speed")
-local Button = AuraTab:CreateButton({
-    Name = "Button Example",
-    Callback = function()
-        if _G.isButtonPressed then
-            _G.isButtonPressed = false
-            return
-        end
-        
-        _G.isButtonPressed = true
+local Toggle = AuraTab:CreateToggle({
+    Name = "Toggle Example",
+    CurrentValue = false,
+    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
         _G.range = 50
         _G.cooldown = 0.1
 
@@ -117,7 +113,5 @@ local Button = AuraTab:CreateButton({
                 end
             end
         until plr.Character.Humanoid.Health <= 0
-        
-        _G.isButtonPressed = false
     end
 })
