@@ -32,6 +32,7 @@ local Toggle = AuraTab:CreateToggle({
     CurrentValue = false,
     Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(Value)
+        if Value then
         _G.range = 50
         _G.cooldown = 0.1
 
@@ -112,5 +113,87 @@ local Toggle = AuraTab:CreateToggle({
                 end
             end
         until plr.Character.Humanoid.Health <= 0
+        else
+            _G.range = nil
+            _G.cooldown = nil
+    
+            local plr = game.Players.LocalPlayer
+            local class = game.Players.LocalPlayer.Character.Properties.Class.Value
+            local Classes = {
+    
+                ["DualWielder"] = {"DualWield1", "DualWield2", "DualWield3", "DualWield4", "DualWield5", "DualWield6",
+                                   "DualWield7", "DualWield8", "DualWield9", "DualWield10", "DashStrike", "CrossSlash1",
+                                   "CrossSlash2", "CrossSlash3", "CrossSlash4"},
+                ["MageOfLight"] = {"MageOfLight", "MageOfLightBlast"},
+    
+            }
+    
+            local cl = Classes[class]
+            local currentTarget = nil
+    
+            function closest()
+                local Character = plr.Character
+                local HumanoidRootPart = Character and Character:FindFirstChild("HumanoidRootPart")
+                if not (Character or HumanoidRootPart) then
+                    return
+                end
+    
+                local TargetDistance, Target = math.huge
+    
+                for i, v in next, workspace.Mobs:GetChildren() do
+                    if v:FindFirstChild("Collider") then
+                        local mag = (HumanoidRootPart.Position - v.Collider.Position).magnitude
+                        if mag < TargetDistance and v.HealthProperties.Health.Value > 0 then
+                            TargetDistance = mag
+                            Target = v
+                        end
+                    end
+                end
+    
+                return Target
+            end
+            
+    
+            function hideDamageParts()
+                local camera = workspace.CurrentCamera
+                for _, part in pairs(camera:GetChildren()) do
+                    if part.Name == "DamagePartVisual" then
+                        for _, gui in pairs(part:GetChildren()) do
+                            if gui.Name == "BillboardGui" then
+                                for _, label in pairs(gui:GetChildren()) do
+                                    if label.Name == "ImageLabel" then
+                                        label.Visible = false
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+    
+            local ind = 0
+            repeat
+                task.wait()
+                hideDamageParts()
+    
+                if currentTarget == nil or currentTarget.HealthProperties.Health.Value <= 0 then
+                    currentTarget = closest()
+                end
+    
+                if currentTarget then
+                    local targetPosition = currentTarget.Collider.Position + Vector3.new(0, 5, 0)
+                    plr.Character:SetPrimaryPartCFrame(CFrame.new(targetPosition))
+    
+                    ind = ind + 1
+                    game:GetService("ReplicatedStorage").Shared.Combat.Attack:FireServer(cl[ind], currentTarget.Collider.Position,
+                        currentTarget.Collider.Position - plr.Character.HumanoidRootPart.Position)
+                    print((plr.Character.HumanoidRootPart.Position - currentTarget.Collider.Position).magnitude)
+                    task.wait(_G.cooldown)
+                    if ind >= #cl then  
+                        ind = 0
+                    end
+                end
+            until plr.Character.Humanoid.Health <= 0
     end
+end
 })
