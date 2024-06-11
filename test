@@ -1274,25 +1274,7 @@ local c9 = bG:Toggle({
         end)
     end
 })
-local cb = bG:Toggle({
-    Text = "NoCutScene",
-    TextSize = 22,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Font = Enum.Font.FredokaOne,
-    Enabled = al.NoCutScene,
-    Callback = function(aJ)
-        al.NoCutScene = aJ;
-        task.spawn(function()
-            ak('WZ_Toggles', al)
-            local cc = H.PlayerGui.CutsceneUI;
-            cc:GetPropertyChangedSignal('Enabled'):Connect(function()
-                if cc.Enabled then
-                    P:SkipCutscene()
-                end
-            end)
-        end)
-    end
-})
+
 local cd = bG:Toggle({
     Text = "AutoOffhandPerk",
     TextSize = 22,
@@ -1520,78 +1502,10 @@ local ck = bI:Toggle({
         end)
     end
 })
-local KlausDown = bJ:Toggle({
-    Text = "Klaus↓Down",
-    TextSize = 22,
-    Font = Enum.Font.FredokaOne,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Enabled = al.KlausDown,
-    Callback = function(aJ)
-        al.KlausDown = aJ;
-        task.spawn(function()
-            ak('WZ_Toggles', al)
-            for A = 1, 2 do
-                if al.KlausDown and e.MissionObjects:FindFirstChild("MissionStart") then
-                    local cm = e.MissionObjects.MissionStart:GetChildren()
-                    cm[3].CFrame = J.CFrame
-                end
-                wait()
-            end
-            J.CFrame = CFrame.new(46, 474, 800)
-            aK()
-            wait(12.5)
-            J.CFrame = CFrame.new(46, 474, 980)
-            wait(6)
-            b2 = 10;
-            b4(CFrame.new(46, 2000, 2000))
-        end)
-    end
-})
-bJ:Button({
-    Text = "Unstuck-SOS",
-    TextSize = 22,
-    Font = Enum.Font.FredokaOne,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Callback = function()
-        aM()
-    end
-})
 bJ:Slider("WalkSpeed", 16, 120, K.WalkSpeed, function(bW)
     K.WalkSpeed = bW
 end)
 bK:DestroyUI()
-bK:Button({
-    Text = "FreezeMob",
-    TextSize = 22,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Font = Enum.Font.FredokaOne,
-    Enabled = FreezeMob,
-    Callback = function(cn)
-        if cn then
-            e.Mobs.ChildAdded:connect(function(co)
-                if not string.find(co.Name, "BOSS") then
-                    local cp = Instance.new("Part")
-                    cp.Name = "Dummy"
-                    cp.Anchored = true;
-                    cp.CanCollide = false;
-                    cp.Size = Vector3.new(1, 1, 1)
-                    cp.Transparency = 1;
-                    cp.Parent = game:GetService("Workspace")
-                    cp.Position = co.Collider.Position;
-                    local cq = Instance.new("Weld")
-                    cq.Parent = co.Collider;
-                    cq.Part0 = co.Collider;
-                    cq.Part1 = cp;
-                    local cr = Instance.new("BodyForce")
-                    cr.Parent = cp;
-                    pcall(function()
-                        cr:ApplyForce(Vector3.new(0, -100, 0))
-                    end)
-                end
-            end)
-        end
-    end
-})
 bK:HideUI()
 local RealTime = bK:Toggle({
     Text = "RealTimePing",
