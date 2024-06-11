@@ -268,6 +268,612 @@ local ap = {
 }
 ak('WZ_Kick', ap)
 local aq = {
+    ['Swordmaster'] = {
+        Swordmaster1 = {
+            last = 0,
+            cooldown = .26
+        },
+        Swordmaster2 = {
+            last = 0,
+            cooldown = .26
+        },
+        Swordmaster3 = {
+            last = 0,
+            cooldown = .26
+        },
+        Swordmaster4 = {
+            last = 0,
+            cooldown = .26
+        },
+        Swordmaster5 = {
+            last = 0,
+            cooldown = .26
+        },
+        Swordmaster6 = {
+            last = 0,
+            cooldown = .26
+        }
+    },
+    ['Defender'] = {
+        Defender1 = {
+            last = 0,
+            cooldown = .6
+        },
+        Defender2 = {
+            last = 0,
+            cooldown = .6
+        },
+        Defender3 = {
+            last = 0,
+            cooldown = .6
+        },
+        Defender4 = {
+            last = 0,
+            cooldown = .6
+        },
+        Defender5 = {
+            last = 0,
+            cooldown = .6
+        }
+    },
+    ['DualWielder'] = {
+        CrossSlash1 = {
+            last = 0,
+            cooldown = 6
+        },
+        CrossSlash2 = {
+            last = 0,
+            cooldown = 6
+        },
+        CrossSlash3 = {
+            last = 0,
+            cooldown = 6
+        },
+        CrossSlash4 = {
+            last = 0,
+            cooldown = 6
+        },
+        CrossSlash5 = {
+            last = 0,
+            cooldown = 6
+        },
+        CrossSlash6 = {
+            last = 0,
+            cooldown = 6
+        },
+        DashStrike = {
+            last = 0,
+            cooldown = 6
+        },
+        DualWieldUltimateHit1 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateHit2 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateHit3 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateHit4 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateHit5 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateHit6 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateHit7 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateHit8 = {
+            last = 0,
+            cooldown = 30
+        }
+    },
+    ['Berserker'] = {
+        Berserker1 = {
+            last = 0,
+            cooldown = 1 / 2
+        },
+        Berserker2 = {
+            last = 0,
+            cooldown = 1 / 2
+        },
+        Berserker3 = {
+            last = 0,
+            cooldown = 1 / 2
+        },
+        Berserker4 = {
+            last = 0,
+            cooldown = 1 / 2
+        },
+        Berserker5 = {
+            last = 0,
+            cooldown = 1 / 2
+        },
+        Berserker6 = {
+            last = 0,
+            cooldown = 1 / 2
+        },
+        Fissure1 = {
+            last = 0,
+            cooldown = 10
+        },
+        Fissure2 = {
+            last = 0,
+            cooldown = 10
+        },
+        FissureErupt1 = {
+            last = 0,
+            cooldown = 10
+        },
+        FissureErupt2 = {
+            last = 0,
+            cooldown = 10
+        },
+        FissureErupt3 = {
+            last = 0,
+            cooldown = 10
+        },
+        FissureErupt4 = {
+            last = 0,
+            cooldown = 10
+        },
+        FissureErupt5 = {
+            last = 0,
+            cooldown = 10
+        },
+        FissureErupt6 = {
+            last = 0,
+            cooldown = 10
+        },
+        FissureErupt7 = {
+            last = 0,
+            cooldown = 10
+        },
+        FissureErupt8 = {
+            last = 0,
+            cooldown = 10
+        }
+    },
+    ['Paladin'] = {
+        Paladin1 = {
+            last = 0,
+            cooldown = 1 / 2
+        },
+        Paladin2 = {
+            last = 0,
+            cooldown = 1 / 2
+        },
+        Paladin3 = {
+            last = 0,
+            cooldown = 1 / 2
+        },
+        Paladin4 = {
+            last = 0,
+            cooldown = 1 / 2
+        },
+        LightPaladin1 = {
+            last = 0,
+            cooldown = 3 / 4
+        },
+        LightPaladin2 = {
+            last = 0,
+            cooldown = 3 / 4
+        },
+        LightPaladin3 = {
+            last = 0,
+            cooldown = 3 / 4
+        },
+        LightPaladin4 = {
+            last = 0,
+            cooldown = 3 / 4
+        }
+    },
+    ['Demon'] = {
+        DemonDPS1 = {
+            last = 0,
+            cooldown = 2.8
+        },
+        DemonDPS2 = {
+            last = 0,
+            cooldown = 2.8
+        },
+        DemonDPS3 = {
+            last = 0,
+            cooldown = 2.8
+        },
+        DemonDPS4 = {
+            last = 0,
+            cooldown = 2.8
+        },
+        DemonDPS5 = {
+            last = 0,
+            cooldown = 2.8
+        },
+        DemonDPS6 = {
+            last = 0,
+            cooldown = 2.8
+        },
+        DemonDPS7 = {
+            last = 0,
+            cooldown = 2.8
+        },
+        DemonDPS8 = {
+            last = 0,
+            cooldown = 2.8
+        },
+        DemonDPS9 = {
+            last = 0,
+            cooldown = 2.8
+        }
+    }
+}
+local ar = {
+    ['Mage'] = {
+        Mage1 = {
+            last = 0,
+            cooldown = .3
+        },
+        Mage2 = {
+            last = 0,
+            cooldown = .3
+        },
+        Mage3 = {
+            last = 0,
+            cooldown = .3
+        },
+        ArcaneBlast = {
+            last = 0,
+            cooldown = 5
+        },
+        ArcaneWave1 = {
+            last = 0,
+            cooldown = 8
+        },
+        ArcaneWave2 = {
+            last = 0,
+            cooldown = 8
+        },
+        ArcaneWave3 = {
+            last = 0,
+            cooldown = 8
+        },
+        ArcaneWave4 = {
+            last = 0,
+            cooldown = 8
+        },
+        ArcaneWave5 = {
+            last = 0,
+            cooldown = 8
+        },
+        ArcaneWave6 = {
+            last = 0,
+            cooldown = 8
+        },
+        ArcaneWave7 = {
+            last = 0,
+            cooldown = 8
+        },
+        ArcaneWave8 = {
+            last = 0,
+            cooldown = 8
+        },
+        ArcaneWave9 = {
+            last = 0,
+            cooldown = 8
+        },
+        ArcaneBlastAOE = {
+            last = 0,
+            cooldown = 15
+        }
+    },
+    ['IcefireMage'] = {
+        IcefireMage1 = {
+            last = 0,
+            cooldown = .3
+        },
+        IcefireMage2 = {
+            last = 0,
+            cooldown = .3
+        },
+        IcefireMage3 = {
+            last = 0,
+            cooldown = .3
+        },
+        IcySpikes1 = {
+            last = 0,
+            cooldown = 6
+        },
+        IcySpikes2 = {
+            last = 0,
+            cooldown = 6
+        },
+        IcySpikes3 = {
+            last = 0,
+            cooldown = 6
+        },
+        IcySpikes4 = {
+            last = 0,
+            cooldown = 6
+        },
+        IcySpikes5 = {
+            last = 0,
+            cooldown = 6
+        },
+        IcefireMageFireball = {
+            last = 0,
+            cooldown = 10
+        },
+        IcefireMageFireballBlast = {
+            last = 0,
+            cooldown = 10
+        },
+        LightningStrike1 = {
+            last = 0,
+            cooldown = 15
+        },
+        LightningStrike2 = {
+            last = 0,
+            cooldown = 15
+        },
+        LightningStrike3 = {
+            last = 0,
+            cooldown = 15
+        },
+        LightningStrike4 = {
+            last = 0,
+            cooldown = 15
+        },
+        LightningStrike5 = {
+            last = 0,
+            cooldown = 15
+        },
+        IcefireMageUltimateFrost = {
+            last = 0,
+            cooldown = 20
+        },
+        IcefireMageUltimateMeteor1 = {
+            last = 0,
+            cooldown = 20
+        },
+        IcefireMageUltimateMeteor2 = {
+            last = 0,
+            cooldown = 20
+        },
+        IcefireMageUltimateMeteor3 = {
+            last = 0,
+            cooldown = 20
+        },
+        IcefireMageUltimateMeteor4 = {
+            last = 0,
+            cooldown = 20
+        }
+    },
+    ['DualWielder'] = {
+        DualWieldUltimateSlam = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSlam1 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSlam2 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSlam3 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSword1 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSword2 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSword3 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSword4 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSword5 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSword6 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSword7 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSword8 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSword9 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSword10 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSword11 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSword12 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSword13 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSword14 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSword15 = {
+            last = 0,
+            cooldown = 30
+        },
+        DualWieldUltimateSword16 = {
+            last = 0,
+            cooldown = 30
+        }
+    },
+    ['Guardian'] = {
+        RockSpikes1 = {
+            last = 0,
+            cooldown = 6
+        },
+        RockSpikes2 = {
+            last = 0,
+            cooldown = 6
+        },
+        RockSpikes3 = {
+            last = 0,
+            cooldown = 6
+        },
+        RockSpikes4 = {
+            last = 0,
+            cooldown = 6
+        },
+        RockSpikes5 = {
+            last = 0,
+            cooldown = 6
+        },
+        SlashFury1 = {
+            last = 0,
+            cooldown = 8
+        },
+        SlashFury2 = {
+            last = 0,
+            cooldown = 8
+        },
+        SlashFury3 = {
+            last = 0,
+            cooldown = 8
+        },
+        SlashFury4 = {
+            last = 0,
+            cooldown = 8
+        },
+        SlashFury5 = {
+            last = 0,
+            cooldown = 8
+        },
+        SlashFury6 = {
+            last = 0,
+            cooldown = 8
+        },
+        SlashFury7 = {
+            last = 0,
+            cooldown = 8
+        },
+        SlashFury8 = {
+            last = 0,
+            cooldown = 8
+        },
+        SlashFury9 = {
+            last = 0,
+            cooldown = 8
+        },
+        SlashFury10 = {
+            last = 0,
+            cooldown = 8
+        },
+        SlashFury11 = {
+            last = 0,
+            cooldown = 8
+        },
+        SlashFury12 = {
+            last = 0,
+            cooldown = 8
+        },
+        SlashFury13 = {
+            last = 0,
+            cooldown = 8
+        },
+        SlashFury14 = {
+            last = 0,
+            cooldown = 8
+        },
+        SlashFury15 = {
+            last = 0,
+            cooldown = 8
+        },
+        SlashFury16 = {
+            last = 0,
+            cooldown = 8
+        }
+    },
+    ['Berserker'] = {
+        AggroSlam = {
+            last = 0,
+            cooldown = 5
+        },
+        GigaSpin1 = {
+            last = 0,
+            cooldown = 7
+        },
+        GigaSpin2 = {
+            last = 0,
+            cooldown = 7
+        },
+        GigaSpin3 = {
+            last = 0,
+            cooldown = 7
+        },
+        GigaSpin4 = {
+            last = 0,
+            cooldown = 7
+        },
+        GigaSpin5 = {
+            last = 0,
+            cooldown = 7
+        },
+        GigaSpin6 = {
+            last = 0,
+            cooldown = 7
+        },
+        GigaSpin7 = {
+            last = 0,
+            cooldown = 7
+        },
+        GigaSpin8 = {
+            last = 0,
+            cooldown = 7
+        }
+    },
+    ['Paladin'] = {
+        LightThrust1 = {
+            last = 0,
+            cooldown = 11
+        },
+        LightThrust2 = {
+            last = 0,
+            cooldown = 11
+        }
+    },
     ['MageOfLight'] = {
         MageOfLight = {
             last = 0,
@@ -286,6 +892,240 @@ local aq = {
             cooldown = .1
         }
     },
+    ['Demon'] = {
+        ScytheThrowDPS1 = {
+            last = 0,
+            cooldown = 10
+        },
+        ScytheThrowDPS2 = {
+            last = 0,
+            cooldown = 10
+        },
+        ScytheThrowDPS3 = {
+            last = 0,
+            cooldown = 10
+        },
+        DemonSoulAOE1 = {
+            last = 0,
+            cooldown = 15
+        },
+        DemonSoulAOE2 = {
+            last = 0,
+            cooldown = 15
+        },
+        DemonSoulAOE3 = {
+            last = 0,
+            cooldown = 15
+        },
+        DemonSoulAOE4 = {
+            last = 0,
+            cooldown = 15
+        },
+        DemonLifeStealDPS = {
+            last = 0,
+            cooldown = 16
+        },
+        DemonLifeStealAOE = {
+            last = 0,
+            cooldown = 16
+        }
+    },
+    ['Archer'] = {
+        Archer = {
+            last = 0,
+            cooldown = 1 / 2
+        },
+        PiercingArrow1 = {
+            last = 0,
+            cooldown = 5
+        },
+        PiercingArrow2 = {
+            last = 0,
+            cooldown = 5
+        },
+        PiercingArrow3 = {
+            last = 0,
+            cooldown = 5
+        },
+        PiercingArrow4 = {
+            last = 0,
+            cooldown = 5
+        },
+        PiercingArrow5 = {
+            last = 0,
+            cooldown = 5
+        },
+        SpiritBomb = {
+            last = 0,
+            cooldown = 10
+        },
+        MortarStrike1 = {
+            last = 0,
+            cooldown = 12
+        },
+        MortarStrike2 = {
+            last = 0,
+            cooldown = 12
+        },
+        MortarStrike3 = {
+            last = 0,
+            cooldown = 12
+        },
+        MortarStrike4 = {
+            last = 0,
+            cooldown = 12
+        },
+        MortarStrike5 = {
+            last = 0,
+            cooldown = 12
+        },
+        HeavenlySword = {
+            last = 0,
+            cooldown = 20
+        }
+    },
+    ['Dragoon'] = {
+        DragoonCross1 = {
+            last = 0,
+            cooldown = 5.5
+        },
+        DragoonCross2 = {
+            last = 0,
+            cooldown = 5.5
+        },
+        DragoonCross3 = {
+            last = 0,
+            cooldown = 5.5
+        },
+        DragoonCross4 = {
+            last = 0,
+            cooldown = 5.5
+        },
+        DragoonCross5 = {
+            last = 0,
+            cooldown = 5.5
+        },
+        DragoonCross6 = {
+            last = 0,
+            cooldown = 5.5
+        },
+        DragoonCross7 = {
+            last = 0,
+            cooldown = 5.5
+        },
+        DragoonCross8 = {
+            last = 0,
+            cooldown = 5.5
+        },
+        DragoonCross9 = {
+            last = 0,
+            cooldown = 5.5
+        },
+        DragoonCross10 = {
+            last = 0,
+            cooldown = 5.5
+        },
+        DragoonDash = {
+            last = 0,
+            cooldown = 10
+        },
+        MultiStrikeDragon1 = {
+            last = 0,
+            cooldown = 12
+        },
+        MultiStrikeDragon2 = {
+            last = 0,
+            cooldown = 12
+        },
+        MultiStrikeDragon3 = {
+            last = 0,
+            cooldown = 12
+        },
+        MultiStrikeDragon4 = {
+            last = 0,
+            cooldown = 12
+        },
+        MultiStrikeDragon5 = {
+            last = 0,
+            cooldown = 12
+        },
+        MultiStrikeDragon6 = {
+            last = 0,
+            cooldown = 13
+        },
+        DragoonFall = {
+            last = 0,
+            cooldown = 12
+        },
+        DragoonUltimate = {
+            last = 0,
+            cooldown = 30
+        }
+    },
+    ['Summoner'] = {
+        Summoner1 = {
+            last = 0,
+            cooldown = .01
+        },
+        Summoner2 = {
+            last = 0,
+            cooldown = .01
+        },
+        Summoner3 = {
+            last = 0,
+            cooldown = .01
+        },
+        Summoner4 = {
+            last = 0,
+            cooldown = .01
+        }
+    },
+    ['Warlord'] = {
+        Piledriver1 = {
+            last = 0,
+            cooldown = 3
+        },
+        Piledriver2 = {
+            last = 0,
+            cooldown = 3
+        },
+        Piledriver3 = {
+            last = 0,
+            cooldown = 3
+        },
+        Piledriver4 = {
+            last = 0,
+            cooldown = 3
+        },
+        ChainsOfWar = {
+            last = 0,
+            cooldown = 6
+        },
+        BlockingWarlord = {
+            last = 0,
+            cooldown = 10
+        },
+        WarlordUltimate1 = {
+            last = 0,
+            cooldown = 15
+        },
+        WarlordUltimate2 = {
+            last = 0,
+            cooldown = 15
+        },
+        WarlordUltimate3 = {
+            last = 0,
+            cooldown = 15
+        },
+        WarlordUltimate4 = {
+            last = 0,
+            cooldown = 15
+        },
+        WarlordUltimate5 = {
+            last = 0,
+            cooldown = 15
+        }
+    }
 }
 local function as(at)
     local au = {"", "K", "M", "B", "T"}
@@ -303,8 +1143,18 @@ end
 local function ax(b)
     m:SendKeyEvent(false, b, false, game)
 end
+local function ay()
+    local az = {'Swordmaster', 'Defender', 'DualWielder', 'Berserker', 'Guardian', 'Paladin', 'Dragoon', 'Demon',
+                'Warlord'}
+    for aA, aB in ipairs(az) do
+        if ad == aB then
+            return true
+        end
+    end
+    return false
+end
 local function aC()
-    local aD = {'MageOfLight'}
+    local aD = {'Mage', 'IcefireMage', 'MageOfLight', 'Archer', 'Summoner'}
     for aA, aB in ipairs(aD) do
         if ad == aB then
             return true
@@ -1274,7 +2124,25 @@ local c9 = bG:Toggle({
         end)
     end
 })
-
+local cb = bG:Toggle({
+    Text = "NoCutScene",
+    TextSize = 22,
+    TextColor = Color3.fromRGB(255, 187, 109),
+    Font = Enum.Font.FredokaOne,
+    Enabled = al.NoCutScene,
+    Callback = function(aJ)
+        al.NoCutScene = aJ;
+        task.spawn(function()
+            ak('WZ_Toggles', al)
+            local cc = H.PlayerGui.CutsceneUI;
+            cc:GetPropertyChangedSignal('Enabled'):Connect(function()
+                if cc.Enabled then
+                    P:SkipCutscene()
+                end
+            end)
+        end)
+    end
+})
 local cd = bG:Toggle({
     Text = "AutoOffhandPerk",
     TextSize = 22,
@@ -1502,10 +2370,78 @@ local ck = bI:Toggle({
         end)
     end
 })
+local KlausDown = bJ:Toggle({
+    Text = "Klaus↓Down",
+    TextSize = 22,
+    Font = Enum.Font.FredokaOne,
+    TextColor = Color3.fromRGB(255, 187, 109),
+    Enabled = al.KlausDown,
+    Callback = function(aJ)
+        al.KlausDown = aJ;
+        task.spawn(function()
+            ak('WZ_Toggles', al)
+            for A = 1, 2 do
+                if al.KlausDown and e.MissionObjects:FindFirstChild("MissionStart") then
+                    local cm = e.MissionObjects.MissionStart:GetChildren()
+                    cm[3].CFrame = J.CFrame
+                end
+                wait()
+            end
+            J.CFrame = CFrame.new(46, 474, 800)
+            aK()
+            wait(12.5)
+            J.CFrame = CFrame.new(46, 474, 980)
+            wait(6)
+            b2 = 10;
+            b4(CFrame.new(46, 2000, 2000))
+        end)
+    end
+})
+bJ:Button({
+    Text = "Unstuck-SOS",
+    TextSize = 22,
+    Font = Enum.Font.FredokaOne,
+    TextColor = Color3.fromRGB(255, 187, 109),
+    Callback = function()
+        aM()
+    end
+})
 bJ:Slider("WalkSpeed", 16, 120, K.WalkSpeed, function(bW)
     K.WalkSpeed = bW
 end)
 bK:DestroyUI()
+bK:Button({
+    Text = "FreezeMob",
+    TextSize = 22,
+    TextColor = Color3.fromRGB(255, 187, 109),
+    Font = Enum.Font.FredokaOne,
+    Enabled = FreezeMob,
+    Callback = function(cn)
+        if cn then
+            e.Mobs.ChildAdded:connect(function(co)
+                if not string.find(co.Name, "BOSS") then
+                    local cp = Instance.new("Part")
+                    cp.Name = "Dummy"
+                    cp.Anchored = true;
+                    cp.CanCollide = false;
+                    cp.Size = Vector3.new(1, 1, 1)
+                    cp.Transparency = 1;
+                    cp.Parent = game:GetService("Workspace")
+                    cp.Position = co.Collider.Position;
+                    local cq = Instance.new("Weld")
+                    cq.Parent = co.Collider;
+                    cq.Part0 = co.Collider;
+                    cq.Part1 = cp;
+                    local cr = Instance.new("BodyForce")
+                    cr.Parent = cp;
+                    pcall(function()
+                        cr:ApplyForce(Vector3.new(0, -100, 0))
+                    end)
+                end
+            end)
+        end
+    end
+})
 bK:HideUI()
 local RealTime = bK:Toggle({
     Text = "RealTimePing",
