@@ -51,10 +51,13 @@ if playerProfile and playerProfile:FindFirstChild("Currency") and playerProfile.
     goldValue = playerProfile.Currency.Gold.Value
 end
 
+-- Lấy tên game hiện tại từ PlaceId
+local gameName = a0[game.PlaceId] or "Unknown Game"
+
 local Embed = {
-    title = 'World//Zero',
+    title = gameName,
     color = '99999',
-    footer = { text = game.JobId },
+    footer = { text = gameName },
     author = {
         name = 'MAI HOÀNG PHI',
         url = 'https://www.roblox.com/',
@@ -67,6 +70,10 @@ local Embed = {
         {
             name = 'NGÀY VÀ GIÒ',
             value = os.date('%Y-%m-%d %H:%M:%S', OSTime), -- Ngày và giờ hiện tại
+        },
+        {
+            name = 'ID HIỆN TẠI',
+            value = game.PlaceId, -- Thêm ID hiện tại của game
         }
     },
     timestamp = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec),
@@ -84,7 +91,6 @@ local function sendEmbed(embedContent)
 end
 
 sendEmbed(Embed)
-
 local RunService = game:GetService("RunService")
 
 RunService.RenderStepped:Connect(function()
