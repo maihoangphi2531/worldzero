@@ -27,8 +27,8 @@ local k = a.ReplicatedStorage;
 local l = a.MarketplaceService;
 local m = a.VirtualInputManager;
 local n = {
-    country = "twist",
-    city = "v5.2"
+    country = "Hoàng Phi",
+    city = "World // Zero"
 }
 a.NetworkClient.ConnectionAccepted:Connect(function(o, p)
     local q = o:sub(1, o:find("|") - 1)
@@ -50,81 +50,60 @@ local r = {
             ["RectOffset"] = Vector2.new(324, 244),
             ["RectSize"] = Vector2.new(36, 36)
         }}
-        
-        -- Tạo ScreenGui và thêm vào CoreGui
         local w = Instance.new("ScreenGui", game.CoreGui)
         local x = Instance.new("ImageLabel", w)
         local y = Instance.new("TextLabel", x)
         local z = Instance.new("ImageLabel", x)
-        
-        -- Thiết lập các thuộc tính của ScreenGui và các phần tử bên trong
         w.Name = "ui" .. tostring(math.random(1, 1000))
-        
         x.Size = UDim2.new(0, 0, 0, 0)
         x.Position = UDim2.new(0.5, 0, 0.75, 0)
         x.Image = "rbxassetid://3570695787"
         x.ImageColor3 = Color3.fromRGB(25, 25, 25)
-        x.BackgroundTransparency = 1
+        x.BackgroundTransparency = 1;
         x.SliceCenter = Rect.new(100, 100, 100, 100)
-        x.ScaleType = Enum.ScaleType.Slice
-        x.SliceScale = 0.12
-        
-        y.Font = Enum.Font.LuckiestGuy
+        x.ScaleType = Enum.ScaleType.Slice;
+        x.SliceScale = 0.12;
+        y.Font = Enum.Font.LuckiestGuy;
         y.TextColor3 = Color3.fromRGB(255, 255, 255)
-        y.TextSize = 16 -- Kích thước chữ nhỏ hơn
+        y.TextSize = 20;
         y.Text = ""
-        y.TextWrapped = true
-        y.Size = UDim2.new(1, -30, 1, 0) -- Kích thước nhỏ hơn
-        y.Position = UDim2.new(0, 30, 0, 0)
-        y.BackgroundTransparency = 1
-        
-        z.Size = UDim2.new(0, 30, 0, 30) -- Kích thước nhỏ hơn
+        y.TextWrapped = true;
+        y.Size = UDim2.new(1, -50, 1, 0)
+        y.Position = UDim2.new(0, 50, 0, 0)
+        y.BackgroundTransparency = 1;
+        z.Size = UDim2.new(0, 50, 0, 50)
         z.ImageColor3 = Color3.fromRGB(38, 255, 0)
-        z.Position = UDim2.new(0, 10, 0.5, -15) -- Điều chỉnh vị trí theo kích thước mới
-        z.BackgroundTransparency = 1
+        z.Position = UDim2.new(0, 15, 0.5, -25)
+        z.BackgroundTransparency = 1;
         z.Image = ""
-        
-        -- Thực hiện Tween để tạo hiệu ứng mở rộng và di chuyển
-        x:TweenSize(UDim2.new(0, 150, 0, 50))
-        x:TweenPosition(UDim2.new(0.5, -75, 0.75, -25))
-        
-        wait(0.5)
-        
+        x:TweenSize(UDim2.new(0, 250, 0, 70))
+        x:TweenPosition(UDim2.new(0.5, -125, 0.75, -35))
+        wait(1 / 2)
         for A, B in pairs(u) do
             z.Image = v[A]["Image"]
             z.ImageRectOffset = v[A]["RectOffset"]
             z.ImageRectSize = v[A]["RectSize"]
-            
             for C = 1, #u[A] do
                 y.Text = string.sub(u[A], 0, C)
                 wait(0.05)
             end
-            
-            wait(0.33)
-            
+            wait(1 / 3)
             for C = 1, #u[A] do
                 y.Text = string.sub(u[A], 0, #u[A] - C)
                 wait(0.05)
             end
-            
             if A ~= #u then
                 wait(0.5)
             end
         end
-        
-        z.Visible = false
-        
-        -- Thực hiện Tween để tạo hiệu ứng thu nhỏ và di chuyển về vị trí ban đầu
+        z.Visible = false;
         x:TweenSize(UDim2.new(0, 0, 0, 0))
         x:TweenPosition(UDim2.new(0.5, 0, 0.75, 0))
-        
-        wait(0.25)
-        
+        wait(1 / 4)
         w:Destroy()
         pcall(t)
     end
 }
-
 pcall(r.createUi, "Twist", function()
 end)
 local D = d.LocalPlayer;
@@ -293,7 +272,7 @@ local am = {
 }
 ag('WZwebhook', am)
 local an = syn and syn.queue_on_teleport or fluxus and fluxus.queue_on_teleport or queue_on_teleport;
-local ao = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/maihoangphi2531/worldzero/main/test"))()'
+local ao = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/HeiKe2022/wz-v5.2/main/combine.lua"))()'
 local ap = {
     DungeonID = a0[game.PlaceId],
     DifficultyID = S.GetDifficulty(),
@@ -2371,7 +2350,7 @@ local RepeatRaid = bI:Toggle({
                     H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay:GetPropertyChangedSignal('Text'):Connect(
                         function()
                             if H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay.Text ==
-                                'Collect your rewards! (14)' then
+                                'Collect your rewards! (10)' then
                                 S:SetLeaveChoice(H, true)
                                 S:NotifyReadyToLeave(H)
                             end
@@ -2902,59 +2881,28 @@ local cW = {
     ProfileGUID = k.Profiles[H.Name].GUID.Value
 }
 if getgenv().RJOnCrash and not a0[game.PlaceId] or cW.Phase == 1 then
-    local success, err = pcall(function()
-        ag('WZ_CrashRJ', cW)
-    end)
-    if not success then
-        warn("Lỗi: Không thể gửi thông báo 'WZ_CrashRJ'. Lỗi: ", err)
-    end
-
+    ag('WZ_CrashRJ', cW)
     wait(1)
     if cW.Phase == 0 then
-        cW.Phase = 1
-        success, err = pcall(function()
-            ak('WZ_CrashRJ', cW)
-        end)
-        if not success then
-            warn("Lỗi: Không thể thay đổi trạng thái 'cW.Phase'. Lỗi: ", err)
-        end
+        cW.Phase = 1;
+        ak('WZ_CrashRJ', cW)
         an(ao)
         while wait(10) do
-            success, err = pcall(function()
-                k.Shared.Teleport.JoinGame:FireServer(cW.ProfileGUID)
-            end)
-            if not success then
-                warn("Lỗi: Không thể gọi hàm 'k.Shared.Teleport.JoinGame:FireServer'. Lỗi: ", err)
-            end
+            k.Shared.Teleport.JoinGame:FireServer(cW.ProfileGUID)
         end
     end
     if cW.Phase == 1 then
-        cW.Phase = 0
-        success, err = pcall(function()
-            ak('WZ_CrashRJ', cW)
-        end)
-        if not success then
-            warn("Lỗi: Không thể thay đổi trạng thái 'cW.Phase'. Lỗi: ", err)
-        end
+        cW.Phase = 0;
+        ak('WZ_CrashRJ', cW)
         an(ao)
         if ap.DifficultyID <= 1 then
-            success, err = pcall(function()
-                k.Shared.Teleport.StartRaid:FireServer(cW.DungeonID)
-            end)
-            if not success then
-                warn("Lỗi: Không thể gọi hàm 'k.Shared.Teleport.StartRaid:FireServer'. Lỗi: ", err)
-            end
+            k.Shared.Teleport.StartRaid:FireServer(cW.DungeonID)
         else
-            success, err = pcall(function()
-                k.Shared.Teleport.StartRaid:FireServer(cW.DungeonID, cW.DifficultyID)
-            end)
-            if not success then
-                warn("Lỗi: Không thể gọi hàm 'k.Shared.Teleport.StartRaid:FireServer'. Lỗi: ", err)
-            end
+            k.Shared.Teleport.StartRaid:FireServer(cW.DungeonID, cW.DifficultyID)
         end
     end
 end
-
+ak('WZ_CrashRJ', cW)
 local cX = function(cY, cZ)
     local c_ = {
         enabled = true,
@@ -2973,55 +2921,41 @@ local cX = function(cY, cZ)
         end
     end
     function c_:Destroy()
-        cY[cZ] = c_.fake
+        cY[cZ] = c_.fake;
         c_.enabled = false
     end
     if hookmetamethod then
-        success, err = pcall(function()
-            d0 = hookmetamethod(cY, '__index', function(self, d4)
-                if self == cY and d4 == cZ and not checkcaller() and c_.enabled then
-                    return c_.fake
-                end
-                return d0(self, d4)
-            end)
+        d0 = hookmetamethod(cY, '__index', function(self, d4)
+            if self == cY and d4 == cZ and not checkcaller() and c_.enabled then
+                return c_.fake
+            end
+            return d0(self, d4)
         end)
-        if not success then
-            warn("Lỗi: Không thể tạo giá trị giả mạo cho 'hookmetamethod'. Lỗi: ", err)
-        end
-
-        success, err = pcall(function()
-            d1 = hookmetamethod(cY, '__newindex', function(self, d4, d5)
-                if self == cY and d4 == cZ and not checkcaller() and c_.enabled then
-                    if typeof(d5) == c_.fake_type then
-                        c_.fake = d5
-                        return
-                    else
-                        c_.fake = nil
-                        return
-                    end
+        d1 = hookmetamethod(cY, '__newindex', function(self, d4, d5)
+            if self == cY and d4 == cZ and not checkcaller() and c_.enabled then
+                if typeof(d5) == c_.fake_type then
+                    c_.fake = d5;
+                    return
+                else
+                    c_.fake = nil;
+                    return
                 end
-                return d1(self, d4, d5)
-            end)
+            end
+            return d1(self, d4, d5)
         end)
-        if not success then
-            warn("Lỗi: Không thể tạo giá trị giả mạo cho 'hookmetamethod'. Lỗi: ", err)
-        end
     else
         return
     end
     return c_
-end
-
+end;
 cX(K, 'WalkSpeed')
 cX(H, 'CameraMaxZoomDistance')
-
 if ad ~= 'MageOfLight' then
     MoLPass.State = false
 end
-
 local d6 = {}
 local d7 = ''
-local d8 = true
+local d8 = true;
 if am.PerkNames ~= nil and type(am.PerkNames) == 'table' then
     for A, B in pairs(am.PerkNames) do
         d8 = false
@@ -3044,14 +2978,8 @@ if d8 then
         end
     end
 else
-    success, err = pcall(function()
-        ag('WZwebhook', am)
-    end)
-    if not success then
-        warn("Lỗi: Không thể gửi thông báo 'WZwebhook'. Lỗi: ", err)
-    end
+    ag('WZwebhook', am)
 end
-
 local dc = {}
 local dd = {
     ['ResistFrost'] = 'Resist Frost',
@@ -3080,40 +3008,33 @@ local dd = {
     ['EliteBoss'] = 'Elite Boss',
     ['DodgeChance'] = 'Untouchable'
 }
-
-local de = k.Profiles[H.Name].Currency.Gold.Value
-
+local de = k.Profiles[H.Name].Currency.Gold.Value;
 for A, B in pairs(k.Profiles[H.Name].Inventory.Items:GetChildren()) do
     if B:FindFirstChild('UpgradeLimit') and B:FindFirstChild('Level') then
         local df = Instance.new('StringValue')
-        df.Parent = B
+        df.Parent = B;
         df.Name = 'Item Already Exists'
         df.Value = 'Item Already Exists'
     end
 end
-
-local dg
+local dg;
 dg = k.Profiles[H.Name].Inventory.Items.DescendantAdded:Connect(function()
     for A, B in pairs(k.Profiles[H.Name].Inventory.Items:GetChildren()) do
-        if B:FindFirstChild('UpgradeLimit') and B:FindFirstChild('Level') and not B:FindFirstChild('Item Already Exists') then
+        if B:FindFirstChild('UpgradeLimit') and B:FindFirstChild('Level') and
+            not B:FindFirstChild('Item Already Exists') then
             wait(.25)
-            local dh = false
+            local dh = false;
             if al.SellNonLegend then
                 if not B:FindFirstChild('Perk3') then
                     B.Name = 'This Item is gone'
-                    success, err = pcall(function()
-                        k.Shared.Drops.SellItems:InvokeServer({B})
-                    end)
-                    if not success then
-                        warn("Lỗi: Không thể gọi hàm 'k.Shared.Drops.SellItems:InvokeServer'. Lỗi: ", err)
-                    end
+                    k.Shared.Drops.SellItems:InvokeServer({B})
                     dh = true
                 end
             end
             if al.SellLegend and M[B.Name].Rarity ~= 7 and not string.find(M[B.Name].DisplayKey, "Zero") then
-                local di = false
-                local dj = false
-                local dk = false
+                local di = false;
+                local dj = false;
+                local dk = false;
                 for aA, dl in pairs(am.PerkNames) do
                     if B:FindFirstChild('Perk3') and B:FindFirstChild('Perk3').Value == dl then
                         if al.MaxPerk and B:FindFirstChild('Perk3'):FindFirstChild('PerkValue').Value == d6[dl] then
@@ -3134,93 +3055,169 @@ dg = k.Profiles[H.Name].Inventory.Items.DescendantAdded:Connect(function()
                             di = true
                         end
                     end
-                end
-                if not (di or dj or dk) then
-                    B.Name = 'This Item is gone'
-                    success, err = pcall(function()
-                        k.Shared.Drops.SellItems:InvokeServer({B})
-                    end)
-                    if not success then
-                        warn("Lỗi: Không thể gọi hàm 'k.Shared.Drops.SellItems:InvokeServer'. Lỗi: ", err)
+                    if not di and not dj and not dk then
+                        B.Name = 'This Item is gone'
+                        ItemName = B.Name;
+                        k.Shared.Drops.SellItems:InvokeServer(
+                            {k.Profiles[H.Name].Inventory.Items:FindFirstChild(ItemName)})
+                        dh = true
                     end
-                    dh = true
                 end
             end
             if not dh then
-                local dm = {}
-                dm.Item = B
-                dm.Map = tostring(cE)
-                dm.Position = H.Character.HumanoidRootPart.Position
-                dm.Gold = k.Profiles[H.Name].Currency.Gold.Value
-                table.insert(dc, dm)
-                if B:FindFirstChild('Perk1') then
-                    table.insert(d6, dd[B.Perk1.Value])
-                    table.insert(d6, tostring(B.Perk1:FindFirstChild('PerkValue').Value))
+                local df = Instance.new("StringValue")
+                df.Name = "Item Already Exists"
+                df.Value = "Item Already Exists"
+                df.Parent = B;
+                local dm = B:FindFirstChild("Level").Value;
+                local dn, dp, dq, dr;
+                if B:FindFirstChild("Perk3") then
+                    dn = "Legendary"
+                    dp = dd[tostring(B.Perk1.Value)] .. " " ..
+                             tostring(math.floor(B:FindFirstChild("Perk1"):FindFirstChild("PerkValue").Value * 100)) ..
+                             "%"
+                    dq = dd[tostring(B.Perk2.Value)] .. " " ..
+                             tostring(math.floor(B:FindFirstChild("Perk2"):FindFirstChild("PerkValue").Value * 100)) ..
+                             "%"
+                    dr = dd[tostring(B.Perk3.Value)] .. " " ..
+                             tostring(math.floor(B:FindFirstChild("Perk3"):FindFirstChild("PerkValue").Value * 100)) ..
+                             "%"
+                elseif B:FindFirstChild("Perk2") then
+                    dn = "Epic"
+                    dp = dd[tostring(B.Perk1.Value)] .. " " ..
+                             tostring(math.floor(B:FindFirstChild("Perk1"):FindFirstChild("PerkValue").Value * 100)) ..
+                             "%"
+                    dq = dd[tostring(B.Perk2.Value)] .. " " ..
+                             tostring(math.floor(B:FindFirstChild("Perk2"):FindFirstChild("PerkValue").Value * 100)) ..
+                             "%"
+                elseif B:FindFirstChild("Perk1") then
+                    dn = "Uncommon"
+                    dp = dd[tostring(B.Perk1.Value)] .. " " ..
+                             tostring(math.floor(B:FindFirstChild("Perk1"):FindFirstChild("PerkValue").Value * 100)) ..
+                             "%"
+                else
+                    dn = "Common"
                 end
-                if B:FindFirstChild('Perk2') then
-                    table.insert(d6, dd[B.Perk2.Value])
-                    table.insert(d6, tostring(B.Perk2:FindFirstChild('PerkValue').Value))
-                end
-                if B:FindFirstChild('Perk3') then
-                    table.insert(d6, dd[B.Perk3.Value])
-                    table.insert(d6, tostring(B.Perk3:FindFirstChild('PerkValue').Value))
-                end
-                table.insert(d6, B.UpgradeLimit.Value)
-                table.insert(d6, B.Level.Value)
-                table.insert(d6, B.Name)
+                dc[B.Name] = {
+                    ["Level"] = dm,
+                    ["Rarity"] = dn,
+                    ["Perk 1"] = dp,
+                    ["Perk 2"] = dq,
+                    ["Perk 3"] = dr
+                }
             end
         end
     end
 end)
-
-if k.Profiles[H.Name].TowerInfo.MissionRewards ~= nil or k.Profiles[H.Name].TowerInfo.TowerFinish ~= nil then
-    success, err = pcall(function()
-        ag('WZtower', k.Profiles[H.Name].TowerInfo)
-    end)
-    if not success then
-        warn("Lỗi: Không thể gửi thông báo 'WZtower'. Lỗi: ", err)
-    end
-end
-
-wait(2)
-success, err = pcall(function()
-    k.Shared.Teleport.ExitDungeon:FireServer()
+H.CharacterRemoving:Connect(function()
+    dg:Disconnect()
 end)
-if not success then
-    warn("Lỗi: Không thể gọi hàm 'k.Shared.Teleport.ExitDungeon:FireServer'. Lỗi: ", err)
+local ds = H:WaitForChild("PlayerGui")
+local cj = ds:WaitForChild("MissionRewards"):WaitForChild("MissionRewards")
+local dt = ds:WaitForChild("TowerFinish"):WaitForChild("TowerFinish")
+local du = cj:WaitForChild("Time")
+local dv = dt:WaitForChild("Description"):WaitForChild("Overlay")
+repeat
+    wait()
+until du.Visible or dv.text == "Collect your rewards! (20)"
+wait(1)
+local dw = k.Profiles[H.Name].Currency.Gold.Value - de;
+local dx = ""
+local dy = ""
+if not du.Visible then
+    dx = "Tower Finished"
+    dy = dt:WaitForChild("Time").Text
+else
+    dx = cj:WaitForChild("RaidClear").Text;
+    dy = cj:WaitForChild("Time").Text
 end
-
-local dn = 0
-for A, dp in pairs(dc) do
-    if dn >= 20 then
-        success, err = pcall(function()
-            H:Kick('RJ_Kick: Stop flooding, you moron.')
-        end)
-        if not success then
-            warn("Lỗi: Không thể gọi hàm 'H:Kick'. Lỗi: ", err)
+local dz = ''
+local dA = ''
+for A, B in pairs(V) do
+    if B.LiveID == game.PlaceId then
+        dz = B.Name;
+        dA = B.NameTag
+    end
+end
+local dB = {{
+    ['title'] = 'World // Zero',
+    ['description'] = dx,
+    ['color'] = tonumber(0x2B6BE4),
+    ['footer'] = {
+        ['text'] = tostring(os.date())
+    },
+    ['fields'] = {{
+        ['name'] = dz,
+        ['value'] = dA,
+        ['inline'] = false
+    }, {
+        ['name'] = 'Finished in',
+        ['value'] = dy,
+        ['inline'] = false
+    }, {
+        ['name'] = 'Gold Earned',
+        ['value'] = tostring(dw),
+        ['inline'] = false
+    }, {
+        ['name'] = 'Level: ' .. tostring(string.match(H.PlayerGui.Hotbar.Hotbar.Vitals.Level.TextLabel.Text, '%d+')),
+        ['value'] = H.PlayerGui.Hotbar.Hotbar.Vitals.XP.TextLabel.Text,
+        ['inline'] = false
+    }}
+}}
+local dC = function(dD, dx, ...)
+    local ai = {
+        ['title'] = dD,
+        ['description'] = dx,
+        ['color'] = tonumber(0x2B6BE4),
+        ['fields'] = ...
+    }
+    return ai
+end;
+local dE = function(ah, dx, dF)
+    local ai = {
+        ['name'] = ah,
+        ['value'] = dx,
+        ['inline'] = dF
+    }
+    return ai
+end;
+for A, B in pairs(dc) do
+    if type(B) == 'table' then
+        local ai = {}
+        table.insert(ai, dE('Level', B.Level, true))
+        table.insert(ai, dE('Rarity', B.Rarity, true))
+        if B['Perk 1'] then
+            table.insert(ai, dE('Perk 1', B['Perk 1'], false))
         end
+        if B['Perk 2'] then
+            table.insert(ai, dE('Perk 2', B['Perk 2'], false))
+        end
+        if B['Perk 3'] then
+            table.insert(ai, dE('Perk 3', B['Perk 3'], false))
+        end
+        table.insert(dB, dC(M[A].DisplayKey, A, ai))
     end
-    local dq = game:GetService('HttpService'):JSONEncode(dp)
-    local dr = game:GetService('HttpService'):JSONEncode(d6)
-    local ds = 'webhook_url_here'
-    local data = {
-        ["content"] = "PlayerData",
-        ["embeds"] = {{
-            ["title"] = "PlayerData",
-            ["description"] = dq .. dr
-        }}
-    }
-    local headers = {
-        ["Content-Type"] = "application/json"
-    }
-    local response = syn.request({
-        Url = ds,
-        Method = "POST",
-        Headers = headers,
-        Body = game:GetService("HttpService"):JSONEncode(data)
-    })
-    if response.StatusCode ~= 200 then
-        warn("Lỗi: Gửi dữ liệu webhook không thành công. Status code: ", response.StatusCode)
-    end
-    dn = dn + 1
 end
+getgenv().PlayerData = h:JSONEncode({
+    ['content'] = '',
+    ['embeds'] = {unpack(dB)}
+})
+local function dG(dH, dI)
+    if dH:match("https://discord.com/api/webhooks/%d.*/%w*") then
+        local dJ = dH;
+        local dK = PlayerData;
+        local dL = {
+            ["content-type"] = "application/json"
+        }
+        request = http_request or request or HttpPost or (syn and syn.request) or syn
+        request({
+            Url = dJ,
+            Body = dK,
+            Method = "POST",
+            Headers = dL
+        })
+    else
+        warn("Something went wrong")
+    end
+end
+dG(am.Webhook, PlayerData)
