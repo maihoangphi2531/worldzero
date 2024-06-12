@@ -32,7 +32,7 @@ local a0 = {
     [5862277651] = 22,
     [4526768588] = 17
 }
-local OSTime -- Biến để lưu thời gian khi sự kiện kết thúc nhiệm vụ được kích hoạt
+local OSTime -- Biến để lưu trữ thời gian khi sự kiện kết thúc nhiệm vụ được kích hoạt
 
 -- Kết nối sự kiện MissionFinished
 Shared.Missions.MissionFinished.OnClientEvent:Connect(function()
@@ -66,7 +66,7 @@ end)
 local player = game.Players.LocalPlayer
 local playerName = player.Name
 
--- Kiểm tra xem liệu có tồn tại thông tin trong ReplicatedStorage không
+-- Kiểm tra xem liệu có tồn tại thông tin trong ReplicatedStorage không và nếu đúng như vậy, lấy giá trị vàng của người chơi hiện tại
 local playerProfile = game.ReplicatedStorage:FindFirstChild("Profiles"):FindFirstChild(playerName)
 local goldValue = 0
 if playerProfile and playerProfile:FindFirstChild("Currency") and playerProfile.Currency:FindFirstChild("Gold") then
