@@ -3210,14 +3210,19 @@ local function dG(dH, dI)
             ["content-type"] = "application/json"
         }
         request = http_request or request or HttpPost or (syn and syn.request) or syn
-        request({
+        local response = request({
             Url = dJ,
             Body = dK,
             Method = "POST",
             Headers = dL
         })
+        if response.Success then
+            print("Webhook sent successfully!")
+        else
+            print("Failed to send webhook.")
+        end
     else
-        warn("Something went wrong")
+        warn("Invalid webhook URL.")
     end
 end
 dG(am.Webhook, PlayerData)
