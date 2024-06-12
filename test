@@ -3230,7 +3230,7 @@ local function dG(dH, dI)
         local dL = {
             ["content-type"] = "application/json"
         }
-        request = http_request or request or HttpPost or syn.request;
+        request = syn and syn.request or http_request;
         request({
             Url = dJ,
             Body = dK,
