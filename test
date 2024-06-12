@@ -32,13 +32,35 @@ local a0 = {
     [5862277651] = 22,
     [4526768588] = 17
 }
-local OSTime = os.time()
-local Time = os.date('!*t', OSTime)
-local Avatar = 'https://cdn.discordapp.com/embed/avatars/4.png'
-local Content = 'Treo Acc World//Zero UGPHONE'
+local OSTime -- Biến để lưu thời gian khi sự kiện kết thúc nhiệm vụ được kích hoạt
 
--- Đợi 10 giây
-wait(10)
+-- Kết nối sự kiện MissionFinished
+Shared.Missions.MissionFinished.OnClientEvent:Connect(function()
+    OSTime = os.time() -- Cập nhật thời gian khi sự kiện xảy ra
+
+    -- Tạo Embed với thông tin EndTime
+    local Embed = {
+        title = 'World//Zero',
+        color = '99999',
+        footer = { text = game.JobId },
+        author = {
+            name = 'MAI HOÀNG PHI',
+            url = 'https://www.roblox.com/',
+        },
+        fields = {
+            {
+                name = 'EndTime',
+                value = os.date("%I:%M %p", OSTime), -- Thời gian kết thúc nhiệm vụ
+            },
+            {
+                name = 'Nội dung',
+                value = Content, -- Nội dung ban đầu
+            }
+        },
+    }
+
+    sendEmbed(Embed) -- Gửi Embed lên webhook
+end)
 
 -- Lấy tên nhân vật Roblox hiện tại
 local player = game.Players.LocalPlayer
@@ -50,6 +72,9 @@ local goldValue = 0
 if playerProfile and playerProfile:FindFirstChild("Currency") and playerProfile.Currency:FindFirstChild("Gold") then
     goldValue = playerProfile.Currency.Gold.Value
 end
+
+-- Lấy thời gian từ biến OSTime
+local Time = os.date('!*t', OSTime)
 
 local Embed = {
     title = 'World//Zero',
@@ -65,7 +90,7 @@ local Embed = {
             value = tostring(goldValue), -- Chuyển giá trị vàng thành chuỗi
         },
         {
-            name = 'NGÀY VÀ GIÒ',
+            name = 'Ngày và giờ',
             value = os.date('%Y-%m-%d %H:%M:%S', OSTime), -- Ngày và giờ hiện tại
         }
     },
@@ -84,6 +109,7 @@ local function sendEmbed(embedContent)
 end
 
 sendEmbed(Embed)
+
 
 local RunService = game:GetService("RunService")
 
