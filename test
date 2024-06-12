@@ -2819,6 +2819,7 @@ for aA, cG in pairs(Z) do
                 cH:Destroy()
             end
         end)
+        if cs then
         e.ChildAdded:Connect(function(cI)
             if cI.Name == 'RaidChestSilver' then
                 e.RaidChestSilver.ChestBase.CFrame = J.CFrame;
@@ -2826,6 +2827,7 @@ for aA, cG in pairs(Z) do
                 cI:Destroy()
             end
         end)
+        end
         e.ChildAdded:Connect(function(cJ)
             if cJ.Name == 'AtlanticChest' then
                 for aA, B in pairs(e:GetChildren()) do
