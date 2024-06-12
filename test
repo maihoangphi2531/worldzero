@@ -36,21 +36,17 @@ local OSTime = os.time()
 local Time = os.date('!*t', OSTime)
 local Avatar = 'https://cdn.discordapp.com/embed/avatars/4.png'
 local Content = 'Treo Acc World//Zero UGPHONE'
-
 -- Đợi 10 giây
 wait(10)
-
 -- Lấy tên nhân vật Roblox hiện tại
 local player = game.Players.LocalPlayer
 local playerName = player.Name
-
 -- Kiểm tra xem liệu có tồn tại thông tin trong ReplicatedStorage không
 local playerProfile = game.ReplicatedStorage:FindFirstChild("Profiles"):FindFirstChild(playerName)
 local goldValue = 0
 if playerProfile and playerProfile:FindFirstChild("Currency") and playerProfile.Currency:FindFirstChild("Gold") then
     goldValue = playerProfile.Currency.Gold.Value
 end
-
 local Embed = {
     title = 'World//Zero',
     color = '99999',
@@ -71,7 +67,6 @@ local Embed = {
     },
     timestamp = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec),
 }
-
 local function sendEmbed(embedContent)
     (syn and syn.request or http_request) {
         Url = 'https://discord.com/api/webhooks/1249664506448187443/2me_mJp4i155tl1fayEFVaYIS-yzp9FNqQAGRyI1v4xe56MYdc8KDYBaA9Yw4Vevl3jw',
@@ -82,16 +77,12 @@ local function sendEmbed(embedContent)
         Body = game:GetService('HttpService'):JSONEncode({ content = Content, embeds = { embedContent } })
     }
 end
-
 sendEmbed(Embed)
-
 local RunService = game:GetService("RunService")
-
 RunService.RenderStepped:Connect(function()
     -- Tìm DamagePartVisual và BillboardGui
     local Camera = game.Workspace.Camera
     local DamagePartVisual = Camera:FindFirstChild("DamagePartVisual")
-
     if DamagePartVisual then
         -- Xóa hoàn toàn DamagePartVisual nếu không cần thiết
         DamagePartVisual:Destroy()
@@ -211,7 +202,6 @@ local r = {
         pcall(t)
     end
 }
-
 pcall(r.createUi, "Twist", function()
 end)
 local D = d.LocalPlayer;
@@ -288,7 +278,6 @@ local _ = {
     [8] = 9944262922,
     [9] = 10651517727
 }
-
 local a1 = {'MoltenEgg', 'OceanEgg', 'CatEgg', 'AlligatorEgg', 'FairyEgg'}
 local a2 = {'SummonerSummonWeak', 'SummonerSummonStrong', 'CorruptedGreaterTree', 'DavyJones', 'BOSSHogRider',
             'BOSSAnubis', 'BOSSKrakenArm3-Arm#1', 'BOSSKrakenArm3-Arm#2', 'BOSSKrakenArm3-Arm#3',
