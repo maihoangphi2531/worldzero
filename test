@@ -2828,6 +2828,15 @@ for aA, cG in pairs(Z) do
             end
         end)
         end
+        if title2.Visible then
+            e.ChildAdded:Connect(function(cI)
+                if cI.Name == 'RaidChestSilver' then
+                    e.RaidChestSilver.ChestBase.CFrame = J.CFrame
+                    wait(3.8)
+                    cI:Destroy()
+            end
+        end)
+        end
         
         e.ChildAdded:Connect(function(cJ)
             if cJ.Name == 'AtlanticChest' then
