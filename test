@@ -2593,7 +2593,7 @@ for aA, B in pairs(Y) do
                 repeat
                     wait()
                 until H.PlayerGui.LootReceived.LootReceived.Info.Skip.Close.ClassName == "ImageButton" and H.PlayerGui.LootReceived.LootReceived.Info.Skip.Close.Visible
-                aT(H.PlayerGui.LootReceived.Info.Skip.Close)
+                aT(H.PlayerGui.LootReceived.LootReceived.Info.Skip.Close)
             end
         end)
         cj.OpenChest.Countdown:GetPropertyChangedSignal('Text'):Connect(function()
