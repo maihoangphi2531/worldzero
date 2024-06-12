@@ -3194,8 +3194,8 @@ if H then
 
 local dC = function(dD, dx, ...)
     local ai = {
-        ['title'] = dD,
-        ['description'] = dx,
+        ['title'] = dD or 'No name provided',
+        ['description'] = dx or 'No name provided',
         ['color'] = tonumber(0x2B6BE4),
         ['fields'] = ...
     }
@@ -3203,8 +3203,8 @@ local dC = function(dD, dx, ...)
 end;
 local dE = function(ah, dx, dF)
     local ai = {
-        ['name'] = ah,
-        ['value'] = dx,
+        ['name'] = ah or 'No name provided',
+        ['value'] = dx 'No name provided',
         ['inline'] = dF
     }
     return ai
