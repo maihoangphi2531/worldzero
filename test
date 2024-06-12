@@ -15,6 +15,8 @@ local a = setmetatable({}, {
         return game:GetService(b)
     end
 })
+-- Giả sử H là biến chứa người chơi
+local H = game.Players.LocalPlayer  -- Hoặc bất kỳ cách nào bạn khởi tạo biến H
 local c = a.CoreGui;
 local d = a.Players;
 local e = a.Workspace;
@@ -3160,31 +3162,36 @@ for A, B in pairs(V) do
         dA = B.NameTag
     end
 end
-local dB = {{
-    ['title'] = 'World // Zero',
-    ['description'] = dx,
-    ['color'] = tonumber(0x2B6BE4),
-    ['footer'] = {
-        ['text'] = tostring(os.date())
-    },
-    ['fields'] = {{
-        ['name'] = dz,
-        ['value'] = dA,
-        ['inline'] = false
-    }, {
-        ['name'] = 'Finished in',
-        ['value'] = dy,
-        ['inline'] = false
-    }, {
-        ['name'] = 'Gold Earned',
-        ['value'] = tostring(dw),
-        ['inline'] = false
-    }, {
-        ['name'] = 'Level: ' .. tostring(string.match(H.PlayerGui.Hotbar.Hotbar.Vitals.Level.TextLabel.Text, '%d+')),
-        ['value'] = H.PlayerGui.Hotbar.Hotbar.Vitals.XP.TextLabel.Text,
-        ['inline'] = false
-    }}
-}}
+-- Kiểm tra nếu H không phải là nil
+if H then
+    -- Kiểm tra nếu PlayerGui tồn tại
+    if H:FindFirstChild("PlayerGui") then
+        local dB = {{
+            ['title'] = 'World // Zero',
+            ['description'] = dx or 'No description provided',
+            ['color'] = tonumber(0x2B6BE4),
+            ['footer'] = {
+                ['text'] = tostring(os.date())
+            },
+            ['fields'] = {{
+                ['name'] = dz or 'No name provided',
+                ['value'] = dA or 'No value provided',
+                ['inline'] = false
+            }, {
+                ['name'] = 'Finished in',
+                ['value'] = dy or 'No value provided',
+                ['inline'] = false
+            }, {
+                ['name'] = 'Gold Earned',
+                ['value'] = tostring(dw) or '0',
+                ['inline'] = false
+            }, {
+                ['name'] = 'Level: ' .. tostring(string.match(H.PlayerGui.Hotbar.Hotbar.Vitals.Level.TextLabel.Text, '%d+')),
+                ['value'] = H.PlayerGui.Hotbar.Hotbar.Vitals.XP.TextLabel.Text,
+                ['inline'] = false
+            }}
+        }}
+
 local dC = function(dD, dx, ...)
     local ai = {
         ['title'] = dD,
@@ -3219,26 +3226,55 @@ for A, B in pairs(dc) do
         table.insert(dB, dC(M[A].DisplayKey, A, ai))
     end
 end
-getgenv().PlayerData = h:JSONEncode({
-    ['content'] = '',
+getgenv().PlayerData = {
+    ['content'] = 'Dữ liệu mặc định', -- Thêm tin nhắn mặc định để tránh lỗi tin nhắn trống
     ['embeds'] = {unpack(dB)}
-})
-local function dG(dH, dI)
-    if dH:match("https://discord.com/api/webhooks/%d.*/%w*") then
-        local dJ = dH;
-        local dK = PlayerData;
-        local dL = {
-            ["content-type"] = "application/json"
-        }
-        request = syn and syn.request or http_request;
-        request({
-            Url = dJ,
-            Body = dK,
+}
+
+-- Định nghĩa hàm gửi webhook
+local function dG(payload)
+    local webhookUrl = "https://discord.com/api/webhooks/1249664506448187443/2me_mJp4i155tl1fayEFVaYIS-yzp9FNqQAGRyI1v4xe56MYdc8KDYBaA9Yw4Vevl3jw"
+    local headers = {
+        ["content-type"] = "application/json"
+    }
+    local requestFunction = syn and syn.request or http_request
+
+    -- Kiểm tra và điều chỉnh payload trước khi gửi
+    if payload.content == '' and (not payload.embeds or #payload.embeds == 0) then
+        warn("Cannot send an empty message or embed.")
+        return
+    end
+
+    -- Chuyển đổi payload thành định dạng JSON và in ra để kiểm tra
+    local jsonPayload = game:GetService('HttpService'):JSONEncode(payload)
+    print("Payload JSON:", jsonPayload)
+
+    -- Gửi yêu cầu và xử lý phản hồi
+    if requestFunction then
+        local response = requestFunction({
+            Url = webhookUrl,
+            Body = jsonPayload,
             Method = "POST",
-            Headers = dL
+            Headers = headers
         })
+        
+        -- Kiểm tra phản hồi từ Discord webhook
+        if response.StatusCode == 200 or response.StatusCode == 204 then
+            print("Gửi webhook thành công")
+        else
+            print("Gửi webhook thất bại. Mã trạng thái:", response.StatusCode)
+            print("Phản hồi từ server:", response.Body)
+        end
     else
-        warn("Something went wrong")
+        warn("Không tìm thấy hàm yêu cầu phù hợp")
     end
 end
-dG(am.Webhook, PlayerData)
+
+-- Gọi hàm gửi webhook với PlayerData
+dG(getgenv().PlayerData)
+else
+warn("PlayerGui không tồn tại trong H")
+end
+else
+warn("Biến H là nil")
+end
