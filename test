@@ -2592,7 +2592,7 @@ for aA, B in pairs(Y) do
                 until cj.OpenChest.Countdown.text == '0'
                 repeat
                     wait()
-                until H.PlayerGui.LootReceived.LootReceived.Info.Skip.Close.ClassName == "ImageButton" and H.PlayerGui.LootReceived.Info.Skip.Close.Visible
+                until H.PlayerGui.LootReceived.LootReceived.Info.Skip.Close.ClassName == "ImageButton" and H.PlayerGui.LootReceived.LootReceived.Info.Skip.Close.Visible
                 aT(H.PlayerGui.LootReceived.Info.Skip.Close)
             end
         end)
