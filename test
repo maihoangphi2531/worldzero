@@ -2828,6 +2828,21 @@ for aA, cG in pairs(Z) do
             end
         end)
         end
+        if title2.Visible then
+            e.ChildAdded:Connect(function(cI)
+                if cI.Name == 'RaidChestSilver' then
+                    e.RaidChestSilver.ChestBase.CFrame = J.CFrame
+                    wait(3.8)
+                    cI:Destroy()
+                end
+            end)
+        end
+        cj.RaidClear:GetPropertyChangedSignal('Text'):Connect(function()
+            if cj.RaidClear.Text == 'D U N G E O N    F A I L U R E' then
+                S:SetLeaveChoice(H, true)
+                S:NotifyReadyToLeave(H)
+            end
+        end)
         e.ChildAdded:Connect(function(cJ)
             if cJ.Name == 'AtlanticChest' then
                 for aA, B in pairs(e:GetChildren()) do
