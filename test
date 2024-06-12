@@ -1,3 +1,24 @@
+local function clickButton(button)
+    if button and button:IsA("ImageButton") then
+        button.MouseButton1Click:Fire()
+    end
+end
+
+-- Đợi nút Close chuyển sang Visible và click vào nó
+local function waitForCloseButton()
+    local player = game.Players.LocalPlayer
+    local closeButton = player:WaitForChild("PlayerGui")
+                        :WaitForChild("LootReceived")
+                        :WaitForChild("Info")
+                        :WaitForChild("Skip")
+                        :WaitForChild("Close")
+
+    closeButton:GetPropertyChangedSignal("Visible"):Connect(function()
+        if closeButton.Visible then
+            clickButton(closeButton)
+        end
+    end)
+end
 local a0 = {
     [2978696440] = 1,
     [4310464656] = 3,
@@ -2586,6 +2607,7 @@ for aA, B in pairs(Y) do
                     cj.Chests.Box1.ChestImage.Select.Visible;
                 repeat
                     aT(cj.Chests.Box1.ChestImage.Select)
+                    waitForCloseButton()
                     wait()
                 until cj.OpenChest.Countdown.text == '0'
             end
