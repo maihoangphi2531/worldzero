@@ -3,38 +3,7 @@ local Time = os.date('!*t', OSTime)
 local Avatar = 'https://cdn.discordapp.com/embed/avatars/4.png'
 local Content = 'Treo Acc World//Zero UGPHONE'
 
--- Lấy tên nhân vật Roblox hiện tại
-local player = game.Players.LocalPlayer
-local playerName = player.Name
-
--- Kiểm tra xem liệu có tồn tại thông tin trong ReplicatedStorage không
-local playerProfile = game.ReplicatedStorage:FindFirstChild("Profiles"):FindFirstChild(playerName)
-local goldValue = 0
-if playerProfile and playerProfile:FindFirstChild("Currency") and playerProfile.Currency:FindFirstChild("Gold") then
-    goldValue = playerProfile.Currency.Gold.Value
-end
-
-local Embed = {
-    title = 'World//Zero',
-    color = '99999',
-    footer = { text = game.JobId },
-    author = {
-        name = 'MAI HOÀNG PHI',
-        url = 'https://www.roblox.com/',
-    },
-    fields = {
-        {
-            name = playerName,
-            value = tostring(goldValue), -- Chuyển giá trị vàng thành chuỗi
-        },
-        {
-            name = 'NGÀY VÀ GIÒ',
-            value = os.date('%Y-%m-%d %H:%M:%S', OSTime), -- Ngày và giờ hiện tại
-        }
-    },
-    timestamp = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec),
-}
-
+-- Hàm gửi embed tới Discord
 local function sendEmbed(embedContent)
     (syn and syn.request or http_request) {
         Url = 'https://discord.com/api/webhooks/1249664506448187443/2me_mJp4i155tl1fayEFVaYIS-yzp9FNqQAGRyI1v4xe56MYdc8KDYBaA9Yw4Vevl3jw',
@@ -46,7 +15,52 @@ local function sendEmbed(embedContent)
     }
 end
 
-sendEmbed(Embed)
+-- Hàm tạo embed
+local function createEmbed(playerName, goldValue, reason)
+    return {
+        title = 'World//Zero',
+        color = '99999',
+        footer = { text = game.JobId },
+        author = {
+            name = 'MAI HOÀNG PHI',
+            url = 'https://www.roblox.com/',
+        },
+        fields = {
+            {
+                name = playerName,
+                value = tostring(goldValue), -- Chuyển giá trị vàng thành chuỗi
+            },
+            {
+                name = 'Ngày và giờ',
+                value = os.date('%Y-%m-%d %H:%M:%S', os.time()), -- Ngày và giờ hiện tại
+            },
+            {
+                name = 'Lý do',
+                value = reason or 'Thông tin',
+            }
+        },
+        timestamp = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec),
+    }
+end
+
+-- Đợi trò chơi và nhân vật người chơi tải xong
+game.Loaded:Wait()
+
+local player = game.Players.LocalPlayer
+
+player.CharacterAdded:Connect(function()
+    local playerName = player.Name
+
+    -- Kiểm tra xem liệu có tồn tại thông tin trong ReplicatedStorage không
+    local playerProfile = game.ReplicatedStorage:FindFirstChild("Profiles"):FindFirstChild(playerName)
+    local goldValue = 0
+    if playerProfile and playerProfile:FindFirstChild("Currency") and playerProfile.Currency:FindFirstChild("Gold") then
+        goldValue = playerProfile.Currency.Gold.Value
+    end
+
+    local embed = createEmbed(playerName, goldValue)
+    sendEmbed(embed)
+end)
 
 
 
