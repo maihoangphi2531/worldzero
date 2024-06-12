@@ -28,7 +28,7 @@ local Embed = {
             value = tostring(goldValue), -- Chuyển giá trị vàng thành chuỗi
         },
         {
-            name = 'Ngày và giờ',
+            name = 'NGÀY VÀ GIÒ',
             value = os.date('%Y-%m-%d %H:%M:%S', OSTime), -- Ngày và giờ hiện tại
         }
     },
@@ -48,37 +48,6 @@ end
 
 sendEmbed(Embed)
 
--- Xử lý thông báo lỗi khi người chơi bị kick
-game.Players.PlayerRemoving:Connect(function(removedPlayer)
-    if removedPlayer == player then
-        local reason = "Bị Kick Rồi Con Ơi" -- You can customize the reason if needed
-        local errorEmbed = {
-            title = 'Thông báo lỗi',
-            color = '16711680', -- Màu đỏ để biểu thị lỗi
-            footer = { text = game.JobId },
-            author = {
-                name = 'MAI HOÀNG PHI',
-                url = 'https://www.roblox.com/',
-            },
-            fields = {
-                {
-                    name = 'Tên nhân vật',
-                    value = playerName,
-                },
-                {
-                    name = 'Lý do bị kick',
-                    value = reason,
-                },
-                {
-                    name = 'Ngày và giờ',
-                    value = os.date('%Y-%m-%d %H:%M:%S', os.time()), -- Ngày và giờ hiện tại
-                }
-            },
-            timestamp = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec),
-        }
-        sendEmbed(errorEmbed)
-    end
-end)
 
 
 local RunService = game:GetService("RunService")
@@ -119,7 +88,7 @@ a.NetworkClient.ConnectionAccepted:Connect(function(o, p)
 end)
 local r = {
     ["createUi"] = function(s, t)
-        local u = {"Loading...", "Verified!", "twist\nWorld Zero"}
+        local u = {"MAI HOÀNG PHI", "🍊🍊🍊🍊🍊🍊🍊", "twist\nWorld Zero"}
         local v = {{
             ["Image"] = "rbxassetid://3926305904",
             ["RectOffset"] = Vector2.new(204, 844),
