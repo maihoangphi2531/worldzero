@@ -2593,7 +2593,11 @@ for aA, B in pairs(Y) do
                 repeat
                     wait()
                 until H.PlayerGui.LootReceived.LootReceived.Info.Skip.Close.ClassName == "ImageButton" and H.PlayerGui.LootReceived.LootReceived.Info.Skip.Close.Visible
+                repeat
                 aT(H.PlayerGui.LootReceived.LootReceived.Info.Skip.Close)
+                    wait()
+                until H.PlayerGui.MissionRewards.MissionRewards.Chests.Next.Visible
+                aT(H.PlayerGui.MissionRewards.MissionRewards.Chests.Next)
             end
         end)
         cj.OpenChest.Countdown:GetPropertyChangedSignal('Text'):Connect(function()
