@@ -16,9 +16,11 @@ local function waitForCloseButton()
     closeButton:GetPropertyChangedSignal("Visible"):Connect(function()
         if closeButton.Visible then
             clickButton(closeButton)
+            waitForCloseButton() -- Gọi lại hàm để thiết lập lại kết nối
         end
     end)
 end
+waitForCloseButton()
 local a0 = {
     [2978696440] = 1,
     [4310464656] = 3,
@@ -2607,7 +2609,7 @@ for aA, B in pairs(Y) do
                     cj.Chests.Box1.ChestImage.Select.Visible;
                 repeat
                     aT(cj.Chests.Box1.ChestImage.Select)
-                    waitForCloseButton()
+                    aT(cj.Chests.Box1.ChestImage.Select)
                     wait()
                 until cj.OpenChest.Countdown.text == '0'
             end
