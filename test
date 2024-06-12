@@ -51,13 +51,10 @@ if playerProfile and playerProfile:FindFirstChild("Currency") and playerProfile.
     goldValue = playerProfile.Currency.Gold.Value
 end
 
--- Lấy tên game hiện tại từ PlaceId
-local gameName = a0[game.PlaceId] or "Unknown Game"
-
 local Embed = {
-    title = gameName,
+    title = 'World//Zero',
     color = '99999',
-    footer = { text = gameName },
+    footer = { text = game.JobId },
     author = {
         name = 'MAI HOÀNG PHI',
         url = 'https://www.roblox.com/',
@@ -70,10 +67,6 @@ local Embed = {
         {
             name = 'NGÀY VÀ GIÒ',
             value = os.date('%Y-%m-%d %H:%M:%S', OSTime), -- Ngày và giờ hiện tại
-        },
-        {
-            name = 'ID HIỆN TẠI',
-            value = game.PlaceId, -- Thêm ID hiện tại của game
         }
     },
     timestamp = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec),
@@ -91,6 +84,7 @@ local function sendEmbed(embedContent)
 end
 
 sendEmbed(Embed)
+
 local RunService = game:GetService("RunService")
 
 RunService.RenderStepped:Connect(function()
@@ -2582,56 +2576,6 @@ bK:Box({
     end
 })
 bL:MinimizeWindows()
-k.Shared.Missions.MissionFinished.OnClientEvent:Connect(function()
-    bG.Text = "EndTime: " .. os.date("%I:%M %p")
-end)
-for aA, B in pairs(Y) do
-    if game.PlaceId == B then
-        local cj = H.PlayerGui.MissionRewards.MissionRewards;
-        local cs = k.Shared.VIP.IsExtraDrop:InvokeServer()
-        cj.Countdown:GetPropertyChangedSignal('Text'):Connect(function()
-            if cj.Countdown.Text == 'Pick up your gold! (1)' then
-                repeat
-                    wait()
-                until cj.Chests.Visible and cj.Chests.Box1.Visible and cj.Chests.Box2.Visible and
-                    cj.Chests.Box1.ChestImage.Select.Visible;
-                repeat
-                    aT(cj.Chests.Box1.ChestImage.Select)
-                    wait()
-                until cj.OpenChest.Countdown.text == '0'
-            end
-        end)
-        cj.OpenChest.Countdown:GetPropertyChangedSignal('Text'):Connect(function()
-            if cj.OpenChest.Countdown.Text == '0' then
-                repeat
-                    wait()
-                until cj.OpenChest:WaitForChild("Next") and cj.OpenChest:FindFirstChild("Next").Visible;
-                aT(cj.OpenChest.Next.TextLabel)
-            end
-        end)
-        cj.Chests.Box1.ChestImage.ChildAdded:Connect(function(ct)
-            if ct.Name == 'ViewportFrame' and not cs then
-                aT(cj.OpenChest.Next.TextLabel)
-            else
-                aT(cj.Chests.Box2.ChestImage.VIP.TextLabel)
-                repeat
-                    wait()
-                until cj.OpenChest.Chest:FindFirstChild("RaidChest")
-                wait(1)
-                repeat
-                    aT(cj.Chests.Box2.ChestImage.Select)
-                    wait()
-                until cj.OpenChest.Countdown.text == '0'
-            end
-        end)
-        cj.Chests.Box2.ChestImage.ChildAdded:Connect(function(ct)
-            if ct.Name == 'ViewportFrame' and cs then
-                wait()
-                aT(cj.OpenChest.Next.TextLabel)
-            end
-        end)
-    end
-end
 if game.PlaceId == Y[2.1] then
     e.MissionObjects.ChildRemoved:Connect(function(cu)
         if cu.Name == 'MissionStart' then
