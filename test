@@ -1,3 +1,37 @@
+local a0 = {
+    [2978696440] = 1,
+    [4310464656] = 3,
+    [4310476380] = 2,
+    [4310478830] = 4,
+    [3383444582] = 6,
+    [3885726701] = 11,
+    [3994953548] = 12,
+    [4050468028] = 13,
+    [3165900886] = 7,
+    [4465988196] = 14,
+    [4465989351] = 15,
+    [4465989998] = 16,
+    [4646473427] = 20,
+    [4646475342] = 19,
+    [4646475570] = 18,
+    [6386112652] = 24,
+    [11466514043] = 35,
+    [6510862058] = 25,
+    [11533444995] = 36,
+    [6847034886] = 26,
+    [11644048314] = 37,
+    [9944263348] = 30,
+    [10014664329] = 31,
+    [10651527284] = 32,
+    [10727165164] = 33,
+    [5703353651] = 21,
+    [6075085184] = 23,
+    [7071564842] = 27,
+    [10089970465] = 29,
+    [10795158121] = 34,
+    [5862277651] = 22,
+    [4526768588] = 17
+}
 local OSTime = os.time()
 local Time = os.date('!*t', OSTime)
 local Avatar = 'https://cdn.discordapp.com/embed/avatars/4.png'
@@ -254,40 +288,7 @@ local _ = {
     [8] = 9944262922,
     [9] = 10651517727
 }
-local a0 = {
-    [2978696440] = 1,
-    [4310464656] = 3,
-    [4310476380] = 2,
-    [4310478830] = 4,
-    [3383444582] = 6,
-    [3885726701] = 11,
-    [3994953548] = 12,
-    [4050468028] = 13,
-    [3165900886] = 7,
-    [4465988196] = 14,
-    [4465989351] = 15,
-    [4465989998] = 16,
-    [4646473427] = 20,
-    [4646475342] = 19,
-    [4646475570] = 18,
-    [6386112652] = 24,
-    [11466514043] = 35,
-    [6510862058] = 25,
-    [11533444995] = 36,
-    [6847034886] = 26,
-    [11644048314] = 37,
-    [9944263348] = 30,
-    [10014664329] = 31,
-    [10651527284] = 32,
-    [10727165164] = 33,
-    [5703353651] = 21,
-    [6075085184] = 23,
-    [7071564842] = 27,
-    [10089970465] = 29,
-    [10795158121] = 34,
-    [5862277651] = 22,
-    [4526768588] = 17
-}
+
 local a1 = {'MoltenEgg', 'OceanEgg', 'CatEgg', 'AlligatorEgg', 'FairyEgg'}
 local a2 = {'SummonerSummonWeak', 'SummonerSummonStrong', 'CorruptedGreaterTree', 'DavyJones', 'BOSSHogRider',
             'BOSSAnubis', 'BOSSKrakenArm3-Arm#1', 'BOSSKrakenArm3-Arm#2', 'BOSSKrakenArm3-Arm#3',
@@ -3213,85 +3214,3 @@ for A, B in pairs(V) do
         dA = B.NameTag
     end
 end
-local dB = {{
-    ['title'] = 'World // Zero',
-    ['description'] = dx,
-    ['color'] = tonumber(0x2B6BE4),
-    ['footer'] = {
-        ['text'] = tostring(os.date())
-    },
-    ['fields'] = {{
-        ['name'] = dz,
-        ['value'] = dA,
-        ['inline'] = false
-    }, {
-        ['name'] = 'Finished in',
-        ['value'] = dy,
-        ['inline'] = false
-    }, {
-        ['name'] = 'Gold Earned',
-        ['value'] = tostring(dw),
-        ['inline'] = false
-    }, {
-        ['name'] = 'Level: ' .. tostring(string.match(H.PlayerGui.Hotbar.Hotbar.Vitals.Level.TextLabel.Text, '%d+')),
-        ['value'] = H.PlayerGui.Hotbar.Hotbar.Vitals.XP.TextLabel.Text,
-        ['inline'] = false
-    }}
-}}
-local dC = function(dD, dx, ...)
-    local ai = {
-        ['title'] = dD,
-        ['description'] = dx,
-        ['color'] = tonumber(0x2B6BE4),
-        ['fields'] = ...
-    }
-    return ai
-end;
-local dE = function(ah, dx, dF)
-    local ai = {
-        ['name'] = ah,
-        ['value'] = dx,
-        ['inline'] = dF
-    }
-    return ai
-end;
-for A, B in pairs(dc) do
-    if type(B) == 'table' then
-        local ai = {}
-        table.insert(ai, dE('Level', B.Level, true))
-        table.insert(ai, dE('Rarity', B.Rarity, true))
-        if B['Perk 1'] then
-            table.insert(ai, dE('Perk 1', B['Perk 1'], false))
-        end
-        if B['Perk 2'] then
-            table.insert(ai, dE('Perk 2', B['Perk 2'], false))
-        end
-        if B['Perk 3'] then
-            table.insert(ai, dE('Perk 3', B['Perk 3'], false))
-        end
-        table.insert(dB, dC(M[A].DisplayKey, A, ai))
-    end
-end
-getgenv().PlayerData = h:JSONEncode({
-    ['content'] = '',
-    ['embeds'] = {unpack(dB)}
-})
-local function dG(dH, dI)
-    if dH:match("https://discord.com/api/webhooks/%d.*/%w*") then
-        local dJ = dH;
-        local dK = PlayerData;
-        local dL = {
-            ["content-type"] = "application/json"
-        }
-        request = http_request or request or HttpPost or syn.request;
-        request({
-            Url = dJ,
-            Body = dK,
-            Method = "POST",
-            Headers = dL
-        })
-    else
-        warn("Something went wrong")
-    end
-end
-dG(am.Webhook, PlayerData)
