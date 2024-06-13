@@ -2379,8 +2379,9 @@ local RepeatRaid = bI:Toggle({
                             S:NotifyReadyToLeave(H)
                         end
                     end)
-                    H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay:GetPropertyChangedSignal('Text'):Connect(function()
+                    local function setupWebhook()
                         if not hasRun then
+                            hasRun = true  -- Đặt biến cờ thành true ngay khi thiết lập webhook
                             local connection
                             connection = game:GetService("RunService").RenderStepped:Connect(function()
                                 if H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay.Text == 'Collect your rewards! (40)' then
@@ -2438,18 +2439,19 @@ local RepeatRaid = bI:Toggle({
 
                                     sendEmbed(Embed)
 
-                                    -- Đặt biến cờ thành true sau khi chạy lần đầu tiên
-                                    hasRun = true
-                                    connection:Disconnect()  -- Ngắt kết nối để ngăn không gửi lại
+                                    -- Ngắt kết nối sau khi gửi webhook
+                                    connection:Disconnect()
                                 end
                             end)
                         end
+                    end
 
-                        if H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay.Text == 'Collect your rewards! (14)' then
-                            S:SetLeaveChoice(H, true)
-                            S:NotifyReadyToLeave(H)
-                        end
-                    end)
+                    H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay:GetPropertyChangedSignal('Text'):Connect(setupWebhook)
+
+                    if H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay.Text == 'Collect your rewards! (14)' then
+                        S:SetLeaveChoice(H, true)
+                        S:NotifyReadyToLeave(H)
+                    end
                     cj.Playerlist.Header:GetPropertyChangedSignal('Visible'):Connect(function()
                         wait(1)
                         aT(cj.Playerlist.WithParty.TextLabel)
@@ -2506,6 +2508,7 @@ local KlausDown = bJ:Toggle({
         end)
     end
 })
+
 bJ:Button({
     Text = "Unstuck-SOS",
     TextSize = 22,
@@ -2515,10 +2518,13 @@ bJ:Button({
         aM()
     end
 })
+
 bJ:Slider("WalkSpeed", 16, 120, K.WalkSpeed, function(bW)
     K.WalkSpeed = bW
 end)
+
 bK:DestroyUI()
+
 bK:Button({
     Text = "FreezeMob",
     TextSize = 22,
@@ -2531,18 +2537,18 @@ bK:Button({
                 if not string.find(co.Name, "BOSS") then
                     local cp = Instance.new("Part")
                     cp.Name = "Dummy"
-                    cp.Anchored = true;
-                    cp.CanCollide = false;
+                    cp.Anchored = true
+                    cp.CanCollide = false
                     cp.Size = Vector3.new(1, 1, 1)
-                    cp.Transparency = 1;
+                    cp.Transparency = 1
                     cp.Parent = game:GetService("Workspace")
-                    cp.Position = co.Collider.Position;
+                    cp.Position = co.Collider.Position
                     local cq = Instance.new("Weld")
-                    cq.Parent = co.Collider;
-                    cq.Part0 = co.Collider;
-                    cq.Part1 = cp;
+                    cq.Parent = co.Collider
+                    cq.Part0 = co.Collider
+                    cq.Part1 = cp
                     local cr = Instance.new("BodyForce")
-                    cr.Parent = cp;
+                    cr.Parent = cp
                     pcall(function()
                         cr:ApplyForce(Vector3.new(0, -100, 0))
                     end)
@@ -2551,6 +2557,7 @@ bK:Button({
         end
     end
 })
+
 bK:HideUI()
 local RealTime = bK:Toggle({
     Text = "RealTimePing",
@@ -3148,8 +3155,8 @@ local dd = {
     ['Glass'] = 'Glass',
     ['RoughSkin'] = 'Rough Skin',
     ['ResistKnockdown'] = 'Resist Knockdown',
-    ['BonusWalkspeed'] = 'Bonus Walkspeed',
-    ['PetFoodDrop'] = 'Bonus Pet Food Chance',
+    ['BonusWalkspeed'] = 'Agility',
+    ['PetFoodDrop'] = 'Lucky Looter',
     ['BonusAttack'] = 'Attack UP',
     ['BonusHP'] = 'HP UP',
     ['ResistPoison'] = 'Resist Poison',
@@ -3159,11 +3166,11 @@ local dd = {
     ['OpeningStrike'] = 'Opening Strike',
     ['MobBoss'] = 'Mob Boss',
     ['TestTier5'] = 'Boss of the Boss',
-    ['GoldDrop'] = 'Bonus Gold',
+    ['GoldDrop'] = 'Gold Hoarder',
     ['BonusRegen'] = 'Bonus Health Regen',
     ['DamageReduction'] = 'Damage Reduction',
     ['Aggro'] = 'Shifted Aggro',
-    ['UltCharge'] = 'Ult Charge',
+    ['UltCharge'] = 'Energized',
     ['Fortress'] = 'Fortress',
     ['MasterThief'] = 'Master Thief',
     ['EliteBoss'] = 'Elite Boss',
