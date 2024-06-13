@@ -1,3 +1,33 @@
+local function simulateClick(button)
+    local m = game:GetService("VirtualInputManager")
+    local xPos = button.AbsolutePosition.X + button.AbsoluteSize.X / 2
+    local yPos = button.AbsolutePosition.Y + button.AbsoluteSize.Y / 2
+
+    -- Giả lập sự kiện nhấn chuột xuống
+    m:SendMouseButtonEvent(xPos, yPos, 0, true, button, 1)
+    -- Giả lập sự kiện nhả chuột
+    m:SendMouseButtonEvent(xPos, yPos, 0, false, button, 1)
+end
+
+local function checkAndClickNext()
+    local player = game.Players.LocalPlayer
+    local nextButton = player.PlayerGui.LootReceived.LootReceived.Info.Skip.Sell
+
+    -- Kiểm tra nếu thuộc tính Visible được bật
+    if nextButton.Visible then
+        -- Thực hiện hành động bấm vào nó
+        simulateClick(nextButton)
+    else
+        print("Nút 'Next' không hiện tại.")
+    end
+end
+
+-- Gọi hàm liên tục cho đến khi nút 'Next' được bật và bấm vào nó
+while true do
+    checkAndClickNext()
+    wait(1) -- Đợi 1 giây trước khi kiểm tra lại
+end
+
 -- Đường dẫn tới PurchasePrompt
 local purchasePrompt = game.CoreGui:WaitForChild("PurchasePrompt")
 
