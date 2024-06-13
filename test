@@ -1,3 +1,31 @@
+-- Đường dẫn tới PurchasePrompt
+local purchasePrompt = game.CoreGui:WaitForChild("PurchasePrompt")
+
+-- Hàm kiểm tra và phá hủy RobuxUpsellContainer nếu nó trở nên hiển thị
+local function checkAndDestroy(container)
+    if container.Visible then
+        container:Destroy()
+    else
+        container:GetPropertyChangedSignal("Visible"):Connect(function()
+            if container.Visible then
+                container:Destroy()
+            end
+        end)
+    end
+end
+
+-- Kết nối sự kiện khi một đối tượng con mới được thêm vào PurchasePrompt
+purchasePrompt.ChildAdded:Connect(function(child)
+    if child.Name == "RobuxUpsellContainer" then
+        checkAndDestroy(child)
+    end
+end)
+
+-- Kiểm tra nếu RobuxUpsellContainer đã tồn tại từ trước
+local existingContainer = purchasePrompt:FindFirstChild("RobuxUpsellContainer")
+if existingContainer then
+    checkAndDestroy(existingContainer)
+end
 
 local a0 = {
     [2978696440] = 1,
