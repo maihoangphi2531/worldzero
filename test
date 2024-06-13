@@ -1,3 +1,40 @@
+local function simulateClick(button)
+    local m = game:GetService("VirtualInputManager")
+    local xPos = button.AbsolutePosition.X + button.AbsoluteSize.X / 2
+    local yPos = button.AbsolutePosition.Y + button.AbsoluteSize.Y / 2
+
+    -- Giả lập sự kiện nhấn chuột xuống
+    m:SendMouseButtonEvent(xPos, yPos, 0, true, button, 1)
+    -- Giả lập sự kiện nhả chuột
+    m:SendMouseButtonEvent(xPos, yPos, 0, false, button, 1)
+end
+
+local function onVisibleChanged(button)
+    if button.Visible then
+        simulateClick(button)
+    else
+        print("Nút 'Sell' không hiện tại.")
+    end
+end
+
+local player = game.Players.LocalPlayer
+local sellButton = player.PlayerGui.LootReceived.LootReceived.Info.Skip.Sell
+
+-- Lắng nghe sự thay đổi của thuộc tính 'Visible' trên nút
+sellButton:GetPropertyChangedSignal("Visible"):Connect(function()
+    onVisibleChanged(sellButton)
+end)
+
+-- Kiểm tra lần đầu để xử lý ngay nếu nút đã visible
+onVisibleChanged(sellButton)
+
+
+checkAndClickNext()
+-- Gọi hàm liên tục cho đến khi nút 'Next' được bật và bấm vào nó
+while true do
+    checkAndClickNext()
+    wait(1) -- Đợi 1 giây trước khi kiểm tra lại
+end
 
 -- Đường dẫn tới PurchasePrompt
 local purchasePrompt = game.CoreGui:WaitForChild("PurchasePrompt")
