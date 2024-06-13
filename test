@@ -1,3 +1,25 @@
+-- Định nghĩa hàm chạy sau 7 phút
+local function runAfter7Minutes()
+    -- Chờ 7 phút (420 giây)
+    wait(20)
+    
+    -- Sau khi chờ 7 phút, thực hiện đoạn mã
+    local args = {
+        [1] = 34
+    }
+
+    local replicatedStorage = game:GetService("ReplicatedStorage")
+    local teleportService = replicatedStorage:WaitForChild("Shared"):WaitForChild("Teleport")
+    local startRaidEvent = teleportService:WaitForChild("StartRaid")
+
+    startRaidEvent:FireServer(unpack(args))
+
+    print("StartRaid event fired after 7 minutes.")
+end
+
+-- Bắt đầu coroutine để không ảnh hưởng đến các hàm khác
+coroutine.wrap(runAfter7Minutes)()
+
 getgenv().Common = true
 getgenv().Uncommon = true
 getgenv().Rare = true
