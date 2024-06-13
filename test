@@ -2003,157 +2003,7 @@ local bQ = bF:Toggle({
         end)
     end
 })
-local Levitating = bF:Toggle({
-    Text = "Levitating",
-    TextSize = 22,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Font = Enum.Font.FredokaOne,
-    Disable = true,
-    Enabled = Levitating,
-    Callback = function(aJ)
-        Levitating = aJ;
-        local function bS(bT, bU)
-            for bV, bW in pairs(bT) do
-                bU(bW, bV)
-            end
-        end
-        local function bX(bY)
-            local bZ = Instance.new(bY)
-            return function(b_)
-                bS(b_, function(bW, c0)
-                    bZ[c0] = bW
-                end)
-                return bZ
-            end
-        end
-        do
-            local c1 = nil;
-            while Levitating do
-                if not c1 then
-                    c1 = bX 'Part' {
-                        Parent = workspace.CurrentCamera,
-                        Name = 'Part',
-                        Transparency = 0.95,
-                        Size = Vector3.new(3, .1, 3),
-                        Anchored = true
-                    }
-                end
-                if I then
-                    c1.CFrame = J.CFrame - Vector3.new(0, 3, 0)
-                end
-                task.wait()
-            end
-        end
-    end
-})
-local c2 = bF:Toggle({
-    Text = "InfiniteJump",
-    TextSize = 22,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Font = Enum.Font.FredokaOne,
-    Enabled = al.InfJump,
-    Callback = function(aJ)
-        al.InfJump = aJ;
-        task.spawn(function()
-            ak('WZ_Toggles', al)
-            local function InfJump(bZ, c3)
-                if bZ ~= nil then
-                    c3(bZ)
-                end
-            end
-            j.InputBegan:connect(function(c4)
-                if al.InfJump and c4.UserInputType == Enum.UserInputType.Keyboard and c4.KeyCode == Enum.KeyCode.Space then
-                    InfJump(K, function(H)
-                        if H:GetState() == Enum.HumanoidStateType.Jumping or H:GetState() ==
-                            Enum.HumanoidStateType.Freefall then
-                            InfJump(J, function(bZ)
-                                bZ.Velocity = Vector3.new(0, 80, 0)
-                            end)
-                        end
-                    end)
-                end
-            end)
-        end)
-    end
-})
-local NoClip = bG:Toggle({
-    Text = "No-Clip",
-    TextSize = 22,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Font = Enum.Font.FredokaOne,
-    Enabled = al.NoClip,
-    Callback = function(aJ)
-        al.NoClip = aJ;
-        task.spawn(function()
-            ak('WZ_Toggles', al)
-            aI(true)
-            if al.NoClip then
-                aI(false)
-            end
-        end)
-    end
-})
-local HeadLamp = bG:Toggle({
-    Text = "HeadLamp",
-    TextSize = 22,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Font = Enum.Font.FredokaOne,
-    Enabled = HeadLamp,
-    Callback = function(aJ)
-        HeadLamp = aJ;
-        if HeadLamp then
-            local c5;
-            local c6 = Instance.new('PointLight', I.Head)
-            c6.Brightness = .8;
-            c6.Range = 180;
-            c5.Changed:connect(function()
-                c5.Brightness = 1;
-                c5.ClockTime = 12;
-                c5.FogEnd = 1000000;
-                c5.GlobalShadows = true;
-                c5.Ambient = Color3.new(1, 1, 1)
-                c5.ColorShift_Top = Color3.new(1, 1, 1)
-                c5.ColorShift_Bottom = Color3.new(1, 1, 1)
-            end)
-        else
-            I.Head.PointLight:Destroy()
-        end
-    end
-})
-local ReduceLag = bG:Toggle({
-    Text = "ReduceLag",
-    TextSize = 22,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Font = Enum.Font.FredokaOne,
-    Enabled = al.ReduceLag,
-    Callback = function(aJ)
-        al.ReduceLag = aJ;
-        task.spawn(function()
-            ak('WZ_Toggles', al)
-            for aA, B in pairs(e:GetDescendants()) do
-                if B:IsA 'BasePart' and not B.Parent:FindFirstChild 'Humanoid' then
-                    B.Material = Enum.Material.SmoothPlastic;
-                    if B:IsA 'Texture' then
-                        task.defer(B.Destroy, B)
-                    end
-                end
-            end
-            e.DescendantAdded:Connect(function(c7)
-                if c7:IsA 'BasePart' and not c7.Parent:FindFirstChild 'Humanoid' then
-                    c7.Material = Enum.Material.SmoothPlastic;
-                    if c7:IsA 'Texture' then
-                        task.defer(c7.Destroy, c7)
-                    end
-                end
-            end)
-            e.ChildAdded:Connect(function(c8)
-                if c8.Name == 'DamageNumber' then
-                    task.defer(c8.Destroy, c8)
-                end
-            end)
-        end)
-    end
-})
+
 local c9 = bG:Toggle({
     Text = "DeleteEggs",
     TextSize = 22,
@@ -2185,28 +2035,6 @@ local c9 = bG:Toggle({
     end
 })
 
-local cd = bG:Toggle({
-    Text = "AutoOffhandPerk",
-    TextSize = 22,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Font = Enum.Font.FredokaOne,
-    Enabled = al.AutoSwitch,
-    Callback = function(aJ)
-        al.AutoSwitch = aJ;
-        task.spawn(function()
-            ak('WZ_Toggles', al)
-            local bD;
-            bD = e.Mobs.ChildAdded:connect(function(bo)
-                if al.AutoSwitch and bo:isA('Model') then
-                    aV(bo)
-                end
-            end)
-            if not al.AutoSwitch then
-                bD:Disconnect()
-            end
-        end)
-    end
-})
 bH:Button({
     Text = "Bank",
     TextSize = 22,
@@ -2330,19 +2158,7 @@ local MoLPass = bI:Toggle({
         end)
     end
 })
-local AiPing = bI:Toggle({
-    Text = "AI.Cooldown",
-    TextSize = 22,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Font = Enum.Font.FredokaOne,
-    Enabled = al.AiPing,
-    Callback = function(aJ)
-        al.AiPing = aJ;
-        task.spawn(function()
-            ak('WZ_Toggles', al)
-        end)
-    end
-})
+
 e.ChildAdded:Connect(function(ci)
     if ci.Name == 'BarrierPart' then
         task.defer(ci.Destroy, ci)
@@ -2472,129 +2288,12 @@ local ck = bI:Toggle({
     end
 })
 
-local KlausDown = bJ:Toggle({
-    Text = "Klaus↓Down",
-    TextSize = 22,
-    Font = Enum.Font.FredokaOne,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Enabled = al.KlausDown,
-    Callback = function(aJ)
-        al.KlausDown = aJ;
-        task.spawn(function()
-            ak('WZ_Toggles', al)
-            for A = 1, 2 do
-                if al.KlausDown and e.MissionObjects:FindFirstChild("MissionStart") then
-                    local cm = e.MissionObjects.MissionStart:GetChildren()
-                    cm[3].CFrame = J.CFrame
-                end
-                wait()
-            end
-            J.CFrame = CFrame.new(46, 474, 800)
-            aK()
-            wait(12.5)
-            J.CFrame = CFrame.new(46, 474, 980)
-            wait(6)
-            b2 = 10;
-            b4(CFrame.new(46, 2000, 2000))
-        end)
-    end
-})
-
-bJ:Button({
-    Text = "Unstuck-SOS",
-    TextSize = 22,
-    Font = Enum.Font.FredokaOne,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Callback = function()
-        aM()
-    end
-})
-
 bJ:Slider("WalkSpeed", 16, 120, K.WalkSpeed, function(bW)
     K.WalkSpeed = bW
 end)
 
 bK:DestroyUI()
-
-bK:Button({
-    Text = "FreezeMob",
-    TextSize = 22,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Font = Enum.Font.FredokaOne,
-    Enabled = FreezeMob,
-    Callback = function(cn)
-        if cn then
-            e.Mobs.ChildAdded:connect(function(co)
-                if not string.find(co.Name, "BOSS") then
-                    local cp = Instance.new("Part")
-                    cp.Name = "Dummy"
-                    cp.Anchored = true
-                    cp.CanCollide = false
-                    cp.Size = Vector3.new(1, 1, 1)
-                    cp.Transparency = 1
-                    cp.Parent = game:GetService("Workspace")
-                    cp.Position = co.Collider.Position
-                    local cq = Instance.new("Weld")
-                    cq.Parent = co.Collider
-                    cq.Part0 = co.Collider
-                    cq.Part1 = cp
-                    local cr = Instance.new("BodyForce")
-                    cr.Parent = cp
-                    pcall(function()
-                        cr:ApplyForce(Vector3.new(0, -100, 0))
-                    end)
-                end
-            end)
-        end
-    end
-})
-
 bK:HideUI()
-local RealTime = bK:Toggle({
-    Text = "RealTimePing",
-    TextSize = 22,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Font = Enum.Font.FredokaOne,
-    Enabled = RealTime,
-    Callback = function(aJ)
-        RealTime = aJ;
-        task.spawn(function()
-            while RealTime do
-                bK.Text = "Ping: " ..
-                              math.floor(game:GetService('Stats').Network.ServerStatsItem['Data Ping']:GetValue())
-                wait(2)
-            end
-        end)
-    end
-})
-local OWFarm = bK:Toggle({
-    Text = "PubMapFarm",
-    TextSize = 22,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Font = Enum.Font.FredokaOne,
-    Enabled = OWFarm,
-    Callback = function(aJ)
-        OWFarm = aJ;
-        task.spawn(function()
-            b2 = 60;
-            while OWFarm do
-                local bo = bi()
-                b4(bo)
-                task.wait(3 / 2)
-            end
-        end)
-    end
-})
-bK:Box({
-    Text = "Webhook URL",
-    Callback = function(bW)
-        am.Webhook = bW;
-        ClearText = true;
-        task.spawn(function()
-            ak('WZwebhook', am)
-        end)
-    end
-})
 bL:MinimizeWindows()
 k.Shared.Missions.MissionFinished.OnClientEvent:Connect(function()
     bG.Text = "EndTime: " .. os.date("%I:%M %p")
@@ -3206,6 +2905,7 @@ dg = k.Profiles[H.Name].Inventory.Items.DescendantAdded:Connect(function()
                     dh = true
                 end
             end
+            
             if al.SellLegend and M[B.Name].Rarity ~= 7 and not string.find(M[B.Name].DisplayKey, "Zero") then
                 local di = false;
                 local dj = false;
