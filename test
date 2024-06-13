@@ -112,16 +112,16 @@ local r = {
             ["RectOffset"] = Vector2.new(324, 244),
             ["RectSize"] = Vector2.new(36, 36)
         }}
-        
+
         -- Tạo ScreenGui và thêm vào CoreGui
         local w = Instance.new("ScreenGui", game.CoreGui)
         local x = Instance.new("ImageLabel", w)
         local y = Instance.new("TextLabel", x)
         local z = Instance.new("ImageLabel", x)
-        
+
         -- Thiết lập các thuộc tính của ScreenGui và các phần tử bên trong
         w.Name = "ui" .. tostring(math.random(1, 1000))
-        
+
         x.Size = UDim2.new(0, 0, 0, 0)
         x.Position = UDim2.new(0.5, 0, 0.75, 0)
         x.Image = "rbxassetid://3570695787"
@@ -130,7 +130,7 @@ local r = {
         x.SliceCenter = Rect.new(100, 100, 100, 100)
         x.ScaleType = Enum.ScaleType.Slice
         x.SliceScale = 0.12
-        
+
         y.Font = Enum.Font.LuckiestGuy
         y.TextColor3 = Color3.fromRGB(255, 255, 255)
         y.TextSize = 16 -- Kích thước chữ nhỏ hơn
@@ -139,49 +139,49 @@ local r = {
         y.Size = UDim2.new(1, -30, 1, 0) -- Kích thước nhỏ hơn
         y.Position = UDim2.new(0, 30, 0, 0)
         y.BackgroundTransparency = 1
-        
+
         z.Size = UDim2.new(0, 30, 0, 30) -- Kích thước nhỏ hơn
         z.ImageColor3 = Color3.fromRGB(38, 255, 0)
         z.Position = UDim2.new(0, 10, 0.5, -15) -- Điều chỉnh vị trí theo kích thước mới
         z.BackgroundTransparency = 1
         z.Image = ""
-        
+
         -- Thực hiện Tween để tạo hiệu ứng mở rộng và di chuyển
         x:TweenSize(UDim2.new(0, 150, 0, 50))
         x:TweenPosition(UDim2.new(0.5, -75, 0.75, -25))
-        
+
         wait(0.5)
-        
+
         for A, B in pairs(u) do
             z.Image = v[A]["Image"]
             z.ImageRectOffset = v[A]["RectOffset"]
             z.ImageRectSize = v[A]["RectSize"]
-            
+
             for C = 1, #u[A] do
                 y.Text = string.sub(u[A], 0, C)
                 wait(0.05)
             end
-            
+
             wait(0.33)
-            
+
             for C = 1, #u[A] do
                 y.Text = string.sub(u[A], 0, #u[A] - C)
                 wait(0.05)
             end
-            
+
             if A ~= #u then
                 wait(0.5)
             end
         end
-        
+
         z.Visible = false
-        
+
         -- Thực hiện Tween để tạo hiệu ứng thu nhỏ và di chuyển về vị trí ban đầu
         x:TweenSize(UDim2.new(0, 0, 0, 0))
         x:TweenPosition(UDim2.new(0.5, 0, 0.75, 0))
-        
+
         wait(0.25)
-        
+
         w:Destroy()
         pcall(t)
     end
@@ -2377,67 +2377,73 @@ local RepeatRaid = bI:Toggle({
                             S:NotifyReadyToLeave(H)
                         end
                     end)
+                    local hasRun = false
                     H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay:GetPropertyChangedSignal('Text'):Connect(
                         function()
-                            local hasRun = false
 
-game:GetService("RunService").RenderStepped:Connect(function()
-    if not hasRun and H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay.Text == 'Collect your rewards! (40)' then
-        --WEBHOOK
-        local OSTime = os.time()
-        local Time = os.date('!*t', OSTime)
-        local Avatar = 'https://cdn.discordapp.com/embed/avatars/4.png'
-        local Content = 'Treo Acc World//Zero UGPHONE'
-        
-        -- Lấy tên nhân vật Roblox hiện tại
-        local player = game.Players.LocalPlayer
-        local playerName = player.Name
-        
-        -- Kiểm tra xem liệu có tồn tại thông tin trong ReplicatedStorage không
-        local playerProfile = game.ReplicatedStorage:FindFirstChild("Profiles"):FindFirstChild(playerName)
-        local goldValue = 0
-        if playerProfile and playerProfile:FindFirstChild("Currency") and playerProfile.Currency:FindFirstChild("Gold") then
-            goldValue = playerProfile.Currency.Gold.Value
-        end
-        
-        local Embed = {
-            title = 'World//Zero',
-            color = 99999, -- Sửa lại màu là số nguyên
-            footer = { text = game.JobId },
-            author = {
-                name = 'MAI HOÀNG PHI',
-                url = 'https://www.roblox.com/',
-            },
-            fields = {
-                {
-                    name = playerName,
-                    value = tostring(goldValue), -- Chuyển giá trị vàng thành chuỗi
-                },
-                {
-                    name = 'NGÀY VÀ GIỜ',
-                    value = os.date('%Y-%m-%d %H:%M:%S', OSTime), -- Ngày và giờ hiện tại
-                }
-            },
-            timestamp = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec),
-        }
-        
-        local function sendEmbed(embedContent)
-            (syn and syn.request or http_request) {
-                Url = 'https://discord.com/api/webhooks/1249664506448187443/2me_mJp4i155tl1fayEFVaYIS-yzp9FNqQAGRyI1v4xe56MYdc8KDYBaA9Yw4Vevl3jw',
-                Method = 'POST',
-                Headers = {
-                    ['Content-Type'] = 'application/json',
-                },
-                Body = game:GetService('HttpService'):JSONEncode({ content = Content, embeds = { embedContent } })
-            }
-        end
-        
-        sendEmbed(Embed)
+                            game:GetService("RunService").RenderStepped:Connect(function()
+                                if not hasRun and H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay.Text ==
+                                    'Collect your rewards! (40)' then
+                                    -- WEBHOOK
+                                    local OSTime = os.time()
+                                    local Time = os.date('!*t', OSTime)
+                                    local Avatar = 'https://cdn.discordapp.com/embed/avatars/4.png'
+                                    local Content = 'Treo Acc World//Zero UGPHONE'
 
-        -- Đặt biến cờ thành true sau khi chạy lần đầu tiên
-        hasRun = true
-    end
-end)
+                                    -- Lấy tên nhân vật Roblox hiện tại
+                                    local player = game.Players.LocalPlayer
+                                    local playerName = player.Name
+
+                                    -- Kiểm tra xem liệu có tồn tại thông tin trong ReplicatedStorage không
+                                    local playerProfile =
+                                        game.ReplicatedStorage:FindFirstChild("Profiles"):FindFirstChild(playerName)
+                                    local goldValue = 0
+                                    if playerProfile and playerProfile:FindFirstChild("Currency") and
+                                        playerProfile.Currency:FindFirstChild("Gold") then
+                                        goldValue = playerProfile.Currency.Gold.Value
+                                    end
+
+                                    local Embed = {
+                                        title = 'World//Zero',
+                                        color = 99999, -- Sửa lại màu là số nguyên
+                                        footer = {
+                                            text = game.JobId
+                                        },
+                                        author = {
+                                            name = 'MAI HOÀNG PHI',
+                                            url = 'https://www.roblox.com/'
+                                        },
+                                        fields = {{
+                                            name = playerName,
+                                            value = tostring(goldValue) -- Chuyển giá trị vàng thành chuỗi
+                                        }, {
+                                            name = 'NGÀY VÀ GIỜ',
+                                            value = os.date('%Y-%m-%d %H:%M:%S', OSTime) -- Ngày và giờ hiện tại
+                                        }},
+                                        timestamp = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month,
+                                            Time.day, Time.hour, Time.min, Time.sec)
+                                    }
+
+                                    local function sendEmbed(embedContent)
+                                        (syn and syn.request or http_request) {
+                                            Url = 'https://discord.com/api/webhooks/1249664506448187443/2me_mJp4i155tl1fayEFVaYIS-yzp9FNqQAGRyI1v4xe56MYdc8KDYBaA9Yw4Vevl3jw',
+                                            Method = 'POST',
+                                            Headers = {
+                                                ['Content-Type'] = 'application/json'
+                                            },
+                                            Body = game:GetService('HttpService'):JSONEncode({
+                                                content = Content,
+                                                embeds = {embedContent}
+                                            })
+                                        }
+                                    end
+
+                                    sendEmbed(Embed)
+
+                                    -- Đặt biến cờ thành true sau khi chạy lần đầu tiên
+                                    hasRun = true
+                                end
+                            end)
 
                             if H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay.Text ==
                                 'Collect your rewards! (14)' then
@@ -2593,58 +2599,60 @@ bK:Box({
 bL:MinimizeWindows()
 k.Shared.Missions.MissionFinished.OnClientEvent:Connect(function()
     bG.Text = "EndTime: " .. os.date("%I:%M %p")
-    --WEBHOOK
+    -- WEBHOOK
     local OSTime = os.time()
     local Time = os.date('!*t', OSTime)
     local Avatar = 'https://cdn.discordapp.com/embed/avatars/4.png'
     local Content = 'Treo Acc World//Zero UGPHONE'
-    
+
     -- Lấy tên nhân vật Roblox hiện tại
     local player = game.Players.LocalPlayer
     local playerName = player.Name
-    
+
     -- Kiểm tra xem liệu có tồn tại thông tin trong ReplicatedStorage không
     local playerProfile = game.ReplicatedStorage:FindFirstChild("Profiles"):FindFirstChild(playerName)
     local goldValue = 0
     if playerProfile and playerProfile:FindFirstChild("Currency") and playerProfile.Currency:FindFirstChild("Gold") then
         goldValue = playerProfile.Currency.Gold.Value
     end
-    
+
     local Embed = {
         title = 'World//Zero',
         color = 99999, -- Sửa lại màu là số nguyên
-        footer = { text = game.JobId },
+        footer = {
+            text = game.JobId
+        },
         author = {
             name = 'MAI HOÀNG PHI',
-            url = 'https://www.roblox.com/',
+            url = 'https://www.roblox.com/'
         },
-        fields = {
-            {
-                name = playerName,
-                value = tostring(goldValue), -- Chuyển giá trị vàng thành chuỗi
-            },
-            {
-                name = 'NGÀY VÀ GIỜ',
-                value = os.date('%Y-%m-%d %H:%M:%S', OSTime), -- Ngày và giờ hiện tại
-            }
-        },
-        timestamp = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec),
+        fields = {{
+            name = playerName,
+            value = tostring(goldValue) -- Chuyển giá trị vàng thành chuỗi
+        }, {
+            name = 'NGÀY VÀ GIỜ',
+            value = os.date('%Y-%m-%d %H:%M:%S', OSTime) -- Ngày và giờ hiện tại
+        }},
+        timestamp = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min,
+            Time.sec)
     }
-    
+
     local function sendEmbed(embedContent)
         (syn and syn.request or http_request) {
             Url = 'https://discord.com/api/webhooks/1249664506448187443/2me_mJp4i155tl1fayEFVaYIS-yzp9FNqQAGRyI1v4xe56MYdc8KDYBaA9Yw4Vevl3jw',
             Method = 'POST',
             Headers = {
-                ['Content-Type'] = 'application/json',
+                ['Content-Type'] = 'application/json'
             },
-            Body = game:GetService('HttpService'):JSONEncode({ content = Content, embeds = { embedContent } })
+            Body = game:GetService('HttpService'):JSONEncode({
+                content = Content,
+                embeds = {embedContent}
+            })
         }
     end
-    
+
     sendEmbed(Embed)
 end)
-
 
 for aA, B in pairs(Y) do
     if game.PlaceId == B then
@@ -2663,9 +2671,10 @@ for aA, B in pairs(Y) do
                 until cj.OpenChest.Countdown.text == '0'
                 repeat
                     wait()
-                until H.PlayerGui.LootReceived.LootReceived.Info.Skip.Close.ClassName == "ImageButton" and H.PlayerGui.LootReceived.LootReceived.Info.Skip.Close.Visible
+                until H.PlayerGui.LootReceived.LootReceived.Info.Skip.Close.ClassName == "ImageButton" and
+                    H.PlayerGui.LootReceived.LootReceived.Info.Skip.Close.Visible
                 repeat
-                aT(H.PlayerGui.LootReceived.LootReceived.Info.Skip.Close)
+                    aT(H.PlayerGui.LootReceived.LootReceived.Info.Skip.Close)
                     wait()
                 until H.PlayerGui.MissionRewards.MissionRewards.Chests.Next.Visible
                 aT(H.PlayerGui.MissionRewards.MissionRewards.Chests.Next)
