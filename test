@@ -2348,6 +2348,8 @@ e.ChildAdded:Connect(function(ci)
         task.defer(ci.Destroy, ci)
     end
 end)
+local hasRun = false  -- Đặt biến này ra ngoài hàm Connect để duy trì giá trị đúng cách
+
 local RepeatRaid = bI:Toggle({
     Text = "RepeatRaid",
     TextSize = 22,
@@ -2377,13 +2379,11 @@ local RepeatRaid = bI:Toggle({
                             S:NotifyReadyToLeave(H)
                         end
                     end)
-                    local hasRun = false
-                    H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay:GetPropertyChangedSignal('Text'):Connect(
-                        function()
-
-                            game:GetService("RunService").RenderStepped:Connect(function()
-                                if not hasRun and H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay.Text ==
-                                    'Collect your rewards! (40)' then
+                    H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay:GetPropertyChangedSignal('Text'):Connect(function()
+                        if not hasRun then
+                            local connection
+                            connection = game:GetService("RunService").RenderStepped:Connect(function()
+                                if H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay.Text == 'Collect your rewards! (40)' then
                                     -- WEBHOOK
                                     local OSTime = os.time()
                                     local Time = os.date('!*t', OSTime)
@@ -2395,33 +2395,31 @@ local RepeatRaid = bI:Toggle({
                                     local playerName = player.Name
 
                                     -- Kiểm tra xem liệu có tồn tại thông tin trong ReplicatedStorage không
-                                    local playerProfile =
-                                        game.ReplicatedStorage:FindFirstChild("Profiles"):FindFirstChild(playerName)
+                                    local playerProfile = game.ReplicatedStorage:FindFirstChild("Profiles"):FindFirstChild(playerName)
                                     local goldValue = 0
-                                    if playerProfile and playerProfile:FindFirstChild("Currency") and
-                                        playerProfile.Currency:FindFirstChild("Gold") then
+                                    if playerProfile and playerProfile:FindFirstChild("Currency") and playerProfile.Currency:FindFirstChild("Gold") then
                                         goldValue = playerProfile.Currency.Gold.Value
                                     end
 
                                     local Embed = {
                                         title = 'World//Zero',
                                         color = 99999, -- Sửa lại màu là số nguyên
-                                        footer = {
-                                            text = game.JobId
-                                        },
+                                        footer = { text = game.JobId },
                                         author = {
                                             name = 'MAI HOÀNG PHI',
-                                            url = 'https://www.roblox.com/'
+                                            url = 'https://www.roblox.com/',
                                         },
-                                        fields = {{
-                                            name = playerName,
-                                            value = tostring(goldValue) -- Chuyển giá trị vàng thành chuỗi
-                                        }, {
-                                            name = 'NGÀY VÀ GIỜ',
-                                            value = os.date('%Y-%m-%d %H:%M:%S', OSTime) -- Ngày và giờ hiện tại
-                                        }},
-                                        timestamp = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month,
-                                            Time.day, Time.hour, Time.min, Time.sec)
+                                        fields = {
+                                            {
+                                                name = playerName,
+                                                value = tostring(goldValue) -- Chuyển giá trị vàng thành chuỗi
+                                            },
+                                            {
+                                                name = 'NGÀY VÀ GIỜ',
+                                                value = os.date('%Y-%m-%d %H:%M:%S', OSTime) -- Ngày và giờ hiện tại
+                                            }
+                                        },
+                                        timestamp = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec),
                                     }
 
                                     local function sendEmbed(embedContent)
@@ -2442,15 +2440,16 @@ local RepeatRaid = bI:Toggle({
 
                                     -- Đặt biến cờ thành true sau khi chạy lần đầu tiên
                                     hasRun = true
+                                    connection:Disconnect()  -- Ngắt kết nối để ngăn không gửi lại
                                 end
                             end)
+                        end
 
-                            if H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay.Text ==
-                                'Collect your rewards! (14)' then
-                                S:SetLeaveChoice(H, true)
-                                S:NotifyReadyToLeave(H)
-                            end
-                        end)
+                        if H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay.Text == 'Collect your rewards! (14)' then
+                            S:SetLeaveChoice(H, true)
+                            S:NotifyReadyToLeave(H)
+                        end
+                    end)
                     cj.Playerlist.Header:GetPropertyChangedSignal('Visible'):Connect(function()
                         wait(1)
                         aT(cj.Playerlist.WithParty.TextLabel)
@@ -2460,6 +2459,7 @@ local RepeatRaid = bI:Toggle({
         end)
     end
 })
+
 local ck = bI:Toggle({
     Text = "ReloadOnHop",
     TextSize = 22,
@@ -2478,6 +2478,7 @@ local ck = bI:Toggle({
         end)
     end
 })
+
 local KlausDown = bJ:Toggle({
     Text = "Klaus↓Down",
     TextSize = 22,
