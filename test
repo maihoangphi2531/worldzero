@@ -1,16 +1,13 @@
-
 getgenv().Common = true
 getgenv().Uncommon = true
 getgenv().Rare = true
 getgenv().Epic = true
 getgenv().Legendary = true
 
-
--- get all
 function getItemList()
     local itemList = {}
-    for a,b in pairs(require(game:GetService("ReplicatedStorage").Shared.Items)) do
-        for i,v in pairs(b) do
+    for a, b in pairs(require(game:GetService("ReplicatedStorage").Shared.Items)) do
+        for i, v in pairs(b) do
             if (i == 'Type') and (v == 'Weapon' or v == 'Armor') then
                 table.insert(itemList, b)
             end
@@ -20,8 +17,8 @@ function getItemList()
 end
 
 function getItemName()
-    itemNameTable = {}
-    for i,v in ipairs(game:GetService("ReplicatedStorage").Profiles["munmun311203"].Inventory.Items:GetChildren()) do
+    local itemNameTable = {}
+    for i, v in ipairs(game:GetService("ReplicatedStorage").Profiles["munmun311203"].Inventory.Items:GetChildren()) do
         if v:FindFirstChild('Level') or v:FindFirstChild('Upgrade') or v:FindFirstChild('UpgradeLimit') then
             if not string.find(v.Name:lower(), "pet") then
                 table.insert(itemNameTable, v)
@@ -36,8 +33,8 @@ function ToSell()
     local itemToSell = {}
     local itemTypeTable = getItemList()
     local itemNameTable = getItemName()
-    for a,b in pairs(itemNameTable) do
-        for c,d in pairs(itemTypeTable) do
+    for a, b in pairs(itemNameTable) do
+        for c, d in pairs(itemTypeTable) do
             if d.Name == tostring(b) then
                 rarity = d.Rarity
                 if getgenv().Common and rarity == 1 then
@@ -62,12 +59,23 @@ function ToSell()
 end
 
 function SellItem()
-    itemToSell = ToSell()
+    local itemToSell = ToSell()
     if #itemToSell > 0 then
         game:GetService("ReplicatedStorage").Shared.Drops.SellItems:InvokeServer(itemToSell)
     end
 end
-SellItem()
+
+-- Function to run SellItem continuously
+function ContinuousSellItem()
+    while true do
+        SellItem()
+        wait(1) -- Adjust the wait time as needed
+    end
+end
+
+-- Use spawn to run the function
+spawn(ContinuousSellItem)
+
 -- Đường dẫn tới PurchasePrompt
 local purchasePrompt = game.CoreGui:WaitForChild("PurchasePrompt")
 
