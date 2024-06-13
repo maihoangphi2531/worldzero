@@ -2896,6 +2896,10 @@ for aA, cG in pairs(Z) do
                 e.RaidChestGold.ChestBase.CFrame = J.CFrame;
                 wait(3.8)
                 cH:Destroy()
+                repeat
+                wait()
+                until cj.OpenChest:WaitForChild("Next") and cj.OpenChest:FindFirstChild("Next").Visible;
+                aT(cj.OpenChest.Next.TextLabel)
             end
         end)
         e.ChildAdded:Connect(function(cI)
@@ -2903,6 +2907,10 @@ for aA, cG in pairs(Z) do
                 e.RaidChestSilver.ChestBase.CFrame = J.CFrame;
                 wait(3.8)
                 cI:Destroy()
+                repeat
+                wait()
+                until cj.OpenChest:WaitForChild("Next") and cj.OpenChest:FindFirstChild("Next").Visible;
+                aT(cj.OpenChest.Next.TextLabel)
             end
         end)
         e.ChildAdded:Connect(function(cJ)
@@ -2926,11 +2934,19 @@ for aA, cG in pairs(Z) do
         e.ChildRemoved:Connect(function(cH)
             if cH.Name == 'RaidChestGold' and e:FindFirstChild 'RaidChestGold' then
                 e.RaidChestGold.ChestBase.CFrame = J.CFrame
+                repeat
+                wait()
+                until cj.OpenChest:WaitForChild("Next") and cj.OpenChest:FindFirstChild("Next").Visible;
+                aT(cj.OpenChest.Next.TextLabel)
             end
         end)
         e.ChildRemoved:Connect(function(cI)
             if cI.Name == 'RaidChestSilver' and e:FindFirstChild 'RaidChestSilver' then
                 e.RaidChestSilver.ChestBase.CFrame = J.CFrame
+                repeat
+                wait()
+                until cj.OpenChest:WaitForChild("Next") and cj.OpenChest:FindFirstChild("Next").Visible;
+                aT(cj.OpenChest.Next.TextLabel)
             end
         end)
         e.ChildRemoved:Connect(function(cJ)
