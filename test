@@ -29,12 +29,6 @@ end)
 onVisibleChanged(sellButton)
 
 
-checkAndClickNext()
--- Gọi hàm liên tục cho đến khi nút 'Next' được bật và bấm vào nó
-while true do
-    checkAndClickNext()
-    wait(1) -- Đợi 1 giây trước khi kiểm tra lại
-end
 
 -- Đường dẫn tới PurchasePrompt
 local purchasePrompt = game.CoreGui:WaitForChild("PurchasePrompt")
