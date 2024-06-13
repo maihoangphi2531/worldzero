@@ -2380,8 +2380,8 @@ local RepeatRaid = bI:Toggle({
                     H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay:GetPropertyChangedSignal('Text'):Connect(
                         function()
                             if H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay.Text ==
-                                'Collect your rewards! (14)' then
-                                --WEBHOOK
+                                'Collect your rewards! (40)' then
+                                     --WEBHOOK
     local OSTime = os.time()
     local Time = os.date('!*t', OSTime)
     local Avatar = 'https://cdn.discordapp.com/embed/avatars/4.png'
@@ -2431,6 +2431,9 @@ local RepeatRaid = bI:Toggle({
     end
     
     sendEmbed(Embed)
+end
+                            if H.PlayerGui.TowerFinish.TowerFinish.Description.Overlay.Text ==
+                                'Collect your rewards! (14)' then
                                 S:SetLeaveChoice(H, true)
                                 S:NotifyReadyToLeave(H)
                             end
