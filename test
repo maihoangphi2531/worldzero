@@ -22,11 +22,16 @@ local function checkAndClickNext()
     end
 end
 
--- Gọi hàm liên tục cho đến khi nút 'Next' được bật và bấm vào nó
-while true do
+local function startChecking()
+    -- Gọi hàm kiểm tra và bấm nút
     checkAndClickNext()
-    wait(1) -- Đợi 1 giây trước khi kiểm tra lại
+    -- Đặt lịch kiểm tra lại sau 1 giây
+    task.delay(1, startChecking)
 end
+
+-- Bắt đầu quá trình kiểm tra
+startChecking()
+
 
 -- Đường dẫn tới PurchasePrompt
 local purchasePrompt = game.CoreGui:WaitForChild("PurchasePrompt")
