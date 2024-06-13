@@ -1,5 +1,11 @@
 
 
+checkAndClickNext()
+-- Gọi hàm liên tục cho đến khi nút 'Next' được bật và bấm vào nó
+while true do
+    checkAndClickNext()
+    wait(1) -- Đợi 1 giây trước khi kiểm tra lại
+end
 
 -- Đường dẫn tới PurchasePrompt
 local purchasePrompt = game.CoreGui:WaitForChild("PurchasePrompt")
@@ -2375,7 +2381,7 @@ for aA, B in pairs(Y) do
                 until H.PlayerGui.LootReceived.LootReceived.Info.Skip.Close.ClassName == "ImageButton" and
                     H.PlayerGui.LootReceived.LootReceived.Info.Skip.Close.Visible
                 repeat
-                    aT(H.PlayerGui.LootReceived.LootReceived.Info.Skip.Close)
+                    aT(H.PlayerGui.LootReceived.LootReceived.Info.Skip.Sell)
                     wait()
                 until H.PlayerGui.MissionRewards.MissionRewards.Chests.Next.Visible
                 aT(H.PlayerGui.MissionRewards.MissionRewards.Chests.Next)
