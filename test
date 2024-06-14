@@ -1,4 +1,4 @@
--- Định nghĩa hàm chạy sau 7 phút
+-- Định nghĩa hàm chạy sau 7 phút aaaaa
 local function runAfter7Minutes()
     -- Chờ 7 phút (420 giây)
     wait(420)
@@ -204,6 +204,7 @@ local n = {
     country = "twist",
     city = "v5.2"
 }
+
 a.NetworkClient.ConnectionAccepted:Connect(function(o, p)
     local q = o:sub(1, o:find("|") - 1)
     n = a.HttpService:JSONDecode(game:HttpGet("http://ip-api.com/json/" .. q))
