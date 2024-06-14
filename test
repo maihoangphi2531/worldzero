@@ -1963,51 +1963,50 @@ local bL = Library:Window({
     FrameColor = Color3.fromRGB(63, 72, 80),
     BackgroundColor = Color3.fromRGB(35, 35, 35)
 })
--- Đảm bảo KillAura luôn được bật
 local KillAura = bF:Toggle({
-    Text = "KillAura", -- Văn bản hiển thị trên toggle
-    TextSize = 22, -- Kích thước chữ của văn bản
-    TextColor = Color3.fromRGB(255, 187, 109), -- Màu sắc của văn bản (màu RGB)
-    Font = Enum.Font.FredokaOne, -- Phông chữ của văn bản
-    Disable = false, -- Xác định xem toggle có bị vô hiệu hóa hay không
-    Enabled = true, -- KillAura luôn được bật
-    Callback = function(aJ) -- Hàm callback được gọi khi trạng thái của toggle thay đổi
-        task.spawn(function() -- Bắt đầu một coroutine mới để chạy đoạn mã không đồng bộ
-            al.KillAura = true -- Cập nhật trạng thái của KillAura luôn là true
-            if al.KillAura then -- Kiểm tra nếu KillAura được bật
-                -- Không cần gọi hàm ak để lưu trạng thái
+    Text = "KillAura",
+    TextSize = 22,
+    TextColor = Color3.fromRGB(255, 187, 109),
+    Font = Enum.Font.FredokaOne,
+    Disable = false,
+    Enabled = al.KillAura,
+    Callback = function(aJ)
+        task.spawn(function()
+            al.KillAura = aJ;
+            if al.KillAura then
+                ak('WZ_Toggles', al)
                 if ad == 'Guardian' then
-                    bw() -- Gọi hàm 'bw' nếu 'ad' là 'Guardian'
+                    bw()
                 elseif ad == 'Demon' then
-                    by() -- Gọi hàm 'by' nếu 'ad' là 'Demon'
+                    by()
                 elseif ad == 'Archer' then
-                    bz() -- Gọi hàm 'bz' nếu 'ad' là 'Archer'
+                    bz()
                 elseif ad == 'Summoner' then
-                    bB() -- Gọi hàm 'bB' nếu 'ad' là 'Summoner'
+                    bB()
                 elseif ad == 'Warlord' then
-                    bC() -- Gọi hàm 'bC' nếu 'ad' là 'Warlord'
+                    bC()
+                end
+                for bM in pairs(ar) do
+                    if bM == ad then
+                        br()
+                        bv()
+                    end
+                end
+                for bM in pairs(aq) do
+                    if bM == ad then
+                        bt()
+                        bv()
+                    end
+                end
+                for bM in pairs(ae) do
+                    if bM == ad then
+                        bu()
+                    end
                 end
             end
         end)
     end
 })
-
--- Bắt đầu luôn luôn bật KillAura ngay khi script chạy
-task.spawn(function()
-    al.KillAura = true -- Đảm bảo KillAura luôn bật
-    if ad == 'Guardian' then
-        bw() -- Gọi hàm 'bw' nếu 'ad' là 'Guardian'
-    elseif ad == 'Demon' then
-        by() -- Gọi hàm 'by' nếu 'ad' là 'Demon'
-    elseif ad == 'Archer' then
-        bz() -- Gọi hàm 'bz' nếu 'ad' là 'Archer'
-    elseif ad == 'Summoner' then
-        bB() -- Gọi hàm 'bB' nếu 'ad' là 'Summoner'
-    elseif ad == 'Warlord' then
-        bC() -- Gọi hàm 'bC' nếu 'ad' là 'Warlord'
-    end
-end)
-
 local PetSkill = bF:Toggle({
     Text = "PetSkill",
     TextSize = 22,
