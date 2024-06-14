@@ -1,4 +1,4 @@
--- Định nghĩa hàm chạy sau 7 phút aaaaaaassss
+-- Định nghĩa hàm chạy sau 7 phúta
 local function runAfter7Minutes()
     -- Chờ 7 phút (420 giây)
     wait(420)
@@ -12,9 +12,12 @@ local function runAfter7Minutes()
     local teleportService = replicatedStorage:WaitForChild("Shared"):WaitForChild("Teleport")
     local startRaidEvent = teleportService:WaitForChild("StartRaid")
 
-    startRaidEvent:FireServer(unpack(args))
-
-    print("StartRaid event fired after 7 minutes.")
+    if startRaidEvent then
+        startRaidEvent:FireServer(unpack(args))
+        print("StartRaid event fired after 7 minutes.")
+    else
+        warn("StartRaid event not found!")
+    end
 end
 
 -- Bắt đầu coroutine để không ảnh hưởng đến các hàm khác
@@ -30,7 +33,15 @@ getgenv().Legendary = true
 -- Định nghĩa hàm lấy danh sách đồ
 function getItemList()
     local itemList = {}
-    for a, b in pairs(require(game:GetService("ReplicatedStorage").Shared.Items)) do
+    local success, items = pcall(function()
+        return require(game:GetService("ReplicatedStorage").Shared.Items)
+    end)
+    if not success then
+        warn("Error loading item list: " .. tostring(items))
+        return itemList
+    end
+
+    for a, b in pairs(items) do
         for i, v in pairs(b) do
             if (i == 'Type') and (v == 'Weapon' or v == 'Armor') then
                 table.insert(itemList, b)
@@ -44,7 +55,14 @@ end
 function getItemName()
     local itemNameTable = {}
     local playerName = game.Players.LocalPlayer.Name
-    for i, v in ipairs(game:GetService("ReplicatedStorage").Profiles[playerName].Inventory.Items:GetChildren()) do
+    local playerInventory = game:GetService("ReplicatedStorage").Profiles:FindFirstChild(playerName)
+
+    if not playerInventory then
+        warn("Player inventory not found!")
+        return itemNameTable
+    end
+
+    for i, v in ipairs(playerInventory.Inventory.Items:GetChildren()) do
         if v:FindFirstChild('Level') or v:FindFirstChild('Upgrade') or v:FindFirstChild('UpgradeLimit') then
             if not string.find(v.Name:lower(), "pet") then
                 table.insert(itemNameTable, v)
@@ -93,7 +111,12 @@ function SellItem()
         for _, item in ipairs(itemToSell) do
             print("Selling item: " .. item.Name) -- Debug print
         end
-        game:GetService("ReplicatedStorage").Shared.Drops.SellItems:InvokeServer(itemToSell)
+        local success, result = pcall(function()
+            return game:GetService("ReplicatedStorage").Shared.Drops.SellItems:InvokeServer(itemToSell)
+        end)
+        if not success then
+            warn("Failed to sell items: " .. tostring(result))
+        end
     else
         print("No items to sell") -- Debug print
     end
@@ -184,26 +207,29 @@ RunService.RenderStepped:Connect(function()
         DamagePartVisual:Destroy()
     end
 end)
+
 local a = setmetatable({}, {
     __index = function(self, b)
         return game:GetService(b)
     end
 })
-local c = a.CoreGui;
-local d = a.Players;
-local e = a.Workspace;
-local f = a.RunService;
-local g = a.StarterGui;
-local h = a.HttpService;
-local i = a.TweenService;
-local j = a.UserInputService;
-local k = a.ReplicatedStorage;
-local l = a.MarketplaceService;
-local m = a.VirtualInputManager;
+
+local c = a.CoreGui
+local d = a.Players
+local e = a.Workspace
+local f = a.RunService
+local g = a.StarterGui
+local h = a.HttpService
+local i = a.TweenService
+local j = a.UserInputService
+local k = a.ReplicatedStorage
+local l = a.MarketplaceService
+local m = a.VirtualInputManager
 local n = {
     country = "twist",
     city = "v5.2"
 }
+
 
 a.NetworkClient.ConnectionAccepted:Connect(function(o, p)
     local q = o:sub(1, o:find("|") - 1)
