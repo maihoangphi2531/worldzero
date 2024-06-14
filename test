@@ -98,7 +98,7 @@ end
 function ContinuousSellItem()
     while true do
         SellItem()
-        wait(1) -- Adjust the wait time as needed
+        wait(10) -- Adjust the wait time as needed
     end
 end
 
