@@ -1931,7 +1931,7 @@ local KillAura = bF:Toggle({
     TextSize = 22,
     TextColor = Color3.fromRGB(255, 187, 109),
     Font = Enum.Font.FredokaOne,
-    Disable = true,
+    Disable = false,
     Enabled = al.KillAura,
     Callback = function(aJ)
         task.spawn(function()
@@ -1975,7 +1975,7 @@ local PetSkill = bF:Toggle({
     TextSize = 22,
     TextColor = Color3.fromRGB(255, 187, 109),
     Font = Enum.Font.FredokaOne,
-    Disable = true,
+    Disable = false,
     Enabled = al.PetSkill,
     Callback = function(aJ)
         task.spawn(function()
@@ -1990,49 +1990,13 @@ local PetSkill = bF:Toggle({
         end)
     end
 })
-local HPHalf = bJ:Toggle({
-    Text = "HP-Half Fly",
-    TextSize = 22,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Font = Enum.Font.FredokaOne,
-    Enabled = al.HPHalf,
-    Callback = function(aJ)
-        al.HPHalf = aJ;
-        task.spawn(function()
-            ak('WZ_Toggles', al)
-            for aA, B in pairs(_) do
-                if game.PlaceId ~= B and al.HPHalf then
-                    H.Character.HealthProperties.Health:GetPropertyChangedSignal('Value'):Connect(function()
-                        pcall(function()
-                            if IsAlive() and H.Character.HealthProperties.Health.Value /
-                                H.Character.HealthProperties.MaxHealth.Value * 100 < 50 then
-                                a6, a7, a4, a9 = 50, 40, 1, 3;
-                                repeat
-                                    wait(1)
-                                until H.Character.HealthProperties.Health.Value /
-                                    H.Character.HealthProperties.MaxHealth.Value * 100 > 90;
-                                if aC() then
-                                    a6, a7, a9 = 36, 30, 6
-                                elseif ay() then
-                                    a6, a7, a9 = .1, 14, 5
-                                end
-                            end
-                            if al.HPHalf == false then
-                                H.Character.HealthProperties.Health:GetPropertyChangedSignal('Value'):Disconnect()
-                            end
-                        end)
-                    end)
-                end
-            end
-        end)
-    end
-})
+
 local AutoFarm = bF:Toggle({
     Text = "AutoFarm",
     TextSize = 22,
     TextColor = Color3.fromRGB(255, 187, 109),
     Font = Enum.Font.FredokaOne,
-    Disable = true,
+    Disable = false,
     Enabled = al.AutoFarm,
     Callback = function(aJ)
         al.AutoFarm = aJ;
@@ -2079,6 +2043,7 @@ local AutoFarm = bF:Toggle({
         end)
     end
 })
+al.GetDrop = true
 local bQ = bF:Toggle({
     Text = "GetDrops",
     TextSize = 22,
@@ -2105,7 +2070,7 @@ local bQ = bF:Toggle({
         end)
     end
 })
-
+al.DelEgg=true
 local c9 = bG:Toggle({
     Text = "DeleteEggs",
     TextSize = 22,
@@ -2220,6 +2185,7 @@ local cf = bI:Toggle({
         end)
     end
 })
+al.MolPass=true
 local MoLPass = bI:Toggle({
     Text = "MoLPassive",
     TextSize = 22,
@@ -2267,7 +2233,7 @@ e.ChildAdded:Connect(function(ci)
     end
 end)
 local hasRun = false  -- Đặt biến này ra ngoài hàm Connect để duy trì giá trị đúng cách
-
+al.RepeatRaid = true
 local RepeatRaid = bI:Toggle({
     Text = "RepeatRaid",
     TextSize = 22,
@@ -2370,6 +2336,7 @@ local RepeatRaid = bI:Toggle({
         end)
     end
 })
+al.ReLoadOnHop = true
 
 local ck = bI:Toggle({
     Text = "ReloadOnHop",
