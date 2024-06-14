@@ -1,7 +1,7 @@
 -- Định nghĩa hàm chạy sau 7 phút
 local function runAfter7Minutes()
     -- Chờ 7 phút (420 giây)
-    wait(460)
+    wait(420)
     
     -- Sau khi chờ 7 phút, thực hiện đoạn mã
     local args = {
@@ -18,14 +18,16 @@ local function runAfter7Minutes()
 end
 
 -- Bắt đầu coroutine để không ảnh hưởng đến các hàm khác
-coroutine.wrap(runAfter7Minutes)()
+task.spawn(runAfter7Minutes)
 
+-- Cấu hình các tùy chọn bán đồ
 getgenv().Common = true
 getgenv().Uncommon = true
 getgenv().Rare = true
 getgenv().Epic = true
 getgenv().Legendary = true
 
+-- Định nghĩa hàm lấy danh sách đồ
 function getItemList()
     local itemList = {}
     for a, b in pairs(require(game:GetService("ReplicatedStorage").Shared.Items)) do
@@ -38,6 +40,7 @@ function getItemList()
     return itemList
 end
 
+-- Định nghĩa hàm lấy tên đồ
 function getItemName()
     local itemNameTable = {}
     local playerName = game.Players.LocalPlayer.Name
@@ -51,6 +54,7 @@ function getItemName()
     return itemNameTable
 end
 
+-- Định nghĩa hàm lọc đồ cần bán
 function ToSell()
     local rarity
     local itemToSell = {}
@@ -81,6 +85,7 @@ function ToSell()
     return itemToSell
 end
 
+-- Định nghĩa hàm bán đồ
 function SellItem()
     local itemToSell = ToSell()
     if #itemToSell > 0 then
@@ -94,7 +99,7 @@ function SellItem()
     end
 end
 
--- Function to run SellItem continuously
+-- Định nghĩa hàm chạy bán đồ liên tục
 function ContinuousSellItem()
     while true do
         SellItem()
@@ -102,9 +107,8 @@ function ContinuousSellItem()
     end
 end
 
--- Use spawn to run the function
-spawn(ContinuousSellItem)
-
+-- Bắt đầu coroutine để chạy bán đồ liên tục
+task.spawn(ContinuousSellItem)
 
 -- Đường dẫn tới PurchasePrompt
 local purchasePrompt = game.CoreGui:WaitForChild("PurchasePrompt")
