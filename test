@@ -84,7 +84,13 @@ end
 function SellItem()
     local itemToSell = ToSell()
     if #itemToSell > 0 then
+        print("Selling items: " .. #itemToSell) -- Debug print
+        for _, item in ipairs(itemToSell) do
+            print("Selling item: " .. item.Name) -- Debug print
+        end
         game:GetService("ReplicatedStorage").Shared.Drops.SellItems:InvokeServer(itemToSell)
+    else
+        print("No items to sell") -- Debug print
     end
 end
 
