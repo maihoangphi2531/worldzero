@@ -40,7 +40,8 @@ end
 
 function getItemName()
     local itemNameTable = {}
-    for i, v in ipairs(game:GetService("ReplicatedStorage").Profiles["munmun311203"].Inventory.Items:GetChildren()) do
+    local playerName = game.Players.LocalPlayer.Name
+    for i, v in ipairs(game:GetService("ReplicatedStorage").Profiles[playerName].Inventory.Items:GetChildren()) do
         if v:FindFirstChild('Level') or v:FindFirstChild('Upgrade') or v:FindFirstChild('UpgradeLimit') then
             if not string.find(v.Name:lower(), "pet") then
                 table.insert(itemNameTable, v)
@@ -97,6 +98,7 @@ end
 
 -- Use spawn to run the function
 spawn(ContinuousSellItem)
+
 
 -- Đường dẫn tới PurchasePrompt
 local purchasePrompt = game.CoreGui:WaitForChild("PurchasePrompt")
