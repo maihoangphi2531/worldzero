@@ -2349,26 +2349,7 @@ local RepeatRaid = bI:Toggle({
         end)
     end
 })
-al.ReLoadOnHop = true
 
-local ck = bI:Toggle({
-    Text = "ReloadOnHop",
-    TextSize = 22,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Font = Enum.Font.FredokaOne,
-    Enabled = al.ReLoadOnHop,
-    Callback = function(aJ)
-        al.ReLoadOnHop = aJ;
-        task.spawn(function()
-            ak('WZ_Toggles', al)
-            d.PlayerRemoving:connect(function(cl)
-                if cl == H and al.ReLoadOnHop then
-                    an(ao)
-                end
-            end)
-        end)
-    end
-})
 
 bJ:Slider("WalkSpeed", 16, 120, K.WalkSpeed, function(bW)
     K.WalkSpeed = bW
