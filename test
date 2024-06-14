@@ -1,4 +1,4 @@
--- Định nghĩa hàm chạy sau 7 phút aaaaa
+-- Định nghĩa hàm chạy sau 7 phút aaaaaaassss
 local function runAfter7Minutes()
     -- Chờ 7 phút (420 giây)
     wait(420)
@@ -2170,32 +2170,7 @@ bH:Button({
         require(k.Client.Gui.GuiScripts.MissionSelect):Toggle()
     end
 })
-local ce = bI:Toggle({
-    Text = "SellTier[1-4]",
-    TextSize = 22,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Font = Enum.Font.FredokaOne,
-    Enabled = al.SellNonLegend,
-    Callback = function(aJ)
-        al.SellNonLegend = aJ;
-        task.spawn(function()
-            ak('WZ_Toggles', al)
-        end)
-    end
-})
-local cf = bI:Toggle({
-    Text = "SellLegendary",
-    TextSize = 22,
-    TextColor = Color3.fromRGB(255, 187, 109),
-    Font = Enum.Font.FredokaOne,
-    Enabled = al.SellLegend,
-    Callback = function(aJ)
-        al.SellLegend = aJ;
-        task.spawn(function()
-            ak('WZ_Toggles', al)
-        end)
-    end
-})
+
 al.MolPass=true
 local MoLPass = bI:Toggle({
     Text = "MoLPassive",
@@ -2962,108 +2937,6 @@ local dd = {
     ['EliteBoss'] = 'Elite Boss',
     ['DodgeChance'] = 'Untouchable'
 }
-local de = k.Profiles[H.Name].Currency.Gold.Value;
-for A, B in pairs(k.Profiles[H.Name].Inventory.Items:GetChildren()) do
-    if B:FindFirstChild('UpgradeLimit') and B:FindFirstChild('Level') then
-        local df = Instance.new('StringValue')
-        df.Parent = B;
-        df.Name = 'Item Already Exists'
-        df.Value = 'Item Already Exists'
-    end
-end
-local dg;
-dg = k.Profiles[H.Name].Inventory.Items.DescendantAdded:Connect(function()
-    for A, B in pairs(k.Profiles[H.Name].Inventory.Items:GetChildren()) do
-        if B:FindFirstChild('UpgradeLimit') and B:FindFirstChild('Level') and
-            not B:FindFirstChild('Item Already Exists') then
-            wait(.25)
-            local dh = false;
-            if al.SellNonLegend then
-                if not B:FindFirstChild('Perk3') then
-                    B.Name = 'This Item is gone'
-                    k.Shared.Drops.SellItems:InvokeServer({B})
-                    dh = true
-                end
-            end
-            
-            if al.SellLegend and M[B.Name].Rarity ~= 7 and not string.find(M[B.Name].DisplayKey, "Zero") then
-                local di = false;
-                local dj = false;
-                local dk = false;
-                for aA, dl in pairs(am.PerkNames) do
-                    if B:FindFirstChild('Perk3') and B:FindFirstChild('Perk3').Value == dl then
-                        if al.MaxPerk and B:FindFirstChild('Perk3'):FindFirstChild('PerkValue').Value == d6[dl] then
-                            dk = true
-                        else
-                            dk = true
-                        end
-                    elseif B:FindFirstChild('Perk2') and B:FindFirstChild('Perk2').Value == dl then
-                        if al.MaxPerk and B:FindFirstChild('Perk2'):FindFirstChild('PerkValue').Value == d6[dl] then
-                            dj = true
-                        else
-                            dj = true
-                        end
-                    elseif B:FindFirstChild('Perk1') and B:FindFirstChild('Perk1').Value == dl then
-                        if al.MaxPerk and B:FindFirstChild('Perk1'):FindFirstChild('PerkValue').Value == d6[dl] then
-                            di = true
-                        else
-                            di = true
-                        end
-                    end
-                    if not di and not dj and not dk then
-                        B.Name = 'This Item is gone'
-                        ItemName = B.Name;
-                        k.Shared.Drops.SellItems:InvokeServer(
-                            {k.Profiles[H.Name].Inventory.Items:FindFirstChild(ItemName)})
-                        dh = true
-                    end
-                end
-            end
-            if not dh then
-                local df = Instance.new("StringValue")
-                df.Name = "Item Already Exists"
-                df.Value = "Item Already Exists"
-                df.Parent = B;
-                local dm = B:FindFirstChild("Level").Value;
-                local dn, dp, dq, dr;
-                if B:FindFirstChild("Perk3") then
-                    dn = "Legendary"
-                    dp = dd[tostring(B.Perk1.Value)] .. " " ..
-                             tostring(math.floor(B:FindFirstChild("Perk1"):FindFirstChild("PerkValue").Value * 100)) ..
-                             "%"
-                    dq = dd[tostring(B.Perk2.Value)] .. " " ..
-                             tostring(math.floor(B:FindFirstChild("Perk2"):FindFirstChild("PerkValue").Value * 100)) ..
-                             "%"
-                    dr = dd[tostring(B.Perk3.Value)] .. " " ..
-                             tostring(math.floor(B:FindFirstChild("Perk3"):FindFirstChild("PerkValue").Value * 100)) ..
-                             "%"
-                elseif B:FindFirstChild("Perk2") then
-                    dn = "Epic"
-                    dp = dd[tostring(B.Perk1.Value)] .. " " ..
-                             tostring(math.floor(B:FindFirstChild("Perk1"):FindFirstChild("PerkValue").Value * 100)) ..
-                             "%"
-                    dq = dd[tostring(B.Perk2.Value)] .. " " ..
-                             tostring(math.floor(B:FindFirstChild("Perk2"):FindFirstChild("PerkValue").Value * 100)) ..
-                             "%"
-                elseif B:FindFirstChild("Perk1") then
-                    dn = "Uncommon"
-                    dp = dd[tostring(B.Perk1.Value)] .. " " ..
-                             tostring(math.floor(B:FindFirstChild("Perk1"):FindFirstChild("PerkValue").Value * 100)) ..
-                             "%"
-                else
-                    dn = "Common"
-                end
-                dc[B.Name] = {
-                    ["Level"] = dm,
-                    ["Rarity"] = dn,
-                    ["Perk 1"] = dp,
-                    ["Perk 2"] = dq,
-                    ["Perk 3"] = dr
-                }
-            end
-        end
-    end
-end)
 H.CharacterRemoving:Connect(function()
     dg:Disconnect()
 end)
