@@ -1,6 +1,6 @@
 -- Định nghĩa hàm chạy sau 7 phúta
 local function runAfter7Minutes()
-    -- Chờ 7 phút (1 giây)
+    -- Chờ 7 phút ( giây)
     wait(420)
     
     -- Sau khi chờ 7 phút, thực hiện đoạn mã
