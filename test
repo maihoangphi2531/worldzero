@@ -53,7 +53,7 @@ local function teleportIfInSpecificLobby()
     -- Kiểm tra và thực hiện dịch chuyển nếu người dùng ở 'Main menu' hoặc 'World 1'
     if game.PlaceId == 2727067538 then
         warn("Teleporting from Main Menu to Hub 13")
-        TeleportService:Teleport(13)
+        TeleportService:Teleport(2727067538)
     elseif game.PlaceId == 4310463616 then
         warn("Teleporting from World 1 to Hub 34")
         local args = {
