@@ -122,11 +122,15 @@ local function checkAndTeleport()
     end
 end
 
--- Vòng lặp kiểm tra mỗi 10 giây
-while true do
-    checkAndTeleport()
-    wait(10)
+local function mainCoroutine()
+    while true do
+        checkAndTeleport()
+        wait(10)
+    end
 end
+
+-- Khởi chạy coroutine
+coroutine.wrap(mainCoroutine)()
 
 -- Cấu hình các tùy chọn bán đồ
 getgenv().Common = true
