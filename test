@@ -1,7 +1,7 @@
 local TeleportService = game:GetService("TeleportService")
 
 local dungeonId = {
-    -- world 1
+    --a world 1
     [2978696440] = 'Crabby Crusade (1-1)', 
     [4310476380] = 'Scarecrow Defense (1-2)', 
     [4310464656] = 'Dire Problem (1-3)',
@@ -53,7 +53,8 @@ local function teleportIfInSpecificLobby()
     -- Kiểm tra và thực hiện dịch chuyển nếu người dùng ở 'Main menu' hoặc 'World 1'
     if game.PlaceId == 2727067538 then
         warn("Teleporting from Main Menu to Hub 13")
-        TeleportService:Teleport(4310463616)
+        local placeId = 4310463616  -- ID của nơi bạn muốn chuyển đến
+        TeleportService:Teleport(placeId)
     elseif game.PlaceId == 4310463616 then
         warn("Teleporting from World 1 to Hub 34")
         local args = {
