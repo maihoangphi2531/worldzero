@@ -1,4 +1,7 @@
-    -- Chờ 7 phút (1 giây)
+-- Định nghĩa hàm chạy sau 7 phút
+local function runAfter7Minutes()
+    print("runAfter7Minutes started")
+    -- Chờ 7 phút (420 giây)
     wait(420)
 
     -- Sau khi chờ 7 phút, thực hiện đoạn mã
@@ -15,8 +18,11 @@
         warn("StartRaid event not found!")
     end
 end
+
 -- Bắt đầu coroutine để không ảnh hưởng đến các hàm khác
 task.spawn(runAfter7Minutes)
+print("Coroutine started")
+
 local TeleportService = game:GetService("TeleportService")
 
 local dungeonId = {
