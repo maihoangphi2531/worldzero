@@ -1,3 +1,22 @@
+    -- Chờ 7 phút (1 giây)
+    wait(420)
+
+    -- Sau khi chờ 7 phút, thực hiện đoạn mã
+    local args = {
+        [1] = 34
+    }
+    local replicatedStorage = game:GetService("ReplicatedStorage")
+    local teleportService = replicatedStorage:WaitForChild("Shared"):WaitForChild("Teleport")
+    local startRaidEvent = teleportService:WaitForChild("StartRaid")
+    if startRaidEvent then
+        startRaidEvent:FireServer(unpack(args))
+        print("StartRaid event fired after 7 minutes.")
+    else
+        warn("StartRaid event not found!")
+    end
+end
+-- Bắt đầu coroutine để không ảnh hưởng đến các hàm khác
+task.spawn(runAfter7Minutes)
 local TeleportService = game:GetService("TeleportService")
 
 local dungeonId = {
