@@ -2903,7 +2903,6 @@ H.CameraMinZoomDistance = 60;
 H.CameraMinZoomDistance = cO;
 game.NetworkClient.ChildRemoved:Connect(function(cP)
     al.KillAura = false;
-    a.GuiService:ClearError()
     bJ.Text = "Disconnected"
 end)
 coroutine.wrap(function()
