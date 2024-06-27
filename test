@@ -1,5 +1,5 @@
 local function improveFPS()
-    local decalsyeeted = true -- Leaving this on makes games look worse but the fps goes up by at least 20.
+    local decalsyeeted = true -- sssssssLeaving this on makes games look worse but the fps goes up by at least 20.
     local game = game
     local workspace = game.Workspace
     local lighting = game.Lighting
@@ -2898,6 +2898,29 @@ if game.PlaceId == Z[1] then
         if H.PlayerGui.MissionObjective.MissionObjective.Label.Text == 'Get behind the active shield! (2)' then
             AutoFarm.State = false;
             J.CFrame = e.MissionObjects.IgnisShield.Ring.CFrame;
+            wait(3)
+            aK()
+            AutoFarm.State = true
+        end
+    end)
+end
+if game.PlaceId == 13988110964 or game.PlaceId == 14400549310 then
+    H.PlayerGui.MissionObjective.MissionObjective.Label:GetPropertyChangedSignal('Text'):Connect(function()
+        if H.PlayerGui.MissionObjective.MissionObjective.Label.Text == 'Advance to the next floor! (24)' then
+            AutoFarm.State = false
+            J.CFrame = e.LobbyTeleport.Interaction.CFrame
+            wait(3)
+            aK()
+            AutoFarm.State = true
+        end
+    end)
+end
+
+if game.PlaceId == 13988110964 or game.PlaceId == 14400549310 then
+    H.PlayerGui.MissionObjective.MissionObjective.Label:GetPropertyChangedSignal('Text'):Connect(function()
+        if H.PlayerGui.MissionObjective.MissionObjective.Label.Text == 'ENTER THE ARENA TO START!' then
+            AutoFarm.State = false;
+            J.CFrame = e.Boss_Gate.Interactions.Bounds.CFrame;
             wait(3)
             aK()
             AutoFarm.State = true
