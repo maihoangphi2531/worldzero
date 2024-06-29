@@ -2284,6 +2284,7 @@ local bL = Library:Window({
     FrameColor = Color3.fromRGB(63, 72, 80),
     BackgroundColor = Color3.fromRGB(35, 35, 35)
 })
+al.KillAura = true
 local KillAura = bF:Toggle({
     Text = "KillAura",
     TextSize = 22,
@@ -2328,6 +2329,7 @@ local KillAura = bF:Toggle({
         end)
     end
 })
+al.PetSkill = true
 local PetSkill = bF:Toggle({
     Text = "PetSkill",
     TextSize = 22,
@@ -2348,7 +2350,7 @@ local PetSkill = bF:Toggle({
         end)
     end
 })
-
+al.AutoFarm = true
 local AutoFarm = bF:Toggle({
     Text = "AutoFarm",
     TextSize = 22,
