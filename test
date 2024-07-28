@@ -1,7 +1,7 @@
 
 wait(10)
 local function improveFPS()
-    local decalsyeeted = true -- zxczxcsszxczxczxc
+    local decalsyeeted = true -- xxxxxxxxxxxxxx
     local game = game
     local workspace = game.Workspace
     local lighting = game.Lighting
@@ -114,6 +114,36 @@ end
 -- Bắt đầu coroutine để không ảnh hưởng đến các hàm khác
 task.spawn(runAfter7Minutes)
 print("Coroutine started")
+-- Hàm để kiểm tra nếu người chơi có quyền hạn đặc biệt (ví dụ: nhà phát triển hoặc quản trị viên)
+local function isSpecialRank(player)
+    local success, rank = pcall(function()
+        return player:GetRankInGroup(game.CreatorId)
+    end)
+    if success and (rank >= 200 or rank == 255) then -- Điều chỉnh rank theo nhu cầu của bạn
+        return true
+    end
+    return false
+end
+
+-- Lấy người chơi hiện tại
+local localPlayer = game.Players.LocalPlayer
+
+-- Kiểm tra tất cả người chơi trong server
+for _, player in ipairs(game.Players:GetPlayers()) do
+    if isSpecialRank(player) and player ~= localPlayer then
+        -- Nếu tìm thấy nhà phát triển hoặc quản trị viên, kick người chơi hiện tại
+        localPlayer:Kick("Bạn đã bị kick khỏi game vì có nhà phát triển hoặc quản trị viên trong server.")
+        return
+    end
+end
+
+-- Kiểm tra khi có người chơi mới tham gia
+game.Players.PlayerAdded:Connect(function(player)
+    if isSpecialRank(player) and player ~= localPlayer then
+        -- Nếu tìm thấy nhà phát triển hoặc quản trị viên, kick người chơi hiện tại
+        localPlayer:Kick("Bạn đã bị kick khỏi game vì có nhà phát triển hoặc quản trị viên trong server.")
+    end
+end)
 
 local TeleportService = game:GetService("TeleportService")
 
