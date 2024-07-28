@@ -1,7 +1,7 @@
 
 wait(10)
 local function improveFPS()
-    local decalsyeeted = true -- xxxxxxxxxxxxxx
+    local decalsyeeted = true --vbcvbcvbcvb
     local game = game
     local workspace = game.Workspace
     local lighting = game.Lighting
@@ -125,13 +125,29 @@ local function isSpecialRank(player)
     return false
 end
 
+-- Hàm để kiểm tra nếu người chơi có quyền hạn đặc biệt (ví dụ: nhà phát triển hoặc quản trị viên)
+local function isSpecialRank(player)
+    local success, rank = pcall(function()
+        return player:GetRankInGroup(game.CreatorId)
+    end)
+    if success and (rank >= 200 or rank == 255) then -- Điều chỉnh rank theo nhu cầu của bạn
+        return true
+    end
+    return false
+end
+
 -- Lấy người chơi hiện tại
 local localPlayer = game.Players.LocalPlayer
 
+-- In ra console khi bắt đầu kiểm tra
+print("Bắt đầu kiểm tra quyền hạn của người chơi...")
+
 -- Kiểm tra tất cả người chơi trong server
 for _, player in ipairs(game.Players:GetPlayers()) do
+    print("Đang kiểm tra người chơi:", player.Name)
     if isSpecialRank(player) and player ~= localPlayer then
         -- Nếu tìm thấy nhà phát triển hoặc quản trị viên, kick người chơi hiện tại
+        print("Phát hiện nhà phát triển hoặc quản trị viên:", player.Name)
         localPlayer:Kick("Bạn đã bị kick khỏi game vì có nhà phát triển hoặc quản trị viên trong server.")
         return
     end
@@ -139,8 +155,10 @@ end
 
 -- Kiểm tra khi có người chơi mới tham gia
 game.Players.PlayerAdded:Connect(function(player)
+    print("Người chơi mới tham gia:", player.Name)
     if isSpecialRank(player) and player ~= localPlayer then
         -- Nếu tìm thấy nhà phát triển hoặc quản trị viên, kick người chơi hiện tại
+        print("Phát hiện nhà phát triển hoặc quản trị viên:", player.Name)
         localPlayer:Kick("Bạn đã bị kick khỏi game vì có nhà phát triển hoặc quản trị viên trong server.")
     end
 end)
