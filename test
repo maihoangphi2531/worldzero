@@ -1714,7 +1714,7 @@ end
 local function aK()
     if not J:FindFirstChild('BodyVelocity') then
         local aL = Instance.new 'BodyVelocity'
-        aL.Velocity = Vector3.new(0, 0, 0)
+        aL.Velocity = Vector3.new(0, 50, 0)
         aL.MaxForce = Vector3.new(900000, 900000, 900000)
         aL.P = 9000;
         aL.Parent = J
