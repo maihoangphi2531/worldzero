@@ -1,7 +1,14 @@
+-- Vô hiệu hóa render 3D
+game:GetService("RunService"):Set3dRenderingEnabled(false)
+
+-- Đặt hẹn giờ để bật lại render 3D sau 15 phút (900 giây)
+delay(900, function()
+    game:GetService("RunService"):Set3dRenderingEnabled(true)
+end)
 
 wait(10)
 local function improveFPS()
-    local decalsyeeted = true -- zxczxcsszxxxxx
+    local decalsyeeted = true -- zxczxcsszxczxczxc
     local game = game
     local workspace = game.Workspace
     local lighting = game.Lighting
@@ -12,7 +19,7 @@ local function improveFPS()
     sethiddenproperty(lighting, "Technology", 2)
     sethiddenproperty(terrain, "Decoration", false)
     
-    -- Thiết lập thuộc tính địa hình
+    -- Thiết lập thuộc tính địa hìnhDD
     terrain.WaterWaveSize = 0
     terrain.WaterWaveSpeed = 0
     terrain.WaterReflectance = 0
@@ -94,7 +101,7 @@ improveFPS()
 local function runAfter7Minutes()
     print("runAfter7Minutes started")
     -- Chờ 7 phút (420 giây)
-    wait(900)
+    wait(420)
 
     -- Sau khi chờ 7 phút, thực hiện đoạn mã
     local args = {
