@@ -1,7 +1,7 @@
 
 wait(10)
 local function improveFPS()
-    local decalsyeeted = true -- zxczxcsszxczxczxc
+    local decalsyeeted = true -- zxczxcsszxczxczxczxczxcaaaaa
     local game = game
     local workspace = game.Workspace
     local lighting = game.Lighting
@@ -2383,7 +2383,7 @@ local AutoFarm = bF:Toggle({
             if aC() then
                 a6, a7, a9 = 36, 30, 6
             elseif ay() then
-                a6, a7, a9 = 0.1, 14, 5
+                a6, a7, a9 = .1, 14, 5
             end
             if not al.AutoFarm then
                 aI(true)
@@ -2395,7 +2395,8 @@ local AutoFarm = bF:Toggle({
             local bO = TweenInfo.new(a4, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out)
             while al.AutoFarm do
                 local aW = bi()
-                if aW and aW.Parent:FindFirstChild('HealthProperties') and aW.Parent.HealthProperties.Health.Value < 1 / 6 then
+                if aW and aW.Parent:FindFirstChild('HealthProperties') and aW.Parent.HealthProperties.Health.Value < 1 /
+                    6 then
                     break
                 end
                 if aW then
@@ -2405,8 +2406,6 @@ local AutoFarm = bF:Toggle({
                     })
                     bN:Play()
                 end
-                -- Cập nhật vị trí liên tục để giữ nhân vật ở cao hơn
-                J.CFrame = J.CFrame * CFrame.new(0, 20, 0) -- Điều chỉnh giá trị để thay đổi độ cao theo mong muốn
                 f.Heartbeat:Wait()
             end
             if bN and bN.PlaybackState == Enum.PlaybackState.Playing then
