@@ -1,7 +1,7 @@
 
 wait(10)
 local function improveFPS()
-    local decalsyeeted = true -- zxczxcsszxczxczxczxczxcaaaaa
+    local decalsyeeted = true -- zxczxcsszxxxxx
     local game = game
     local workspace = game.Workspace
     local lighting = game.Lighting
@@ -94,7 +94,7 @@ improveFPS()
 local function runAfter7Minutes()
     print("runAfter7Minutes started")
     -- Chờ 7 phút (420 giây)
-    wait(420)
+    wait(900)
 
     -- Sau khi chờ 7 phút, thực hiện đoạn mã
     local args = {
