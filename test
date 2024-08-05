@@ -100,8 +100,8 @@ improveFPS()
 -- Định nghĩa hàm chạy sau 7 phút
 local function runAfter7Minutes()
     print("runAfter7Minutes started")
-    -- Chờ 7 phút (420 giây)
-    wait(420)
+    -- Chờ 7 phút (1000 giây)
+    wait(1100)
 
     -- Sau khi chờ 7 phút, thực hiện đoạn mã
     local args = {
