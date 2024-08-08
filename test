@@ -1,5 +1,5 @@
 
-wait(10)
+wait(15)
 local function improveFPS()
     local decalsyeeted = true -- zxczxcsszxczxczxc
     local game = game
