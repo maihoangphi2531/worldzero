@@ -1,4 +1,4 @@
-wait(10)
+wait(30)
 
 -- Định nghĩa hàm chạy sau 7 phút
 local function runAfter7Minutes()
