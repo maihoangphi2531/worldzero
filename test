@@ -1,4 +1,4 @@
-wait(30)
+game.Loaded:Wait()
 
 -- Định nghĩa hàm chạy sau 7 phút
 local function runAfter7Minutes()
