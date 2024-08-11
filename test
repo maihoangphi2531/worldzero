@@ -1,5 +1,146 @@
-game.Loaded:Wait()
 
+wait(10)
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Tạo ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = playerGui
+
+-- Tạo khung (frame)
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 100)
+frame.Position = UDim2.new(0.5, -100, 0.5, -50)
+frame.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+frame.Parent = screenGui
+
+-- Tạo nút bật/tắt
+local toggleButton = Instance.new("TextButton")
+toggleButton.Size = UDim2.new(0, 180, 0, 40) -- Kích thước nhỏ hơn
+toggleButton.Position = UDim2.new(0.5, -90, 0.5, -20)
+toggleButton.BackgroundColor3 = Color3.new(0.8, 0.8, 0.8)
+toggleButton.Text = "Tắt Render 3D"
+toggleButton.Parent = frame
+
+-- Biến để theo dõi trạng thái render 3D
+local is3DRenderingEnabled = false
+
+-- Hàm bật/tắt render 3D
+local function toggleRendering()
+    is3DRenderingEnabled = not is3DRenderingEnabled
+    RunService:Set3dRenderingEnabled(is3DRenderingEnabled)
+    if is3DRenderingEnabled then
+        toggleButton.Text = "Tắt Render 3D"
+    else
+        toggleButton.Text = "Bật Render 3D"
+        -- Đặt hẹn giờ để bật lại render 3D sau 15 phút (900 giây)
+        delay(900, function()
+            RunService:Set3dRenderingEnabled(true)
+            toggleButton.Text = "Tắt Render 3D"
+            is3DRenderingEnabled = true
+        end)
+    end
+end
+
+-- Kết nối hàm toggleRendering với sự kiện Click của nút
+toggleButton.MouseButton1Click:Connect(toggleRendering)
+
+-- Đảm bảo render 3D được bật sẵn khi vào game
+RunService:Set3dRenderingEnabled(false)
+
+
+local function improveFPS()
+    local decalsyeeted = true -- zxczxcsszxczxczxc
+    local game = game
+    local workspace = game.Workspace
+    local lighting = game.Lighting
+    local terrain = workspace.Terrain
+    local settings = settings
+    
+    -- Thiết lập thuộc tính ẩn
+    sethiddenproperty(lighting, "Technology", 2)
+    sethiddenproperty(terrain, "Decoration", false)
+    
+    -- Thiết lập thuộc tính địa hìnhDD
+    terrain.WaterWaveSize = 0
+    terrain.WaterWaveSpeed = 0
+    terrain.WaterReflectance = 0
+    terrain.WaterTransparency = 0
+    
+    -- Thiết lập thuộc tính ánh sáng
+    lighting.GlobalShadows = false
+    lighting.FogEnd = 9e9
+    lighting.Brightness = 0
+    
+    -- Thiết lập chất lượng rendering
+    settings().Rendering.QualityLevel = "Level01"
+    
+    -- Hàm xử lý phần tử
+    local function processPart(v)
+        if v:IsA("BasePart") then
+            if not v:IsA("MeshPart") or (v:IsA("MeshPart") and decalsyeeted) then
+                v.Material = Enum.Material.Plastic
+                v.Reflectance = 0
+            end
+        elseif decalsyeeted then
+            if v:IsA("Decal") or v:IsA("Texture") then
+                v.Transparency = 1
+            elseif v:IsA("MeshPart") then
+                v.TextureID = 10385902758728957
+            elseif v:IsA("SpecialMesh") then
+                v.TextureId = 0
+            elseif v:IsA("ShirtGraphic") then
+                v.Graphic = 0
+            elseif v:IsA("Shirt") or v:IsA("Pants") then
+                v[v.ClassName.."Template"] = 0
+            end
+        end
+        if v:IsA("ParticleEmitter") or v:IsA("Trail") then
+            v.Lifetime = NumberRange.new(0)
+        elseif v:IsA("Explosion") then
+            v.BlastPressure = 1
+            v.BlastRadius = 1
+        elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") or v:IsA("Sparkles") then
+            v.Enabled = false
+        end
+    end
+    
+    -- Tắt các hiệu ứng ánh sáng
+    local function disableLightingEffects()
+        for _, e in pairs(lighting:GetChildren()) do
+            if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
+                e.Enabled = false
+            end
+        end
+    end
+    
+    -- Xử lý các phần tử đã có trong workspace
+    for _, v in pairs(workspace:GetDescendants()) do
+        processPart(v)
+    end
+    
+    -- Tắt các hiệu ứng ánh sáng
+    disableLightingEffects()
+    
+    -- Kết nối sự kiện khi thêm phần tử mới vào workspace
+    workspace.DescendantAdded:Connect(function(v)
+        task.defer(processPart, v) -- Using task.defer to prevent errors without waiting
+    end)
+    
+    -- Kết nối sự kiện khi thêm hiệu ứng ánh sáng mới
+    lighting.ChildAdded:Connect(function(e)
+        task.defer(function()
+            if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
+                e.Enabled = false
+            end
+        end)
+    end)
+end
+
+-- Gọi hàm để cải thiện FPS
+improveFPS()
 -- Định nghĩa hàm chạy sau 7 phút
 local function runAfter7Minutes()
     print("runAfter7Minutes started")
