@@ -1,55 +1,5 @@
 
 wait(10)
-local RunService = game:GetService("RunService")
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
-
--- Tạo ScreenGui
-local screenGui = Instance.new("ScreenGui")
-screenGui.Parent = playerGui
-
--- Tạo khung (frame)
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 200, 0, 100)
-frame.Position = UDim2.new(0.5, -100, 0.5, -50)
-frame.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
-frame.Parent = screenGui
-
--- Tạo nút bật/tắt
-local toggleButton = Instance.new("TextButton")
-toggleButton.Size = UDim2.new(0, 180, 0, 40) -- Kích thước nhỏ hơn
-toggleButton.Position = UDim2.new(0.5, -90, 0.5, -20)
-toggleButton.BackgroundColor3 = Color3.new(0.8, 0.8, 0.8)
-toggleButton.Text = "Tắt Render 3D"
-toggleButton.Parent = frame
-
--- Biến để theo dõi trạng thái render 3D
-local is3DRenderingEnabled = false
-
--- Hàm bật/tắt render 3D
-local function toggleRendering()
-    is3DRenderingEnabled = not is3DRenderingEnabled
-    RunService:Set3dRenderingEnabled(is3DRenderingEnabled)
-    if is3DRenderingEnabled then
-        toggleButton.Text = "Tắt Render 3D"
-    else
-        toggleButton.Text = "Bật Render 3D"
-        -- Đặt hẹn giờ để bật lại render 3D sau 15 phút (900 giây)
-        delay(900, function()
-            RunService:Set3dRenderingEnabled(true)
-            toggleButton.Text = "Tắt Render 3D"
-            is3DRenderingEnabled = true
-        end)
-    end
-end
-
--- Kết nối hàm toggleRendering với sự kiện Click của nút
-toggleButton.MouseButton1Click:Connect(toggleRendering)
-
--- Đảm bảo render 3D được bật sẵn khi vào game
-RunService:Set3dRenderingEnabled(false)
-
 
 local function improveFPS()
     local decalsyeeted = true -- zxczxcsszxczxczxc
