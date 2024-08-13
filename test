@@ -253,7 +253,7 @@ coroutine.wrap(mainCoroutine)()
 local OSTime = os.time()
 local Time = os.date('!*t', OSTime)
 local Avatar = 'https://cdn.discordapp.com/embed/avatars/4.png'
-local Content = 'Treo Acc World//Zero UGPHONE'
+local Content = 'Treo Acc World//Zero AnyaTeam'
 
 -- Lấy tên nhân vật Roblox hiện tại
 local player = game.Players.LocalPlayer
