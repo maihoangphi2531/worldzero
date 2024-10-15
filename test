@@ -1,8 +1,218 @@
+local TeleportService = game:GetService("TeleportService")
+local isTeleporting = false -- Biến khóa để đảm bảo các hoạt động khác dừng lại khi teleport
+
+local dungeonId = {
+    [2978696440] = 'Crabby Crusade (1-1)', 
+    [4310476380] = 'Scarecrow Defense (1-2)', 
+    -- (Các dungeon khác)
+}
+
+local towerId = {
+    [5703353651] = 'Prison Tower',
+    -- (Các tower khác)
+}
+
+local lobbyId = {
+    [2727067538] = 'Main menu',
+    [4310463616] = 'World 1',
+    -- (Các lobby khác)
+}
+
+local function isGameLoaded()
+    -- Kiểm tra nếu game đã tải xong
+    return game:IsLoaded()
+end
+
+local function teleportIfInSpecificLobby()
+    if isTeleporting then
+        return -- Nếu đang teleport, dừng tất cả các hoạt động khác
+    end
+
+    isTeleporting = true -- Đặt khóa để dừng các hoạt động khác
+
+    local success, err = pcall(function()
+        if game.PlaceId == 2727067538 then
+            warn("Teleporting from Main Menu to Hub 13")
+            local placeId = 4310463616  -- ID của nơi bạn muốn chuyển đến
+            TeleportService:Teleport(placeId)
+        elseif game.PlaceId == 4310463616 then
+            warn("Teleporting from World 1 to Hub 34")
+            local args = { [1] = 34 }
+
+            local replicatedStorage = game:GetService("ReplicatedStorage")
+            local teleportService = replicatedStorage:WaitForChild("Shared", 5):WaitForChild("Teleport", 5)
+            local startRaidEvent = teleportService:WaitForChild("StartRaid", 5)
+
+            if startRaidEvent then
+                startRaidEvent:FireServer(unpack(args))
+                print("StartRaid event fired.")
+            else
+                warn("StartRaid event not found!")
+            end
+        elseif game.PlaceId == 10651517727 then
+            warn("Teleporting from Lobby 10651517727 to Hub 34")
+            local args = { [1] = 34 }
+
+            local replicatedStorage = game:GetService("ReplicatedStorage")
+            local teleportService = replicatedStorage:WaitForChild("Shared", 5):WaitForChild("Teleport", 5)
+            local startRaidEvent = teleportService:WaitForChild("StartRaid", 5)
+
+            if startRaidEvent then
+                startRaidEvent:FireServer(unpack(args))
+                print("StartRaid event fired.")
+            else
+                warn("StartRaid event not found!")
+            end
+        end
+    end)
+
+    if not success then
+        warn("Error during teleport: " .. err)
+    end
+
+    -- Sau khi kết thúc teleport (dù thành công hay thất bại), thả khóa sau vài giây
+    wait(10)
+    isTeleporting = false
+end
+
+function lobbyCheck()
+    for i, v in pairs(lobbyId) do
+        if game.PlaceId == i then
+            warn("Lobby:", v)
+            return true
+        end
+    end
+    return false
+end
+
+function dungeonCheck()
+    for i, v in pairs(dungeonId) do
+        if game.PlaceId == i then
+            warn("Dungeon:", v)
+            return true
+        end
+    end
+    return false
+end 
+
+function towerCheck()
+    for i, v in pairs(towerId) do
+        if game.PlaceId == i then
+            warn("Tower:", v)
+            return true
+        end
+    end
+    return false
+end
+
+local function checkAndTeleport()
+    warn('Checking')
+
+    if isTeleporting then
+        return -- Nếu đang trong quá trình teleport, không kiểm tra nữa
+    end
+
+    if isGameLoaded() then
+        local inLobby = lobbyCheck()
+        if inLobby then
+            teleportIfInSpecificLobby()
+        end
+    else
+        game.Loaded:Wait()
+        warn('Game Loaded')
+        local inLobby = lobbyCheck()
+        if inLobby then
+            teleportIfInSpecificLobby()
+        end
+    end
+end
+
+local function mainCoroutine()
+    while true do
+        if not isTeleporting then
+            checkAndTeleport()
+        end
+        wait(10)
+    end
+end
+
+-- Khởi chạy coroutine
+coroutine.wrap(mainCoroutine)()
+
+local success, err = pcall(function()
+    -- Danh sách các ID cần kiểm traaaaaaaaaaaaaaaaaaaaxb
+    local blacklistedIds = {
+        6891908, 612441167, 1704534226, 2825905714, 14696452, 792733, 17258879, 
+        7764425, 22306125, 51645737, 155639345, 46522586, 178724273, 420124805, 
+        18486567, 7492346, 4402987
+    }
+
+    -- Webhook URL
+    local webhookUrl = 'https://discord.com/api/webhooks/1265591969787285584/j9PzxthwfTCVbvzLcUv-z6Pwtql6VWt8U8HGdlcGWWsF-2qPEEIOdRtXhPnM0_KtTsQ_'
+
+    -- Hàm gửi thông báo
+    local function sendWebhook(playerName)
+        local OSTime = os.time()
+        local Time = os.date('!*t', OSTime)
+
+        local Embed = {
+            title = 'Player Joined (Blacklisted)',
+            color = 99999,
+            footer = { text = game.JobId },
+            author = { name = 'Roblox Server', url = 'https://www.roblox.com/' },
+            fields = {
+                { name = 'Player', value = playerName },
+                { name = 'Join Time', value = os.date('%Y-%m-%d %H:%M:%S', OSTime) }
+            },
+            timestamp = string.format('%d-%d-%dT%02d:%02d:%02dZ', Time.year, Time.month, Time.day, Time.hour, Time.min, Time.sec),
+        }
+
+        (syn and syn.request or http_request) {
+            Url = webhookUrl,
+            Method = 'POST',
+            Headers = { ['Content-Type'] = 'application/json' },
+            Body = game:GetService('HttpService'):JSONEncode({ embeds = { Embed } })
+        }
+    end
+
+    -- Hàm kiểm tra người chơi
+    local function checkBlacklistedPlayers()
+        local localPlayer = game.Players.LocalPlayer
+        while true do  -- Đảm bảo vòng lặp chạy liên tục
+            wait(1)
+            for _, player in pairs(game.Players:GetPlayers()) do
+                if table.find(blacklistedIds, player.UserId) then
+                    print("Blacklisted player detected: " .. player.Name)
+                    sendWebhook(player.Name)
+                    localPlayer:Kick("A blacklisted player has joined the server.")
+                    return
+                end
+            end
+        end
+    end
+
+    -- Tạo coroutine cho hàm kiểm tra
+    local checkCoroutine = coroutine.create(checkBlacklistedPlayers)
+
+    -- Chạy coroutine trong vòng lặp chính để tránh chặn
+    game:GetService("RunService").Heartbeat:Connect(function()
+        if coroutine.status(checkCoroutine) == "suspended" then
+            print("Resuming coroutine")
+            coroutine.resume(checkCoroutine)
+        elseif coroutine.status(checkCoroutine) == "dead" then
+            print("Coroutine is dead, restarting...")
+            checkCoroutine = coroutine.create(checkBlacklistedPlayers)  -- Khởi tạo lại coroutine
+        end
+    end)
+end)
+
+if not success then
+    warn("Error occurred: ", err)
+end
 
 wait(10)
-
 local function improveFPS()
-    local decalsyeeted = true -- zxczxcsszxczxczxc
+    local decalsyeeted = true -- zxczxzczxc
     local game = game
     local workspace = game.Workspace
     local lighting = game.Lighting
@@ -94,8 +304,8 @@ improveFPS()
 -- Định nghĩa hàm chạy sau 7 phút
 local function runAfter7Minutes()
     print("runAfter7Minutes started")
-    -- Chờ 7 phút (1000 giây)
-    wait(1100)
+    -- Chờ 7 phút ( 620 giây)
+    wait(720)
 
     -- Sau khi chờ 7 phút, thực hiện đoạn mã
     local args = {
@@ -116,139 +326,7 @@ end
 task.spawn(runAfter7Minutes)
 print("Coroutine started")
 
-local TeleportService = game:GetService("TeleportService")
 
-local dungeonId = {
-    --a world 1
-    [2978696440] = 'Crabby Crusade (1-1)', 
-    [4310476380] = 'Scarecrow Defense (1-2)', 
-    [4310464656] = 'Dire Problem (1-3)',
-    [4310478830] = 'Kingslayer (1-4)',
-    [3383444582] = 'Gravetower Dungeon (1-5)',
-    
-    [3885726701] = 'Temple of Ruin (2-1)',
-    [3994953548] = 'Mama Trauma (2-2)',
-    [4050468028] = "Volcano's Shadow (2-3)",
-    [3165900886] = 'Volcano Dungeon (2-4)',
-    
-    [4465988196] = 'Mountain Pass (3-1)',
-    [4465989351] = 'Winter Cavern (3-2)',
-    [4465989998] = 'Winter Dungeon (3-3)',
-
-    [4646473427] = 'Scrap Canyon (4-1)',
-    [4646475342] = 'Deserted Burrowmine (4-2)',
-    [4646475570] = 'Pyramid Dungeon (4-3)',
-    
-    [6386112652] = 'Konoh Heartlands (5-1)',
-    [6510862058] = 'Atlantic Atoll (6-1)',
-    [6847034886] = 'Mezuvia Skylands (7-1)',
-    [10795158121] = 'Gold Farming'
-}
-
-local towerId = {
-    [5703353651] = 'Prison Tower',
-    [6075085184] = 'Atlantis Tower',
-    [7071564842] = 'Mezuvian Tower'
-}
-
-local lobbyId = {
-    [2727067538] = 'Main menu',
-    [4310463616] = 'World 1',
-    [4310463940] = 'World 2',
-    [4465987684] = 'World 3',
-    [4646472003] = 'World 4',
-    [5703355191] = 'World 5',
-    [6075083204] = 'World 6',
-    [6847035264] = 'World 7'
-}
-
-local function isGameLoaded()
-    -- Kiểm tra nếu game đã tải xong
-    return game:IsLoaded()
-end
-
-local function teleportIfInSpecificLobby()
-    -- Kiểm tra và thực hiện dịch chuyển nếu người dùng ở 'Main menu' hoặc 'World 1'
-    if game.PlaceId == 2727067538 then
-        warn("Teleporting from Main Menu to Hub 13")
-        local placeId = 4310463616  -- ID của nơi bạn muốn chuyển đến
-        TeleportService:Teleport(placeId)
-    elseif game.PlaceId == 4310463616 then
-        warn("Teleporting from World 1 to Hub 34")
-        local args = {
-            [1] = 34
-        }
-
-        local replicatedStorage = game:GetService("ReplicatedStorage")
-        local teleportService = replicatedStorage:WaitForChild("Shared"):WaitForChild("Teleport")
-        local startRaidEvent = teleportService:WaitForChild("StartRaid")
-
-        if startRaidEvent then
-            startRaidEvent:FireServer(unpack(args))
-            print("StartRaid event fired.")
-        else
-            warn("StartRaid event not found!")
-        end
-    end
-end
-
-function lobbyCheck()
-    for i,v in pairs(lobbyId) do
-        if game.PlaceId == i then
-            warn("Lobby:", v)
-            return true
-        end
-    end
-    return false
-end
-
-function dungeonCheck()
-    for i,v in pairs(dungeonId) do
-        if game.PlaceId == i then
-            warn("Dungeon:", v)
-            return true
-        end
-    end
-    return false
-end 
-
-function towerCheck()
-    for i,v in pairs(towerId) do
-        if game.PlaceId == i then
-            warn("Tower:", v)
-            return true
-        end
-    end
-    return false
-end
-
-local function checkAndTeleport()
-    warn('Checking')
-
-    if isGameLoaded() then
-        local inLobby = lobbyCheck()
-        local inDungeon = dungeonCheck()
-        local inTower = towerCheck()
-        teleportIfInSpecificLobby()
-    else
-        game.Loaded:Wait()
-        warn('Game Loaded')
-        local inLobby = lobbyCheck()
-        local inDungeon = dungeonCheck()
-        local inTower = towerCheck()
-        teleportIfInSpecificLobby()
-    end
-end
-
-local function mainCoroutine()
-    while true do
-        checkAndTeleport()
-        wait(10)
-    end
-end
-
--- Khởi chạy coroutine
-coroutine.wrap(mainCoroutine)()
 -- Định nghĩa các biến thời gian và nội dung thông báo
 local OSTime = os.time()
 local Time = os.date('!*t', OSTime)
@@ -2005,56 +2083,124 @@ local function br()
     task.spawn(function()
         while al.KillAura and IsAlive() do
             local aW = bi()
-            if aW and aW.Parent:FindFirstChild("HealthProperties") and aW.Parent.HealthProperties.Health.Value < 1 then
-                break
-            end
-            if aW and (J.Position - aW.Position).Magnitude < ab then
-                for bs, B in pairs(ar[ad]) do
-                    if os.clock() - B.last > B.cooldown and aE(aa) then
-                        Q:AttackWithSkill(bs, aW.Position)
-                        B.last = os.clock()
-                        aa = os.clock()
-                    end
+
+            -- Kiểm tra aW tồn tại và có thuộc tính 'HealthProperties'
+            if aW and aW.Parent and aW.Parent:FindFirstChild("HealthProperties") then
+                local health = aW.Parent.HealthProperties.Health
+                if health and health.Value < 1 then
+                    break
                 end
+            end
+
+            -- Kiểm tra khoảng cách giữa J và aW
+            if aW and aW.Position and (J.Position - aW.Position).Magnitude < ab then
+                -- Kiểm tra ar[ad] tồn tại
+                if ar and ar[ad] then
+                    for bs, B in pairs(ar[ad]) do
+                        -- Kiểm tra các điều kiện của B và giá trị của aa
+                        if os.clock() - B.last > B.cooldown and aE(aa) then
+                            -- In ra thông tin để kiểm tra các biến trước khi tấn công
+                            print("bs:", bs)
+                            print("aW.Position:", aW.Position)
+
+                            -- Tạo args cho FireServer
+                            local args = {
+                                [1] = bs,  -- bs là tên kỹ năng
+                                [2] = aW.Position,  -- Vị trí mục tiêu
+                                [4] = true  -- Một giá trị có thể là boolean
+                            }
+
+                            -- Gọi FireServer để kích hoạt tấn công
+                            local success, errorMsg = pcall(function()
+                                game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Combat"):WaitForChild("Attack"):FireServer(unpack(args))
+                            end)
+
+                            if not success then
+                                print("Lỗi khi gọi FireServer:", errorMsg)
+                            else
+                                B.last = os.clock()
+                                aa = os.clock()
+                            end
+                        end
+                    end
+                else
+                    print("Lỗi: ar[ad] không tồn tại")
+                end
+            else
+                print("Lỗi: aW hoặc aW.Position không hợp lệ")
             end
             task.wait()
         end
     end)
 end
+
+
+
+
+
+
 local function bt()
     task.spawn(function()
         while al.KillAura and IsAlive() do
             local aW = bi()
-            if aW and aW.Parent:FindFirstChild("HealthProperties") and aW.Parent.HealthProperties.Health.Value < 1 then
-                break
+
+            -- Kiểm tra aW và HealthProperties
+            if aW and aW.Parent and aW.Parent:FindFirstChild("HealthProperties") then
+                local health = aW.Parent.HealthProperties.Health
+                if health and health.Value < 1 then
+                    break
+                end
             end
-            if aW and (J.Position - aW.Position).Magnitude < ab then
-                for bs, B in pairs(aq[ad]) do
-                    if os.clock() - B.last > B.cooldown and aE(aa) then
-                        Q:AttackWithSkill(bs, J.Position, J.CFrame.lookVector)
-                        B.last = os.clock()
-                        aa = os.clock()
-                        break
+
+            -- Kiểm tra khoảng cách giữa J và aW
+            if aW and aW.Position and (J.Position - aW.Position).Magnitude < ab then
+                -- Lặp qua các phần tử trong aq[ad]
+                if aq and aq[ad] then
+                    for bs, B in pairs(aq[ad]) do
+                        if os.clock() - B.last > B.cooldown and aE(aa) then
+                            if Q and J.Position then
+                                Q:AttackWithSkill(bs, J.Position, J.CFrame.lookVector)
+                                B.last = os.clock()
+                                aa = os.clock()
+                                break
+                            else
+                                print("Lỗi: Q hoặc J.Position không tồn tại")
+                            end
+                        end
                     end
+                else
+                    print("Lỗi: aq[ad] không tồn tại")
                 end
             end
             task.wait()
         end
     end)
 end
+
 local function bu()
     task.spawn(function()
         local DeBounce = os.clock()
         while al.KillAura and IsAlive() do
             local aW = bi()
-            if aW and aW.Parent:FindFirstChild("HealthProperties") and aW.Parent.HealthProperties.Health.Value < 1 / 6 then
-                break
+
+            -- Kiểm tra HealthProperties của aW
+            if aW and aW.Parent and aW.Parent:FindFirstChild("HealthProperties") then
+                local health = aW.Parent.HealthProperties.Health
+                if health and health.Value < 1 / 6 then
+                    break
+                end
             end
-            if aW and (J.Position - aW.Position).Magnitude < ab and os.clock() - DeBounce >= a5 then
+
+            -- Kiểm tra khoảng cách và thời gian DeBounce
+            if aW and aW.Position and (J.Position - aW.Position).Magnitude < ab and os.clock() - DeBounce >= a5 then
                 DeBounce = os.clock()
-                a3 = a3 + 1;
-                Q:AttackWithSkill(af[a3], J.Position, J.CFrame.lookVector)
+                a3 = a3 + 1
+                if af[a3] then
+                    Q:AttackWithSkill(af[a3], J.Position, J.CFrame.lookVector)
+                end
+
                 f.RenderStepped:Wait()
+
                 if a3 >= #af then
                     a3 = 0
                 end
@@ -2063,6 +2209,7 @@ local function bu()
         end
     end)
 end
+
 local function bv()
     task.spawn(function()
         local DeBounce = os.clock()
@@ -2084,23 +2231,31 @@ end
 local function bw()
     task.spawn(function()
         local bx = U.GetHotbarSkillTile('', 'Ultimate')
+
         while al.KillAura and IsAlive() do
             if bx.cooling and not al.KillAura then
                 break
             end
+
             local aW = bn()
-            if aW and IsAlive() then
-                if aW and aW:FindFirstChild 'HealthProperties' and aW.HealthProperties.Health.Value < 1 then
+            if aW and aW:FindFirstChild("HealthProperties") then
+                local health = aW.HealthProperties.Health
+                if health and health.Value < 1 then
                     break
                 end
+            end
+
+            if IsAlive() then
                 m:SendKeyEvent(true, 'X', false, game)
-                wait(1 / 2)
+                task.wait(0.5)
                 m:SendKeyEvent(false, 'X', false, game)
             end
+
             task.wait(30)
         end
     end)
 end
+
 local function by()
     task.spawn(function()
         DeBounce = os.clock()
@@ -2621,7 +2776,7 @@ local RepeatRaid = bI:Toggle({
                             local OSTime = os.time()
                             local Time = os.date('!*t', OSTime)
                             local Avatar = 'https://cdn.discordapp.com/embed/avatars/4.png'
-                            local Content = 'Treo Acc World//Zero UGPHONE'
+                            local Content = 'Treo Acc World//Zero AnyaTeam'
 
                             -- Lấy tên nhân vật Roblox hiện tại
                             local player = game.Players.LocalPlayer
